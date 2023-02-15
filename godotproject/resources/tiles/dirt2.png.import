@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CHARidea2.png-65200c5fefe2317576861e104207824c.stex"
+path="res://.import/dirt2.png-a34f6c7e00c0e4bf332052211226d794.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/CHARidea2.png"
-dest_files=[ "res://.import/CHARidea2.png-65200c5fefe2317576861e104207824c.stex" ]
+source_file="res://resources/tiles/dirt2.png"
+dest_files=[ "res://.import/dirt2.png-a34f6c7e00c0e4bf332052211226d794.stex" ]
 
 [params]
 

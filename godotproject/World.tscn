@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://resources/tiles/default.tres" type="TileSet" id=1]
+[ext_resource path="res://TileMap.gd" type="Script" id=2]
+[ext_resource path="res://resources/block_select.png" type="Texture" id=3]
+[ext_resource path="res://selector.gd" type="Script" id=4]
+[ext_resource path="res://tempcam.gd" type="Script" id=5]
+[ext_resource path="res://resources/light.png" type="Texture" id=6]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 2
+period = 30.0
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=2]
+width = 200
+height = 200
+noise = SubResource( 1 )
+
+[node name="World" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 2 )
+
+[node name="selector" type="Sprite" parent="TileMap"]
+texture = ExtResource( 3 )
+centered = false
+script = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="TileMap/selector"]
+texture = ExtResource( 6 )
+texture_scale = 5.0
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1, -153 )
+texture = SubResource( 2 )
+
+[node name="tempcam" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+script = ExtResource( 5 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
