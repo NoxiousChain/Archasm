@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/tiles/default.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
 [ext_resource path="res://resources/block_select.png" type="Texture" id=3]
 [ext_resource path="res://selector.gd" type="Script" id=4]
-[ext_resource path="res://resources/light.png" type="Texture" id=6]
+[ext_resource path="res://player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Camera2D.gd" type="Script" id=6]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -26,13 +27,10 @@ format = 1
 script = ExtResource( 2 )
 
 [node name="selector" type="Sprite" parent="TileMap"]
+visible = false
 texture = ExtResource( 3 )
 centered = false
 script = ExtResource( 4 )
-
-[node name="Light2D" type="Light2D" parent="TileMap/selector"]
-texture = ExtResource( 6 )
-texture_scale = 16.4
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -352 )
@@ -40,3 +38,14 @@ texture = SubResource( 2 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
+
+[node name="player" parent="CanvasModulate" instance=ExtResource( 5 )]
+position = Vector2( 3, -245 )
+
+[node name="Area2D" parent="CanvasModulate/player" index="0"]
+tilemap_path = NodePath("../../../TileMap")
+
+[node name="Camera2D" parent="CanvasModulate/player" index="3"]
+script = ExtResource( 6 )
+
+[editable path="CanvasModulate/player"]
