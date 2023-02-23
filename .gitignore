@@ -1,0 +1,15 @@
+# vscode
+/.vs
+/.vscode
+
+# c++ binaries
+.o
+.os
+.so
+.obj
+.lib
+bin
+*.includes
+
+# other
+*._
