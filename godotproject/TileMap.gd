@@ -34,7 +34,7 @@ func generate_id(noise_level : float):
 		else:
 			return 0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if(Input.is_action_pressed("mb_left")):
 		var title : Vector2 = world_to_map(selector.mouse_pos * 8)
 		var title_id = get_cellv(title)
