@@ -25,7 +25,6 @@ height = 200
 noise = SubResource( 1 )
 
 [node name="World" type="Node2D"]
-visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -34,7 +33,6 @@ format = 1
 script = ExtResource( 2 )
 
 [node name="selector" type="Sprite" parent="TileMap"]
-visible = false
 texture = ExtResource( 3 )
 centered = false
 script = ExtResource( 4 )
@@ -91,11 +89,10 @@ scale = Vector2( 3.313, 1.73 )
 texture = ExtResource( 10 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="player" parent="CanvasModulate" instance=ExtResource( 5 )]
-position = Vector2( 195, -170 )
+position = Vector2( 1028, -182 )
 __meta__ = {
 "_edit_group_": true
 }
