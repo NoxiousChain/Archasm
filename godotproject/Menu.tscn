@@ -68,3 +68,4 @@ custom_fonts/font = SubResource( 1 )
 text = "Title Here"
 
 [connection signal="pressed" from="VBoxContainer/Startbutton" to="." method="_on_Startbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
