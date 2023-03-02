@@ -7,7 +7,7 @@
 
 [node name="HUD" type="MarginContainer"]
 margin_right = 1920.0
-margin_bottom = 72.0
+margin_bottom = 40.0
 rect_scale = Vector2( 2, 2 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20

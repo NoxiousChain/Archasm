@@ -8,7 +8,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/Startbutton.grab_focus()
+	pass # Replace with function body.
 
 func _on_Startbutton_pressed():
 	get_tree().change_scene("res://World.tscn")

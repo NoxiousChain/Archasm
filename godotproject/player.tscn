@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://axe.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/light.png" type="Texture" id=3]
 [ext_resource path="res://resources/CHARidea2.png" type="Texture" id=4]
+[ext_resource path="res://dbackground.gd" type="Script" id=5]
+[ext_resource path="res://dirtBackground.tres" type="TileSet" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 28.0
@@ -26,10 +28,20 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
+[node name="coyote_timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 2, 0 )
 texture = ExtResource( 3 )
 texture_scale = 15.0
 
-[node name="coyote_timer" type="Timer" parent="."]
-one_shot = true
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="dbackground" type="TileMap" parent="ParallaxBackground/ParallaxLayer2"]
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 5 )

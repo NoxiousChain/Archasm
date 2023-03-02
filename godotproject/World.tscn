@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://resources/tiles/default.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
@@ -6,6 +6,12 @@
 [ext_resource path="res://selector.gd" type="Script" id=4]
 [ext_resource path="res://player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Camera2D.gd" type="Script" id=6]
+[ext_resource path="res://clouds.gd" type="Script" id=7]
+[ext_resource path="res://resources/Background/cloud.png" type="Texture" id=8]
+[ext_resource path="res://resources/Background/mountain2.png" type="Texture" id=9]
+[ext_resource path="res://resources/Background/pine1.png" type="Texture" id=10]
+[ext_resource path="res://resources/Background/pine2.png" type="Texture" id=11]
+[ext_resource path="res://resources/Background/sky.png" type="Texture" id=12]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -19,6 +25,7 @@ height = 200
 noise = SubResource( 1 )
 
 [node name="World" type="Node2D"]
+visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -33,14 +40,65 @@ centered = false
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0, -352 )
 texture = SubResource( 2 )
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 669, -763 )
+scale = Vector2( 2.837, 5.785 )
+texture = ExtResource( 12 )
+
+[node name="clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1600, 0 )
+script = ExtResource( 7 )
+
+[node name="cloud" type="Sprite" parent="ParallaxBackground/clouds"]
+position = Vector2( 628, -619 )
+scale = Vector2( 2.681, 3 )
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 613.927, -284.5 )
+scale = Vector2( 2.76184, 4.48 )
+texture = ExtResource( 9 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 618.004, -166.563 )
+scale = Vector2( 2.77324, 1.673 )
+texture = ExtResource( 11 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 1 )
+motion_mirroring = Vector2( 1980, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 697.499, -128 )
+scale = Vector2( 3.313, 1.73 )
+texture = ExtResource( 10 )
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="player" parent="CanvasModulate" instance=ExtResource( 5 )]
-position = Vector2( 3, -245 )
+position = Vector2( 195, -170 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Area2D" parent="CanvasModulate/player" index="0"]
 tilemap_path = NodePath("../../../TileMap")

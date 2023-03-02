@@ -11,13 +11,14 @@ config_version=4
 [application]
 
 config/name="Untitled-game-wiki"
-run/main_scene="res://Menu.tscn"
+run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/size/always_on_top=true
 
 [gui]
 

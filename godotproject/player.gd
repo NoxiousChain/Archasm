@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var gravity = 500
 export var acc = 400
 export var de_acc = 150
-export var max_move_speed = 100
+export var max_move_speed = 150
 export var jump_height = 200
 
 var vspeed : float = 0
@@ -15,9 +15,9 @@ var coy_time : bool = false # this will let us do coytoee time
 
 var motion : Vector2 = Vector2.ZERO
 var up : Vector2 = Vector2.UP
-
+onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
-
+	
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
 	apply_physics(delta)
@@ -74,6 +74,10 @@ func quick_move(var delta : float) -> void:
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
 	
 	hspeed = move_speed
+	if motion.x < 0:
+		sprite.flip_h = true
+	if motion.x > 0:
+		sprite.flip_h = false
 
 
 func _on_coyatoe_timer_timeout() -> void:
