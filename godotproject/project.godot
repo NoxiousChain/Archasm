@@ -18,7 +18,11 @@ config/icon="res://icon.png"
 
 window/size/width=1920
 window/size/height=1080
+<<<<<<< HEAD
 window/size/always_on_top=true
+=======
+window/size/fullscreen=true
+>>>>>>> cc5a35c410183af48c65b00d076278d0570479d6
 
 [gui]
 

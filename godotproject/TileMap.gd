@@ -48,3 +48,7 @@ func _physics_process(delta: float) -> void:
 	if(Input.is_action_pressed("mb_right")):
 		var title: Vector2 = world_to_map(selector.mouse_pos * 8)
 		set_cellv(title,0)
+
+func _input(event):
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().change_scene("res://Menu.tscn")
