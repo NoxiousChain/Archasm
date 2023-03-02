@@ -2,11 +2,9 @@
 
 #include "../Common.hpp"
 #include <Node2D.hpp>
-#include <Reference.hpp>
-#include <Sprite.hpp>
-#include <CollisionShape2D.hpp>
-#include <Texture.hpp>
 #include <Ref.hpp>
+#include <Texture.hpp>
+#include "../Text/ItemDescription.hpp"
 
 /*
 Abstract Item class. 
@@ -26,34 +24,23 @@ public:
 	void _init();
 	static void _register_methods();
 
+	// Still not sure if attributes are necessary. With inheritance and hyper-custom items, it might not be needed
 	enum class Attributes {
+		NONE = 0,
 		// TODO: Add attributes
 	};
 
-protected:
-	String description;
+	ItemDescription description;
+	// Contains a list of all generic attributes for the item. See enum class Attributes
 	unsigned int attributes;
+	// Contains a texture for the item to be displayed in inventory/chests/etc
+	// This can be the same as its dropped/held texture
+	Ref<Texture> inventoryTexture;
+	// Maximum size for a stack (idk how const works with godot, might have to change to a regular int)
+	const int stackSize;
 
-public:
-	String get_description() const;
+	// Wrapper that returns whether item has a specified attribute
 	bool has_attribute(unsigned int attribute) const;
-};
 
-class Weapon : public Item {
-	GODOT_CLASS(Weapon, Item)
-
-public:
-	void _init();
-	static void _register_methods();
-
-public:
-};
-
-class Armor : public Item {
-	GODOT_CLASS(Armor, Item)
-public:
-	void _init();
-	static void _register_methods();
-
-protected:
+	virtual ItemDescription& create_item_description();
 };
