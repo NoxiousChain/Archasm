@@ -36,7 +36,6 @@ func _physics_process(delta: float) -> void:
 	if(Input.is_action_pressed("mb_left")):
 		var title : Vector2 = world_to_map(selector.mouse_pos * 8)
 		var title_id = get_cellv(title)
-		
 		var new_id = -1
 		
 		if(title_id != -1):
@@ -45,9 +44,13 @@ func _physics_process(delta: float) -> void:
 			else:
 				new_id = -1
 			set_cellv(title,new_id)
+			
 	if(Input.is_action_pressed("mb_right")):
 		var title: Vector2 = world_to_map(selector.mouse_pos * 8)
 		set_cellv(title,0)
+		
+
+	
 
 func _input(event):
 	if Input.is_action_pressed("ui_cancel"):
