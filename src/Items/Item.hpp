@@ -23,6 +23,7 @@ class Item : public Node2D {
 public:
 	void _init();
 	static void _register_methods();
+	virtual void _ready();
 
 	// Still not sure if attributes are necessary. With inheritance and hyper-custom items, it might not be needed
 	enum class Attributes {
@@ -30,7 +31,11 @@ public:
 		// TODO: Add attributes
 	};
 
-	ItemDescription description;
+	// For ItemDescription - see ItemDescription.hpp for more info
+	// These are class members to make it easy to create the item description within the godot editor.
+	String name, description, meta;
+
+	Ref<ItemDescription> itemDescription;
 	// Contains a list of all generic attributes for the item. See enum class Attributes
 	unsigned int attributes;
 	// Contains a texture for the item to be displayed in inventory/chests/etc
@@ -42,5 +47,9 @@ public:
 	// Wrapper that returns whether item has a specified attribute
 	bool has_attribute(unsigned int attribute) const;
 
-	virtual ItemDescription& create_item_description();
+	// Generates item description. This will usually be overridden, unless it is a very basic item.
+	virtual void gen_item_description();
+
+	// Add virtual functions to handle input
+	virtual void on_use() {}
 };

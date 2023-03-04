@@ -6,9 +6,7 @@ public:
 	void _init();
 	static void _register_methods();
 
-	struct ProtModifiers {
-		double protection;
-		// Add more modifiers e.g. poison
-	} protModifiers;
-
+	double protection;
+	double poisonProtection;
+	double fireProtection;
 };
