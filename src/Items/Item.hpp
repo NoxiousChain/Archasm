@@ -16,7 +16,12 @@ This class contains the bare minimum for an item:
 	- Textures
 	- Maximum stack size
 	- Total 
-All items should derive from this class
+All items should derive from this class.
+
+Important to note: Because this derives from a resource, it is saved to disk
+When making a new item, create a new resource and link an item-derived script to it
+Then any new instances of this item will be thatResource.instance(), allowing custom
+modifications without changing the main components of the resource
 */
 namespace godot {
 

@@ -5,7 +5,9 @@
 #include <Resource.hpp>
 
 // Class designed to be used as a scene to create a sprite for an item.
-// This sprite should be used for the inventory 
+// This sprite should be used for the inventory, and could also probably
+// be used when the item is dropped. More functionality will need to be 
+// added for that to be possible.
 
 namespace godot {
 

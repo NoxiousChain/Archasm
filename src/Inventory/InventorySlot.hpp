@@ -26,6 +26,10 @@ public:
 	void _ready();
 	void refresh_style ();
 
+	// returns whether the slot is already occupied by an item
+	bool full();
+	// returns a pointer to the item (nullptr if dne)
+	ItemSprite* getItem();
 	ItemSprite* take_from_slot();
 	void put_in_slot(ItemSprite* item);
 };

@@ -29,6 +29,16 @@ void InventorySlot::refresh_style()
 		set("custom_styles/panel", *defaultStyle);
 }
 
+bool InventorySlot::full()
+{
+	return itemSprite == nullptr;
+}
+
+ItemSprite* InventorySlot::getItem()
+{
+	return itemSprite;
+}
+
 ItemSprite* InventorySlot::take_from_slot()
 {
 	remove_child(item);
