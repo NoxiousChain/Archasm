@@ -2,7 +2,6 @@
 
 #include "../Common.hpp"
 #include <RichTextLabel.hpp>
-#include <unordered_map>
 
 // Implements a frame for an item description. This is designed to be displayed in an inventory when an item is hovered over.
 // As a child of RichTextLabel, it uses BBCode formatting, with most formatting options supported.

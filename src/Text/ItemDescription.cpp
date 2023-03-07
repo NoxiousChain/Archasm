@@ -4,6 +4,7 @@ void ItemDescription::_init()
 {
 	set_use_bbcode(true);
 	set_scroll_active(false);
+	set_fit_content_height(true);
 }
 
 void ItemDescription::_register_methods()
@@ -14,5 +15,5 @@ void ItemDescription::_register_methods()
 void ItemDescription::build(const String& contents)
 {
 	// parses bbcode and handles formatting properly
-	append_text(contents);
+	append_bbcode(contents);
 }
