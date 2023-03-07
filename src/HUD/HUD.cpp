@@ -20,8 +20,8 @@ void HUD::_ready()
 {
 	Node* node = get_node(NodePath("HealthBar_Sprite"));
 	if (node != nullptr) {
-		healthBar_Sprite = Object::cast_to<Sprite>(node);
-		if (healthBar_Sprite != nullptr) {
+		healthbar_sprite = Object::cast_to<Sprite>(node);
+		if (healthbar_sprite != nullptr) {
 		}
 		else {
 			ERR_PRINT("get_node() failed on HealthBar_Sprite");
@@ -29,11 +29,11 @@ void HUD::_ready()
 	}
 	node = get_node<TextureProgress>("HealthBar_Bar");
 	if (node != nullptr) {
-		healthBar_Bar = Object::cast_to<TextureProgress>(node);
-		if (healthBar_Sprite != nullptr) {
-			healthBar_Bar->set_value(1);
-			healthBar_Bar->set_min(0);
-			healthBar_Bar->set_max(1);
+		healthbar_bar = Object::cast_to<TextureProgress>(node);
+		if (healthbar_sprite != nullptr) {
+			healthbar_bar->set_value(1);
+			healthbar_bar->set_min(0);
+			healthbar_bar->set_max(1);
 		}
 		else {
 			ERR_PRINT("get_node() failed on HealthBar_Bar");
@@ -49,15 +49,15 @@ void HUD::pull(Vector2 from, float magnitude)
 {
 }
 
-void HUD::update_healthbar(const float p_health, const float p_maxHealth, const int animation)
+void HUD::update_healthbar(const float p_health, const float p_max_health, const int animation)
 {
 	// Clamp health value between 0-1 and set value based on that proportion
-	healthBar_Bar->set_value(godot::Math::clamp(p_health, (real_t)0.f, 1.f));
+	healthbar_bar->set_value(godot::Math::clamp(p_health, (real_t)0.f, 1.f));
 	
 	run_healthbar_animation(animation);
 }
 
-void HUD::run_healthbar_animation(const int animationType)
+void HUD::run_healthbar_animation(const int animation_type)
 {
 	// TODO: Add animations. These will probably just use particles and/or transforms.
 }
