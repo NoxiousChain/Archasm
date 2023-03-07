@@ -33,7 +33,7 @@ func stop_swing():
 	is_swinging = false
 	swing_timer.stop()
 	ani_player.stop()
-	$Sprite.scale = Vector2(1,1)
+	$Sprite.scale = Vector2(.5,.5)
 
 func _swing_timer_timeout() -> void:
 	hit_block()

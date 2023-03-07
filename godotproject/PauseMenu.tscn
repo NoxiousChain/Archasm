@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Mainmenu/TiltPrism-Regular-VariableFont_XROT,YROT.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Mainmenu/Library 3 am.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://PauseMenu.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=2]
+size = 70
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 70
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 100
+font_data = ExtResource( 2 )
+
+[node name="PauseMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Leftside" type="VBoxContainer" parent="."]
+anchor_left = 0.035
+anchor_top = 0.476852
+anchor_right = 0.402708
+anchor_bottom = 0.767593
+margin_right = -656.2
+margin_bottom = -264.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Jump" type="Label" parent="Leftside"]
+margin_right = 617.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 2 )
+text = "Jump: Space or 'W'"
+
+[node name="Left" type="Label" parent="Leftside"]
+margin_top = 94.0
+margin_right = 617.0
+margin_bottom = 184.0
+custom_fonts/font = SubResource( 2 )
+text = "Left: 'A'"
+
+[node name="Right" type="Label" parent="Leftside"]
+margin_top = 188.0
+margin_right = 617.0
+margin_bottom = 278.0
+custom_fonts/font = SubResource( 2 )
+text = "Right: 'D'"
+
+[node name="Rightside" type="VBoxContainer" parent="."]
+anchor_left = 0.592
+anchor_top = 0.482
+anchor_right = 0.949292
+anchor_bottom = 0.674593
+margin_right = -586.16
+margin_bottom = -84.56
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Mine" type="Label" parent="Rightside"]
+margin_right = 603.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 3 )
+text = "Mine: Left Click"
+
+[node name="Place" type="Label" parent="Rightside"]
+margin_top = 94.0
+margin_right = 603.0
+margin_bottom = 184.0
+custom_fonts/font = SubResource( 3 )
+text = "Place: Right Click"
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.39
+anchor_top = 0.083
+anchor_right = 0.39
+anchor_bottom = 0.083
+margin_left = -29.5
+margin_right = 29.5
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 4 )
+text = "OPTIONS"
+align = 1

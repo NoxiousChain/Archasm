@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://resources/tiles/default.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
@@ -6,10 +6,15 @@
 [ext_resource path="res://selector.gd" type="Script" id=4]
 [ext_resource path="res://player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Camera2D.gd" type="Script" id=6]
-[ext_resource path="res://resources/HUD/healthbar_bar_red.png" type="Texture" id=7]
-[ext_resource path="res://resources/HUD/healthbar_empty.png" type="Texture" id=8]
-[ext_resource path="res://resources/HUD/healthbar_heart_red.png" type="Texture" id=9]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=10]
+[ext_resource path="res://clouds.gd" type="Script" id=7]
+[ext_resource path="res://resources/Background/cloud.png" type="Texture" id=8]
+[ext_resource path="res://resources/Background/mountain2.png" type="Texture" id=9]
+[ext_resource path="res://resources/Background/pine1.png" type="Texture" id=10]
+[ext_resource path="res://resources/Background/pine2.png" type="Texture" id=11]
+[ext_resource path="res://resources/Background/sky.png" type="Texture" id=12]
+[ext_resource path="res://World.gd" type="Script" id=13]
+[ext_resource path="res://dirtBackground.tres" type="TileSet" id=14]
+[ext_resource path="res://dbackground.gd" type="Script" id=15]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -22,7 +27,87 @@ width = 200
 height = 200
 noise = SubResource( 1 )
 
+[sub_resource type="Animation" id=8]
+resource_name = "DayNightBack_cycle"
+length = 24.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("DayNightCycleBackground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10, 14, 21, 24 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.72549, 0.713726, 0.52549, 1 ), Color( 0.196078, 0.215686, 0.466667, 1 ), Color( 0.0980392, 0.109804, 0.321569, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DayNightCycleForeground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DayNightCycleBackground:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=5]
+light_mode = 1
+
+[sub_resource type="Animation" id=3]
+resource_name = "DayNight_cycle"
+length = 24.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("DayNightCycleForeground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10, 13, 19, 24 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.858824, 0.847059, 0.847059, 1 ), Color( 0.784314, 0.752941, 0.27451, 1 ), Color( 0.160784, 0.184314, 0.470588, 1 ), Color( 0.133333, 0.235294, 0.447059, 1 ), Color( 0.85098, 0.87451, 0.92549, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("DayNightCycleForeground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
+}
+
 [node name="World" type="Node2D"]
+script = ExtResource( 13 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -31,42 +116,100 @@ format = 1
 script = ExtResource( 2 )
 
 [node name="selector" type="Sprite" parent="TileMap"]
-visible = false
 texture = ExtResource( 3 )
 centered = false
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0, -352 )
 texture = SubResource( 2 )
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 1 )
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="player" parent="CanvasModulate" instance=ExtResource( 5 )]
-position = Vector2( 3, -245 )
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 
-[node name="Area2D" parent="CanvasModulate/player" index="0"]
+[node name="dbackground" type="TileMap" parent="ParallaxBackground/ParallaxLayer2"]
+tile_set = ExtResource( 14 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 15 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 669, -763 )
+scale = Vector2( 2.837, 5.785 )
+texture = ExtResource( 12 )
+
+[node name="clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 1600, 0 )
+script = ExtResource( 7 )
+CLOUD_SPEED = -9.0
+
+[node name="cloud" type="Sprite" parent="ParallaxBackground/clouds"]
+position = Vector2( 632, -562 )
+scale = Vector2( 2.681, 3 )
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 613.927, -284.5 )
+scale = Vector2( 2.76184, 4.48 )
+texture = ExtResource( 9 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 1900, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 618.004, -166.563 )
+scale = Vector2( 2.77324, 1.673 )
+texture = ExtResource( 11 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 1 )
+motion_mirroring = Vector2( 1980, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 697.499, -128 )
+scale = Vector2( 3.313, 1.73 )
+texture = ExtResource( 10 )
+
+[node name="DayNightCycleBackground" type="CanvasModulate" parent="ParallaxBackground"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
+anims/DayNightBack_cycle = SubResource( 8 )
+anims/RESET = SubResource( 7 )
+
+[node name="DayNightCycleForeground" type="CanvasModulate" parent="."]
+color = Color( 0.858824, 0.847059, 0.847059, 1 )
+
+[node name="player" parent="DayNightCycleForeground" instance=ExtResource( 5 )]
+position = Vector2( 1028, -182 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area2D" parent="DayNightCycleForeground/player" index="0"]
 tilemap_path = NodePath("../../../TileMap")
 
-[node name="Camera2D" parent="CanvasModulate/player" index="3"]
+[node name="Sprite" parent="DayNightCycleForeground/player" index="1"]
+material = SubResource( 5 )
+
+[node name="Camera2D" parent="DayNightCycleForeground/player" index="3"]
 script = ExtResource( 6 )
 
-[node name="HUD" parent="." instance=ExtResource( 10 )]
-offset = Vector2( -25, 875 )
-scale = Vector2( 3, 3 )
-transform = Transform2D( 3, 0, 0, 3, -25, 875 )
+[node name="PlayerLight" parent="DayNightCycleForeground/player" index="5"]
+texture_scale = 1.0
 
-[node name="HealthBar_Sprite2" type="Sprite" parent="HUD"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DayNight_cycle = SubResource( 3 )
+anims/RESET = SubResource( 4 )
 
-[node name="HealthBar_Bar2" type="TextureProgress" parent="HUD"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1900.0
-margin_bottom = 52.0
-value = 60.0
-texture_under = ExtResource( 8 )
-texture_over = ExtResource( 9 )
-texture_progress = ExtResource( 7 )
-
-[editable path="CanvasModulate/player"]
+[editable path="DayNightCycleForeground/player"]
