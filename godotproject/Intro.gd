@@ -6,3 +6,7 @@ func _ready():
 	$AnimationPlayer.play("Fadeout")
 	yield(get_tree().create_timer(3), "timeout")
 	get_tree().change_scene("res://Menu.tscn")
+
+func _input(event):
+	if Input.is_action_pressed("ui_accept"):
+		get_tree().change_scene("res://Menu.tscn")
