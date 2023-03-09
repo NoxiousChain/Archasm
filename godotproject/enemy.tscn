@@ -4,9 +4,9 @@
 [ext_resource path="res://resources/bossIdea.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 25.2982
+radius = 29.1548
 
-[node name="enemy" type="Area2D"]
+[node name="enemy" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

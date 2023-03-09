@@ -15,7 +15,7 @@
 [ext_resource path="res://World.gd" type="Script" id=13]
 [ext_resource path="res://dirtBackground.tres" type="TileSet" id=14]
 [ext_resource path="res://dbackground.gd" type="Script" id=15]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=16]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=16]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -218,6 +218,6 @@ texture_scale = 0.5
 anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
-[node name="HUD" parent="." instance=ExtResource( 16 )]
+[node name="enemy" parent="." instance=ExtResource( 16 )]
 
 [editable path="DayNightCycleForeground/player"]
