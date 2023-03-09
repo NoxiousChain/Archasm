@@ -1,34 +1,27 @@
-extends Area2D
+extends KinematicBody2D
 
-export var speed = 2000
-export var moveDistance = 200
+const WALK_SPEED = 1000000
+const GRAVITY = 600
 
-onready var startX = position.x
-onready var targetX = position.x + moveDistance
+onready var player = get_node("World/DayNightCycleForeground/player")
 
-func spawn():
+func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	position.x = rng.randf_range(-200,200)
-	position.y = rng.randf_range(0, 100)
+	position.x = rng.randf_range(-100,100)
+	position.y = -100
 	
-func _process(delta):
-	position.x = move_to_x(position.x, targetX, speed*delta)
-	if position.x == targetX:
-		if targetX == startX:
-			targetX = position.x + moveDistance
-		else:
-			targetX = startX
-
-
-func move_to_x(currentPos, newPosition, steps):
-	var new = currentPos
-	if new < newPosition:
-		new += steps
-		if new > newPosition:
-			new = newPosition
-	else:
-		new -= steps
-		if new < newPosition:
-			new = newPosition
-	return new
+func _physics_process(delta):
+	if player:
+		var direction = (player.position - position).normalized()
+		if not is_on_floor():
+			direction.y += GRAVITY
+		
+		move_and_slide(direction * WALK_SPEED)
+		
+		for i in get_slide_count():
+			var collision = get_slide_collision(i)
+			# if collision.collider.name == "Player":
+			var object = collision.collider
+			if object.is_in_group("player"):
+				object.die()
