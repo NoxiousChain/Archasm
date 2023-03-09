@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://resources/tiles/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://World.gd" type="Script" id=13]
 [ext_resource path="res://dirtBackground.tres" type="TileSet" id=14]
 [ext_resource path="res://dbackground.gd" type="Script" id=15]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=16]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -216,5 +217,7 @@ texture_scale = 0.5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
+
+[node name="HUD" parent="." instance=ExtResource( 16 )]
 
 [editable path="DayNightCycleForeground/player"]
