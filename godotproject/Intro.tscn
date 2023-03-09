@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Intro.gd" type="Script" id=1]
-[ext_resource path="res://Intro/elsunlogo.png" type="Texture" id=2]
+[ext_resource path="res://Intro/elsun1080.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fadein"
@@ -54,11 +54,12 @@ tracks/0/keys = {
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 768.722, 431.594 )
-scale = Vector2( 1.1928, 1.1928 )
+position = Vector2( 771.222, 433 )
+scale = Vector2( 0.796296, 0.796296 )
 texture = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_left = -115.0
 margin_top = -53.0
 margin_right = 2050.0
