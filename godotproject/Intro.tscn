@@ -55,11 +55,9 @@ script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 771.222, 433 )
-scale = Vector2( 0.796296, 0.796296 )
 texture = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 margin_left = -115.0
 margin_top = -53.0
 margin_right = 2050.0
