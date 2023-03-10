@@ -1,23 +1,24 @@
 extends KinematicBody2D
 
-export var gravity = 600
-export var acc = 350
+var speed = 200
+var motion : Vector2 = Vector2.ZERO
+var up : Vector2 = Vector2.UP
+var gravity = 600
+var move_speed : float = 0
 export var max_move_speed = 250
-export var jump_height = 300
 
 var vspeed : float = 0
 var hspeed : float = 0
-var move_speed : float = 0
+
+onready var sprite : Sprite = get_node("Sprite")
 
 var touching_ground : bool = false
-var coy_time : bool = false # this will let us do coytoee time
+var direction = 1 #1 = right, -1 = left
 
-var motion : Vector2 = Vector2.ZERO
-var up : Vector2 = Vector2.UP
-onready var animation = $AnimationPlayer
-onready var sprite : Sprite = get_node("Sprite")
+var coy_time : bool = false
 onready var coy_timer = $coyote_timer
-	
+
+
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
 	apply_physics(delta)
@@ -43,16 +44,6 @@ func apply_physics(delta : float) -> void:
 		vspeed += (gravity * delta)
 	else:
 		vspeed = 0
-		if(Input.is_action_just_pressed("move_jump")):
-			coy_time = false
-			coy_timer.stop()
-			vspeed = -jump_height
-			
-	if(coy_time and Input.is_action_just_pressed("move_jump")):
-		coy_time = false
-		coy_timer.stop()
-		vspeed = -jump_height
-
 	motion.y = vspeed
 	motion.x = hspeed
 
@@ -64,18 +55,15 @@ func quick_move(var delta : float) -> void:
 	if(is_on_wall()):
 		move_speed = 0
 
-	if(Input.is_action_pressed("move_right")):
-		animation.play("run")
-		move_speed += acc * delta
-		if(Input.is_action_pressed("move_left")):
+	if(direction == 1):
+		move_speed += speed * delta
+		if(direction == -1):
 			move_speed = 0
-	elif(Input.is_action_pressed("move_left")):
-		animation.play("run")
-		move_speed -= acc * delta
-		if(Input.is_action_pressed("move_right")):
+	elif(direction == -1):
+		move_speed -= speed * delta
+		if(direction == 1):
 			move_speed = 0
 	else:
-		animation.play("idle")
 		move_speed = lerp(move_speed,0,0.5)
 		
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
@@ -86,6 +74,3 @@ func quick_move(var delta : float) -> void:
 	if motion.x > 0:
 		sprite.flip_h = false
 
-
-func _on_coyatoe_timer_timeout() -> void:
-	coy_time = false

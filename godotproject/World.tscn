@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://resources/tiles/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://dirtBackground.tres" type="TileSet" id=14]
 [ext_resource path="res://dbackground.gd" type="Script" id=15]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=16]
+[ext_resource path="res://GOBLIN.tscn" type="PackedScene" id=17]
+[ext_resource path="res://GOBLIN.gd" type="Script" id=18]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 2
@@ -197,7 +199,7 @@ color = Color( 0.858824, 0.847059, 0.847059, 1 )
 
 [node name="player" parent="DayNightCycleForeground" instance=ExtResource( 5 )]
 material = SubResource( 9 )
-position = Vector2( 1028, -182 )
+position = Vector2( 1024, -219 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -219,5 +221,10 @@ anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="enemy" parent="." instance=ExtResource( 16 )]
+script = ExtResource( 18 )
+max_move_speed = 250
+
+[node name="GOBLIN" parent="." instance=ExtResource( 17 )]
+position = Vector2( 723, -232 )
 
 [editable path="DayNightCycleForeground/player"]
