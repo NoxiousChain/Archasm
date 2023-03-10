@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 var speed = 200
-var motion : Vector2 = Vector2.ZERO
-var up : Vector2 = Vector2.UP
+var motion : Vector2
+var up : Vector2
 var gravity = 600
 var move_speed : float = 0
 export var max_move_speed = 250
