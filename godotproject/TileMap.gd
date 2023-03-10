@@ -80,5 +80,5 @@ func _physics_process(_delta: float) -> void:
 		
 
 func _input(event):
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().change_scene("res://Menu.tscn")
+	if Input.is_action_pressed("paused"):
+		get_tree().change_scene("res://GamePause.tscn")
