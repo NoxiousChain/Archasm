@@ -32,17 +32,17 @@ func apply_physics(delta : float) -> void:
 
 func movement(var delta : float) -> void:
 	
-	if position.x < screen_size.x:    
+	if position.x < (screen_size.x/2):    
 		direction = 1
-	if position.x > screen_size.x:
+	if position.x > (screen_size.x/2):
 		direction = -1
 
-	if(direction == 1):
-		move_speed += speed * delta
-	elif(direction == -1):
-		move_speed -= speed * delta
+	move_speed += speed * delta * direction
 		
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
+	
+	if(is_on_wall()):
+		position.y = position.y-20
 	
 	
 
