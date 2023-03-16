@@ -10,7 +10,7 @@ func _ready():
 	add_child(timer)
 	
 	
-	var waitToSpawn = rand.randf_range(30, 90)
+	var waitToSpawn = rand.randf_range(10, 30)
 	timer.wait_time = waitToSpawn
 	timer.start()
 	
@@ -25,6 +25,6 @@ func _on_timer_timeout() -> void:
 	var enemy = enemyscene.instance()
 	rand.randomize()
 	var x = rand.randf_range(0, screen_size.x)
-	enemy.position.y = (-screen_size.y/2)+300
+	enemy.position.y = (-screen_size.y/2)+325
 	enemy.position.x = x
 	add_child(enemy)

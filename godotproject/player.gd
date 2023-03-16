@@ -89,3 +89,6 @@ func quick_move(var delta : float) -> void:
 
 func _on_coyatoe_timer_timeout() -> void:
 	coy_time = false
+	
+func getPosition() -> Vector2:
+	return position

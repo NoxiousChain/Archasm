@@ -62,12 +62,13 @@ text = "Quit"
 anchor_left = 0.5
 anchor_top = 0.101
 anchor_right = 0.5
-anchor_bottom = 0.101
-margin_left = -372.0
-margin_right = 372.0
-margin_bottom = 152.0
+anchor_bottom = 0.106
+margin_left = -424.0
+margin_top = 5.92
+margin_right = 434.0
+margin_bottom = 240.52
 custom_fonts/font = SubResource( 1 )
-text = "Title Here"
+text = "Archasm"
 align = 1
 
 [connection signal="pressed" from="VBoxContainer/Startbutton" to="." method="_on_Startbutton_pressed"]
