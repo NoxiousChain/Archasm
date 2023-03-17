@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Menu.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Mainmenu/Library 3 am.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Mainmenu/TiltPrism-Regular-VariableFont_XROT,YROT.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Options.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Options.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -37,7 +37,7 @@ margin_right = 830.44
 margin_bottom = -302.32
 
 [node name="Startbutton" type="Button" parent="VBoxContainer"]
-margin_right = 241.0
+margin_right = 229.0
 margin_bottom = 70.0
 hint_tooltip = "obviously starts the game"
 focus_neighbour_top = NodePath("../Quit")
@@ -46,7 +46,7 @@ text = "Start"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
 margin_top = 74.0
-margin_right = 241.0
+margin_right = 229.0
 margin_bottom = 144.0
 custom_fonts/font = SubResource( 3 )
 text = "Options"
@@ -54,7 +54,7 @@ script = ExtResource( 4 )
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 margin_top = 148.0
-margin_right = 241.0
+margin_right = 229.0
 margin_bottom = 218.0
 focus_neighbour_bottom = NodePath("../Startbutton")
 custom_fonts/font = SubResource( 4 )

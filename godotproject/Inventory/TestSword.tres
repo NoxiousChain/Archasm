@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Items/Weapon.gdns" type="Script" id=1]
+[ext_resource path="res://resources/inventory/test_sword.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+effects = 13
+attack = 8.0
+poisonDmg = 0.0
+fireDmg = 0.0
+name = "Test Sword"
+description = "[color=red]hard ass sword[/color]"
+meta = "[color=purple][i]meta text example[/i][/color]"
+texture = ExtResource( 2 )
+attributes = 0
+stackSize = 1
+quantity = 1

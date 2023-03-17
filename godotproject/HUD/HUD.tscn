@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://HUD/HUD.gdns" type="Script" id=1]
 [ext_resource path="res://resources/HUD/healthbar_bar_red.png" type="Texture" id=2]
 [ext_resource path="res://resources/HUD/healthbar_empty.png" type="Texture" id=3]
 [ext_resource path="res://resources/HUD/healthbar_heart_red.png" type="Texture" id=4]
+[ext_resource path="res://Inventory/Inventory.tscn" type="PackedScene" id=5]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -18,3 +19,6 @@ margin_bottom = 52.0
 texture_under = ExtResource( 4 )
 texture_over = ExtResource( 3 )
 texture_progress = ExtResource( 2 )
+
+[node name="Inventory" parent="." instance=ExtResource( 5 )]
+visible = false

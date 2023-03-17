@@ -18,7 +18,7 @@ func _ready():
 
 func _on_timer_timeout() -> void:
 	
-	var enemyscene = load("res://GOBLIN.tscn")
+	var enemyscene = load("res://scenes/GOBLIN.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
 	
@@ -28,3 +28,12 @@ func _on_timer_timeout() -> void:
 	enemy.position.y = (-screen_size.y/2)+325
 	enemy.position.x = x
 	add_child(enemy)
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_focus_next"):
+		if $HUD/Inventory.visible:
+			$HUD/Inventory.hide()
+			$HUD/Inventory.set_process_input(false)
+		else:
+			$HUD/Inventory.show()
+			$HUD/Inventory.set_process_input(true)
