@@ -31,8 +31,10 @@ anchor_left = 0.018
 anchor_top = 0.954
 anchor_right = 0.037
 anchor_bottom = 0.954
-margin_top = -218.0
-margin_right = 205.0
+margin_left = 625.44
+margin_top = -520.32
+margin_right = 830.44
+margin_bottom = -302.32
 
 [node name="Startbutton" type="Button" parent="VBoxContainer"]
 margin_right = 241.0
@@ -62,12 +64,13 @@ text = "Quit"
 anchor_left = 0.5
 anchor_top = 0.101
 anchor_right = 0.5
-anchor_bottom = 0.101
-margin_left = -372.0
-margin_right = 372.0
-margin_bottom = 152.0
+anchor_bottom = 0.106
+margin_left = -424.0
+margin_top = 5.92
+margin_right = 434.0
+margin_bottom = 240.52
 custom_fonts/font = SubResource( 1 )
-text = "Title Here"
+text = "Archasm"
 align = 1
 
 [connection signal="pressed" from="VBoxContainer/Startbutton" to="." method="_on_Startbutton_pressed"]

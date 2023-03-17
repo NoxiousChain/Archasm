@@ -67,9 +67,13 @@ func quick_move(var delta : float) -> void:
 	if(Input.is_action_pressed("move_right")):
 		animation.play("run")
 		move_speed += acc * delta
+		if(Input.is_action_pressed("move_left")):
+			move_speed = 0
 	elif(Input.is_action_pressed("move_left")):
 		animation.play("run")
 		move_speed -= acc * delta
+		if(Input.is_action_pressed("move_right")):
+			move_speed = 0
 	else:
 		animation.play("idle")
 		move_speed = lerp(move_speed,0,0.5)
@@ -85,3 +89,6 @@ func quick_move(var delta : float) -> void:
 
 func _on_coyatoe_timer_timeout() -> void:
 	coy_time = false
+	
+func getPosition() -> Vector2:
+	return position
