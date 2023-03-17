@@ -1,27 +1,36 @@
 #include "Item.hpp"
 
+Item::Item()
+{
+}
+
 Item::~Item()
 {
-	description_container->queue_free();
-	description_container = nullptr;
 }
 
 void Item::_init()
 {
-	description_container = nullptr;
-	item_description = nullptr;
+	Godot::print("Item::_init() called");
+
 	attributes = 0;
 	texture = Ref<Texture>();
-	stack_size = 1;
+	stackSize = 1;
 	quantity = 1;
 }
 
-void Item::register_methods()
+void Item::_register_methods()
 {
+	Godot::print("Item::_register_methods() called");
+
 	register_method("_ready", &Item::_ready);
-	register_method("has_attribute", &Item::has_attribute);
-	register_method("show_description", &Item::show_description);
-	register_method("gen_item_description", &Item::gen_item_description);
+	register_method("hasAttribute", &Item::hasAttribute);
+	register_method("genDescriptionContainer", &Item::genDescriptionContainer);
+	register_method("genItemDescription", &Item::genItemDescription);
+	register_method("getTexture", &Item::getTexture);
+	register_method("getName", &Item::getName);
+	register_method("getAttributes", &Item::getAttributes);
+	register_method("getStackSize", &Item::getStackSize);
+	register_method("getQuantity", &Item::getQuantity);
 
 	register_property<Item, String>("name", &Item::name, "");
 	register_property<Item, String>("description", &Item::description, "", GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_MULTILINE_TEXT, "General description (e.g. an axe - \"A simple tool used for chopping.\")");
@@ -30,53 +39,64 @@ void Item::register_methods()
 	register_property<Item, unsigned int>("attributes", &Item::attributes, (unsigned int)Attributes::NONE,
 		GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_FLAGS,
 		"NONE, FLAG1, FLAG2, ..."); // TODO: Update when attributes added
-	register_property<Item, int>("stack_size", &Item::stack_size, 1);
+	register_property<Item, int>("stackSize", &Item::stackSize, 1);
 	register_property<Item, int>("quantity", &Item::quantity, 1);
-}
-
-void Item::_register_methods()
-{
-	register_methods();
 }
 
 void Item::_ready()
 {
-	item_description = ItemDescription::_new();
-	gen_item_description();
-	description_container = MarginContainer::_new();
-	description_container->set_owner(this);
-	description_container->add_child(item_description);
-	item_description->set_owner(description_container);
+	Godot::print("Item::_ready() called");
 }
 
-bool Item::has_attribute(unsigned int attribute) const
+bool Item::hasAttribute(unsigned int attribute) const
 {
 	return attributes & attribute;
 }
 
-void Item::show_description(bool visible)
+Ref<Texture> Item::getTexture() const
 {
-	if (item_description != nullptr) {
-		// Draw background, etc
-		item_description->set_visible(visible);
-	}
-	else ERR_PRINT("Item description does not exist!");
+	return texture;
 }
 
-void Item::gen_item_description()
+String Item::getName() const
 {
+	return name;
+}
+
+unsigned int Item::getAttributes() const
+{
+	return attributes;
+}
+
+int Item::getStackSize() const
+{
+	return stackSize;
+}
+
+int Item::getQuantity() const
+{
+	return quantity;
+}
+
+void Item::genDescriptionContainer(MarginContainer* description_container)
+{
+	if (description_container == nullptr) return;
 	description_container->set_custom_minimum_size(Vector2(150, 250));
 	description_container->set_visible(false);
 	description_container->add_constant_override("margin_top", 10);
 	description_container->add_constant_override("margin_bottom", 10);
 	description_container->add_constant_override("margin_left", 10);
 	description_container->add_constant_override("margin_right", 10);
+}
+
+void Item::genItemDescription(MarginContainer* description_container, ItemDescription* item_description)
+{
+	genDescriptionContainer(description_container);
 	item_description->build(
 		name + "\n\n" + description + (meta.empty() ? "" : "\n\n" + meta)
 	);
 }
 
-Ref<Texture> Item::get_texture()
+void Item::on_use()
 {
-	return texture;
 }

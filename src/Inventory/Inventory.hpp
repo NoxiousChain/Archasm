@@ -8,25 +8,30 @@
 #include <Dictionary.hpp>
 #include <InputEvent.hpp>
 #include <InputEventMouseButton.hpp>
-#include <button>
+#include <PackedScene.hpp>
+#include <SceneTree.hpp>
+#include <Viewport.hpp>
+#include <string>
 
-namespace godot 
-{
-class Inventory : public Node2D
-{
-	GODOT_CLASS(Inventory, Node2D)
-private:
-	GridContainer* gridContainer;
-	ItemSprite* holdingItem;
-public:
-	void _init();
-	static void _register_methods();
-	void _ready();
-	void _input();
+namespace godot {
 
-	void slot_gui_input(InputEvent event, InventorySlot* slot);
+	class Inventory : public Node2D
+	{
+		GODOT_CLASS(Inventory, Node2D)
+	private:
+		GridContainer* gridContainer = nullptr;
+		ItemSprite* holdingItem = nullptr;
+		TextureRect* bgTexture = nullptr;
+		// Add a second grid container + subnodes for hotbar
+	public:
+		void _init();
+		static void _register_methods();
+		void _ready();
+		void _input(Ref<InputEvent> event);
 
-	Dictionary save();
-};
+		void _slot_gui_input(Ref<InputEvent> event, InventorySlot* slot);
+
+		Dictionary save();
+	};
 
 }

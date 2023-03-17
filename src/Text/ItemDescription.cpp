@@ -2,6 +2,7 @@
 
 void ItemDescription::_init() 
 {
+	Godot::print("ItemDescription::_init() called");
 	set_use_bbcode(true);
 	set_scroll_active(false);
 	set_fit_content_height(true);
@@ -9,6 +10,7 @@ void ItemDescription::_init()
 
 void ItemDescription::_register_methods()
 {
+	Godot::print("ItemDescription::_register_methods() called");
 	register_method("build", &ItemDescription::build);
 }
 

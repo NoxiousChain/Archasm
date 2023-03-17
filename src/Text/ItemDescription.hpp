@@ -11,41 +11,45 @@
 
 // Because BBCode formatting is enabled, do NOT use the += operator to add new text. Instead, use append_text()
 
-class ItemDescription : public RichTextLabel {
-	GODOT_CLASS(ItemDescription, RichTextLabel)
+namespace godot {
 
-public:
-	void _init();
-	static void _register_methods();
-	void build(const String& contents);
+	class ItemDescription : public RichTextLabel {
+		GODOT_CLASS(ItemDescription, RichTextLabel)
 
-	// Display of an item description:
+	public:
+		void _init();
+		static void _register_methods();
+		void build(const String& contents);
 
-	// Title. Color for this will generally be bound to its rarity. Convert to string with color.to_html(false)	
-	// General description (e.g. an axe - "A simple tool used for chopping.")
-	// Stats, status effects, attributes, etc. (e.g. "Attack: 9.8\nPoison chance: 6%\nPoison dmg: 4.4/sec")
-	// Meta text. This is displayed in color & italics at the bottom of the description.
+		// Display of an item description:
 
-	// Example of how a full item description would look: (**bold** *italics*)
-	/*
-	___________________________
-	|   **Infectious Axe**	  | <-- Name
-	|						  |
-	|	A simple tool used    | <-- Description
-	|   for chopping. A vial  |
-	|	of poison has been    |
-	|	poured on its blade.  |
-	|						  |
-	|						  |
-	|	Attack: 9.8			  | <-- Stats
-	|	Poison chance: 6%	  |
-	|	Poison dmg: 4.4/sec	  |
-	|						  |
-	|						  |
-	|	*The Irish aren't	  |	<-- Meta
-	|	the only ones who	  |
-	|	bleed green.*		  |
-	|_________________________|
-	
-	*/
-};
+		// Title. Color for this will generally be bound to its rarity. Convert to string with color.to_html(false)	
+		// General description (e.g. an axe - "A simple tool used for chopping.")
+		// Stats, status effects, attributes, etc. (e.g. "Attack: 9.8\nPoison chance: 6%\nPoison dmg: 4.4/sec")
+		// Meta text. This is displayed in color & italics at the bottom of the description.
+
+		// Example of how a full item description would look: (**bold** *italics*)
+		/*
+		___________________________
+		|   **Infectious Axe**	  | <-- Name
+		|						  |
+		|	A simple tool used    | <-- Description
+		|   for chopping. A vial  |
+		|	of poison has been    |
+		|	poured on its blade.  |
+		|						  |
+		|						  |
+		|	Attack: 9.8			  | <-- Stats
+		|	Poison chance: 6%	  |
+		|	Poison dmg: 4.4/sec	  |
+		|						  |
+		|						  |
+		|	*The Irish aren't	  |	<-- Meta
+		|	the only ones who	  |
+		|	bleed green.*		  |
+		|_________________________|
+
+		*/
+	};
+
+}

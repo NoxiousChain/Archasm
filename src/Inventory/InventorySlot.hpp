@@ -6,32 +6,40 @@
 #include <StyleBoxTexture.hpp>
 #include <Texture.hpp>
 #include "../Items/ItemSprite.hpp"
+#include <Ref.hpp>
+#include <Input.hpp>
 
 namespace godot {
 
-class InventorySlot : public Panel {
-	GODOT_CLASS(InventorySlot, Panel);
+	class InventorySlot : public Panel {
+		GODOT_CLASS(InventorySlot, Panel)
 
-private:
-	ItemSprite* itemSprite;	
-	ResourceLoader* loader;
+	private:
+		ItemSprite* itemSprite = nullptr;
+		Ref<StyleBoxTexture> style;
+		Ref<Texture> defaultStyleTexture, emptyStyleTexture;
 
-	StyleBoxTexture *defaultStyle, *emptyStyle;
+	public:
+		InventorySlot();
+		~InventorySlot();
+		void _init();
+		static void _register_methods();
 
-public:
+		void _ready();
+		void refreshStyle();
 
-	void _init();
-	static void _register_methods();
+		// Getters/setters
+		Ref<Texture> _getDefaultStyleTexture() const;
+		Ref<Texture> _getEmptyStyleTexture() const;
+		void _setDefaultStyleTexture(Ref<Texture> other);
+		void _setEmptyStyleTexture(Ref<Texture> other);
 
-	void _ready();
-	void refresh_style ();
-
-	// returns whether the slot is already occupied by an item
-	bool full();
-	// returns a pointer to the item (nullptr if dne)
-	ItemSprite* getItem();
-	ItemSprite* take_from_slot();
-	void put_in_slot(ItemSprite* item);
-};
+		// returns whether the slot is already occupied by an item
+		bool full();
+		// returns a pointer to the item (nullptr if dne)
+		ItemSprite* getItem();
+		ItemSprite* take_from_slot();
+		void put_in_slot(ItemSprite* item);
+	};
 
 }

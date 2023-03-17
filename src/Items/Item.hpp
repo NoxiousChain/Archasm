@@ -23,55 +23,60 @@ When making a new item, create a new resource and link an item-derived script to
 Then any new instances of this item will be thatResource.instance(), allowing custom
 modifications without changing the main components of the resource
 */
+
 namespace godot {
 
-class Item : public Resource {
-	GODOT_CLASS(Item, Resource)
-public:
-	~Item();
+	class Item : public Resource {
+		GODOT_CLASS(Item, Resource)
+	public:
+		Item();
+		~Item();
 
-	void _init();
-	// Because _register_methods() needs to be overridden for inherited classes, this contains all of the methods for the Item
-	// class so that inherited classes can just call register_methods() instead of rewriting the same code
-	// This allows for easy item creation through the godot editor
-	virtual static void register_methods();
-	virtual static void _register_methods();
-	virtual void _ready();
+		void _init();
+		static void _register_methods();
+		virtual void _ready();
 
-	// Still not sure if attributes are necessary. With inheritance and hyper-custom items, it might not be needed
-	enum class Attributes {
-		NONE = 0,
-		// TODO: Add attributes
+		// Still not sure if attributes are necessary. With inheritance and hyper-custom items, it might not be needed
+		enum class Attributes {
+			NONE = 0,
+			// TODO: Add attributes
+		};
+
+	protected:
+		// For ItemDescription - see ItemDescription.hpp for more info
+		// These are class members to make it easy to create the item description within the godot editor.
+		String name, description, meta;
+
+		// Contains a list of all generic attributes for the item. See enum class Attributes
+		unsigned int attributes;
+		// Texture for the item
+		Ref<Texture> texture;
+		// Maximum size for a stack
+		int stackSize;
+		// Quantity of existing item
+		int quantity;
+
+	public:
+
+		// Wrapper that returns whether item has a specified attribute
+		bool hasAttribute(unsigned int attribute) const;
+
+		// Getters/Setters
+		Ref<Texture> getTexture() const;
+		String getName() const;
+		unsigned int getAttributes() const;
+		int getStackSize() const;
+		int getQuantity() const;
+
+		// Generates common values for description_container. All overrides of genItemDescription should
+		// call this function.
+		void genDescriptionContainer(MarginContainer* description_container);
+		// Generates item description. This will usually be overridden, unless it is a very basic item. 
+		// This function should only be called by an ItemSprite instance.
+		virtual void genItemDescription(MarginContainer* description_container, ItemDescription* item_description);
+
+		// TODO: Add virtual functions to handle input
+		virtual void on_use();
 	};
-
-	// For ItemDescription - see ItemDescription.hpp for more info
-	// These are class members to make it easy to create the item description within the godot editor.
-	String name, description, meta;
-
-	MarginContainer* description_container;
-	ItemDescription* item_description;
-	// Contains a list of all generic attributes for the item. See enum class Attributes
-	unsigned int attributes;
-	// Texture for the item
-	Ref<Texture> texture;
-	// Maximum size for a stack
-	int stack_size;
-	// Quantity of existing item
-	int quantity;
-
-	// Wrapper that returns whether item has a specified attribute
-	bool has_attribute(unsigned int attribute) const;
-	void show_description(bool visible = true);
-
-	// Getters/Setters
-	// These are for thread safety
-	Ref<Texture> get_texture() const;
-
-	// Generates item description. This will usually be overridden, unless it is a very basic item.
-	virtual void gen_item_description();
-
-	// Add virtual functions to handle input
-	virtual void on_use() {}
-};
 
 }
