@@ -47,4 +47,5 @@ func movement(var delta : float) -> void:
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
 	
 	if(is_on_wall()):
-		position.y = position.y-1
+		if(is_on_floor()):
+			position.y = position.y-20
