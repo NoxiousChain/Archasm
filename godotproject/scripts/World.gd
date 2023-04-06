@@ -11,7 +11,7 @@ func _ready():
 	add_child(timer)
 	
 	
-	var waitToSpawn = rand.randf_range(10, 30)
+	var waitToSpawn = rand.randf_range(5, 10)
 	timer.wait_time = waitToSpawn
 	timer.start()
 	

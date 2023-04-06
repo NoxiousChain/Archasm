@@ -56,6 +56,7 @@ script = ExtResource( 4 )
 margin_top = 148.0
 margin_right = 229.0
 margin_bottom = 218.0
+hint_tooltip = "bro, If I gotta explain what this does you need help"
 focus_neighbour_bottom = NodePath("../Startbutton")
 custom_fonts/font = SubResource( 4 )
 text = "Quit"
