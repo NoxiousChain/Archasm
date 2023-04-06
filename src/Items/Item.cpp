@@ -23,12 +23,10 @@ void Item::_register_methods()
 	Godot::print("Item::_register_methods() called");
 
 	register_method("_ready", &Item::_ready);
-	register_method("hasAttribute", &Item::hasAttribute);
 	register_method("genDescriptionContainer", &Item::genDescriptionContainer);
 	register_method("genItemDescription", &Item::genItemDescription);
 	register_method("getTexture", &Item::getTexture);
 	register_method("getName", &Item::getName);
-	register_method("getAttributes", &Item::getAttributes);
 	register_method("getStackSize", &Item::getStackSize);
 	register_method("getQuantity", &Item::getQuantity);
 
@@ -36,9 +34,6 @@ void Item::_register_methods()
 	register_property<Item, String>("description", &Item::description, "", GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_MULTILINE_TEXT, "General description (e.g. an axe - \"A simple tool used for chopping.\")");
 	register_property<Item, String>("meta", &Item::meta, "", GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_MULTILINE_TEXT, "Meta text. This is displayed at the bottom of the description. Italicize by convention.");
 	register_property<Item, Ref<Texture>>("texture", &Item::texture, Ref<Texture>());
-	register_property<Item, unsigned int>("attributes", &Item::attributes, (unsigned int)Attributes::NONE,
-		GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_FLAGS,
-		"NONE, FLAG1, FLAG2, ..."); // TODO: Update when attributes added
 	register_property<Item, int>("stackSize", &Item::stackSize, 1);
 	register_property<Item, int>("quantity", &Item::quantity, 1);
 }
@@ -46,11 +41,6 @@ void Item::_register_methods()
 void Item::_ready()
 {
 	Godot::print("Item::_ready() called");
-}
-
-bool Item::hasAttribute(unsigned int attribute) const
-{
-	return attributes & attribute;
 }
 
 Ref<Texture> Item::getTexture() const
@@ -61,11 +51,6 @@ Ref<Texture> Item::getTexture() const
 String Item::getName() const
 {
 	return name;
-}
-
-unsigned int Item::getAttributes() const
-{
-	return attributes;
 }
 
 int Item::getStackSize() const

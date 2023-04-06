@@ -36,12 +36,6 @@ namespace godot {
 		static void _register_methods();
 		virtual void _ready();
 
-		// Still not sure if attributes are necessary. With inheritance and hyper-custom items, it might not be needed
-		enum class Attributes {
-			NONE = 0,
-			// TODO: Add attributes
-		};
-
 	protected:
 		// For ItemDescription - see ItemDescription.hpp for more info
 		// These are class members to make it easy to create the item description within the godot editor.
@@ -58,13 +52,9 @@ namespace godot {
 
 	public:
 
-		// Wrapper that returns whether item has a specified attribute
-		bool hasAttribute(unsigned int attribute) const;
-
 		// Getters/Setters
 		Ref<Texture> getTexture() const;
 		String getName() const;
-		unsigned int getAttributes() const;
 		int getStackSize() const;
 		int getQuantity() const;
 

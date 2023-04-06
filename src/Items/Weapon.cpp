@@ -13,10 +13,10 @@ void Weapon::_register_methods()
 	Godot::print("Weapon::_register_methods() called");
 
 	register_property<Weapon, unsigned int>("effects", &Weapon::effects, 0U, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_FLAGS,
-		"LIGHT, HEAVY, BLEED, QUICK, STUN, RANGE, DEFENSE");
+		"Light, Heavy, Bleed, Quick, Stun, Defense");
+	register_property<Weapon, unsigned int>("rarity", &Weapon::rarity, 1U, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_ENUM,
+		"Common, Unusual, Exceptional, Ancient, Mythic, Legendary");
 	register_property<Weapon, double>("attack", &Weapon::attack, 0.0);
-	register_property<Weapon, double>("poisonDmg", &Weapon::poisonDmg, 0.0);
-	register_property<Weapon, double>("fireDmg", &Weapon::fireDmg, 0.0);
 
 	register_method("genItemDescription", &Weapon::genItemDescription);
 }

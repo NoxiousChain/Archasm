@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Items/Weapon.gdns" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+effects = 0
+attack = 0.0
+poisonDmg = 0.0
+fireDmg = 0.0
+name = ""
+description = ""
+meta = ""
+attributes = 0
+stackSize = 1
+quantity = 1

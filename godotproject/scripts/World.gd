@@ -1,5 +1,6 @@
 extends Node2D
 
+signal toggle_interact
 
 func _ready():
 	$AnimationPlayer.play("DayNight_cycle")
@@ -15,6 +16,7 @@ func _ready():
 	timer.start()
 	
 	timer.connect("timeout", self, "_on_timer_timeout")
+	connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
 	
@@ -28,12 +30,16 @@ func _on_timer_timeout() -> void:
 	enemy.position.y = (-screen_size.y/2)+325
 	enemy.position.x = x
 	add_child(enemy)
+	
+func toggle_inventory():
+	var visible = $HUD/Inventory.visible
+	if visible:
+		$HUD/Inventory.hide()
+	else:
+		$HUD/Inventory.show()
+	$HUD/Inventory.set_process_input(!visible)
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_focus_next"):
-		if $HUD/Inventory.visible:
-			$HUD/Inventory.hide()
-			$HUD/Inventory.set_process_input(false)
-		else:
-			$HUD/Inventory.show()
-			$HUD/Inventory.set_process_input(true)
+		toggle_inventory()
+		emit_signal("toggle_interact")

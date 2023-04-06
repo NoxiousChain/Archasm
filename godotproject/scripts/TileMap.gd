@@ -9,6 +9,8 @@ var noise : OpenSimplexNoise = OpenSimplexNoise.new()
 var snap_size_x = 16
 var snap_size_y = 16
 
+var can_interact = true
+
 enum {
 	flower1 = 5
 	flower2 = 6
@@ -61,22 +63,25 @@ func generate_id(noise_level : float):
 			return 0
 
 func _physics_process(_delta: float) -> void:
-	if(Input.is_action_pressed("mb_left")):
-		var title : Vector2 = world_to_map(selector.mouse_pos * 8)
-		var title_id = get_cellv(title)
-		var new_id = -1
-		
-		if(title_id != -1):
-			if(title_id < 4):
-				new_id = (title_id +1)
-			else:
-				new_id = -1
-			set_cellv(title,new_id)
+	if can_interact:
+		if(Input.is_action_pressed("mb_left")):
+			var title : Vector2 = world_to_map(selector.mouse_pos * 8)
+			var title_id = get_cellv(title)
+			var new_id = -1
 			
-	if(Input.is_action_pressed("mb_right")):
-		var title: Vector2 = world_to_map(selector.mouse_pos * 8)
-		set_cellv(title,0)
+			if(title_id != -1):
+				if(title_id < 4):
+					new_id = (title_id +1)
+				else:
+					new_id = -1
+				set_cellv(title,new_id)
+				
+		if(Input.is_action_pressed("mb_right")):
+			var title: Vector2 = world_to_map(selector.mouse_pos * 8)
+			set_cellv(title,0)
 		
+func _toggle_interact():
+	can_interact = !can_interact
 
 func _input(event):
 	if Input.is_action_pressed("paused"):
