@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin-warrior-25301249.jpg-f1cac1c80fc4cc68c8050f02d0be4518.stex"
+path="res://.import/gold.png-5ccb4311db5ab35c8c8d7221626c4319.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/goblin-warrior-25301249.jpg"
-dest_files=[ "res://.import/goblin-warrior-25301249.jpg-f1cac1c80fc4cc68c8050f02d0be4518.stex" ]
+source_file="res://resources/tiles/ores/gold.png"
+dest_files=[ "res://.import/gold.png-5ccb4311db5ab35c8c8d7221626c4319.stex" ]
 
 [params]
 
