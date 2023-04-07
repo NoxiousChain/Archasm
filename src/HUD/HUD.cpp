@@ -34,6 +34,7 @@ void HUD::_ready()
 			healthbar_bar->set_value(1);
 			healthbar_bar->set_min(0);
 			healthbar_bar->set_max(1);
+			healthbar_bar->call("draw_heart");
 		}
 		else {
 			ERR_PRINT("get_node() failed on HealthBar_Bar");

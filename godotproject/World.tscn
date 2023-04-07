@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://TileSets/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://TileSets/dirtBackground.tres" type="TileSet" id=14]
 [ext_resource path="res://scripts/dbackground.gd" type="Script" id=15]
 [ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=16]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=8]
 resource_name = "DayNightBack_cycle"
@@ -204,5 +205,7 @@ anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="enemy" parent="." instance=ExtResource( 16 )]
+
+[node name="HUD" parent="." instance=ExtResource( 17 )]
 
 [editable path="DayNightCycleForeground/player"]

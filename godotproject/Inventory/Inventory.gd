@@ -49,6 +49,6 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 			else:
 				slot.take_from_slot()
 	
-func _input(event):
+func _input(_event):
 	if heldItem:
 		heldItem.set_global_position(get_global_mouse_position() - offset)

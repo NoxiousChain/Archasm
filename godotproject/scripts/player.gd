@@ -17,6 +17,15 @@ var up : Vector2 = Vector2.UP
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
+
+# Status, health, etc. variables and signals
+# setget methods are only called when referenced outside the class - if you need functionality, call self.var instead of just var
+var health = 100 setget set_health # just a setter
+signal health_changed
+
+
+func _ready():
+	pass
 	
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
@@ -92,3 +101,7 @@ func _on_coyatoe_timer_timeout() -> void:
 	
 func getPosition() -> Vector2:
 	return position
+
+func set_health(val) -> void:
+	health = val
+	emit_signal("health_changed")

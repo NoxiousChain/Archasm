@@ -15,6 +15,7 @@ func _ready():
 	timer.wait_time = waitToSpawn
 	timer.start()
 	
+	# Connect signals
 	timer.connect("timeout", self, "_on_timer_timeout")
 	connect("toggle_interact", $TileMap, "_toggle_interact")
 

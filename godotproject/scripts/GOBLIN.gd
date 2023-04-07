@@ -10,7 +10,7 @@ onready var player = get_node("../DayNightCycleForeground/player")
 
 var vspeed : float = 0
 
-var screen_size = get_viewport_rect().size
+onready var screen_size = get_viewport_rect().size
 
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("goblin")

@@ -13,6 +13,8 @@ var debug : bool = false
 
 onready var selector = $selector
 
+var interact_enabled = true
+
 enum {
 	flower1 = 35
 	flower2 = 36
@@ -23,7 +25,6 @@ enum {
 
 
 func _ready() -> void:
-	
 	randomize()
 	
 	init_noise_gems()
@@ -129,23 +130,27 @@ func generate_id(noise_level : float):
 			return 0
 
 func _physics_process(_delta: float) -> void:
-	if(Input.is_action_pressed("mb_left")):
-		var title : Vector2 = world_to_map(selector.mouse_pos * 8)
-		var title_id = get_cellv(title)
-		var new_id = -1
-		
-		if(title_id != -1):
-			if(title_id < 4):
-				new_id = (title_id +1)
-			else:
-				new_id = -1
-			set_cellv(title,new_id)
+	if interact_enabled:
+		if(Input.is_action_pressed("mb_left")):
+			var title : Vector2 = world_to_map(selector.mouse_pos * 8)
+			var title_id = get_cellv(title)
+			var new_id = -1
 			
-	if(Input.is_action_pressed("mb_right")):
-		var title: Vector2 = world_to_map(selector.mouse_pos * 8)
-		set_cellv(title,0)
+			if(title_id != -1):
+				if(title_id < 4):
+					new_id = (title_id +1)
+				else:
+					new_id = -1
+				set_cellv(title,new_id)
+				
+		if(Input.is_action_pressed("mb_right")):
+			var title: Vector2 = world_to_map(selector.mouse_pos * 8)
+			set_cellv(title,0)
 		
 
 func _input(event):
 	if Input.is_action_pressed("paused"):
 		get_tree().change_scene("res://scenes/GamePause.tscn")
+
+func _toggle_interact():
+	interact_enabled = !interact_enabled
