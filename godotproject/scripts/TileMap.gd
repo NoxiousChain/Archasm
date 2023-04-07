@@ -29,8 +29,7 @@ func _ready() -> void:
 	init_noise_gems()
 	generate_level()
 	generate_gems()
-	
-	noise.seed = randi()%1000
+
 
 func init_noise_gems():
 	noise_gems.seed = randi()
@@ -41,6 +40,7 @@ func init_noise_gems():
 	
 
 func generate_level():
+	noise.seed = randi()%1000
 	for i in range(10):
 		set_cell(63+i,0,0)
 		set_cell(63+i,1,0)
@@ -48,27 +48,18 @@ func generate_level():
 	for x in max_x:
 		var ground = abs(noise.get_noise_2d(x,0)*5)
 		for y in range(ground, max_y):
-			var stoneID = 40
 			var title_id = generate_id(noise.get_noise_2d(x,y))
-			var percent : int = (float(y) / float(max_y)) * 100
-			
-			if(get_cell(x,y) != -1):
-				if(noise.get_noise_2d(x,y) > 0.5):
-					if(percent in range(3.5,100)):
-						if(rand_range(0,1)) > 0.05: # 95%
-							stoneID = 40
-						set_cell(x,y,stoneID)
-
 			if randi()%1 == 1 and get_cell(x,y-1) == -1:
 					set_cell(x,y-1, title_id)
 			if(title_id != -1):
 				set_cell(x,y,title_id)
-				if randi()%4 == 1 and get_cell(x,y-1) == -1:
-					set_cell(x,y-1,flower1)
-				if randi()%4 == 1 and get_cell(x,y-1) == -1:
-					set_cell(x,y-1,flower2)
-				if randi()%5 == 4 and get_cell(x,y-1) == -1:
-					create_tree(x,y-4,randi()%4 + 4,true)
+				if y < 30:
+					if randi()%4 == 1 and get_cell(x,y-1) == -1:
+						set_cell(x,y-1,flower1)
+					if randi()%4 == 1 and get_cell(x,y-1) == -1:
+						set_cell(x,y-1,flower2)
+					if randi()%5 == 4 and get_cell(x,y-1) == -1:
+						create_tree(x,y-4,randi()%4 + 4,true)
 
 
 func generate_gems():
@@ -110,9 +101,9 @@ func generate_gems():
 							gemID = 30 #20% chance of the best gem
 					elif(percent in range(90,100)):
 						if(rand_range(0,1)) > 0.2: # 80%
-							gemID = 25
+							gemID = 30
 						else:
-							gemID = 30 #20% chance of the best gem
+							gemID = 34 #20% chance of the best gem
 					
 
 					set_cell(x,y,gemID)
