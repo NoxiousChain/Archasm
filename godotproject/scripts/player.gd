@@ -11,19 +11,20 @@ var move_speed : float = 0
 
 var touching_ground : bool = false
 var coy_time : bool = false # this will let us do coytoee time
-
 var motion : Vector2 = Vector2.ZERO
 var up : Vector2 = Vector2.UP
+
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
 
 # Status, health, etc. variables and signals
 # setget methods are only called when referenced outside the class - if you need functionality, call self.var instead of just var
-var player_name = "DEBUG_NAME"
-var health = 100 setget set_health # just a setter
-signal health_changed
+export (float) var max_health = 100 
+onready var health = max_health setget set_health # just a setter
 
+signal health_updated(health)
+signal killed()
 
 func _ready():
 	pass
@@ -98,13 +99,24 @@ func quick_move(var delta : float) -> void:
 	if motion.x > 0:
 		sprite.flip_h = false
 
-
 func _on_coyatoe_timer_timeout() -> void:
 	coy_time = false
 	
 func getPosition() -> Vector2:
 	return position
 
+
+func damage(amount):
+	set_health(health - amount)
+	 
+func kill():
+	pass
+	
 func set_health(val) -> void:
-	health = val
-	emit_signal("health_changed")
+	var prev_health = health
+	health = clamp(val, 0, max_health)
+	if health != prev_health:
+		emit_signal("health_updated", health)
+		if health == 0:
+			kill()
+			emit_signal("killed")
