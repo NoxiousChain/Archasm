@@ -17,7 +17,7 @@ func refresh_style():
 func full():
 	return item != null
 
-func take_from_slot():
+func take_from_slot() -> TextureRect:
 	if item == null: return null
 	remove_child(item)
 	var copy = item
@@ -30,7 +30,7 @@ func put_in_slot(_item: TextureRect):
 		print("inventory slot received null item")
 		return
 	item = _item
-	item.set_scale(Vector2(1,1))
+	item.set_scale(Vector2(2,2))
 	item.set_position(Vector2(2,2))
 	add_child(item)
 	refresh_style()
