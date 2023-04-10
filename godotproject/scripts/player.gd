@@ -39,6 +39,7 @@ func apply_physics(delta : float) -> void:
 		vspeed = 10
 	
 	if(touching_ground == true and !is_on_floor()): # just left the ground
+		animation.play("idle")
 		coy_time = true
 		coy_timer.start(0.2)
 		
@@ -48,6 +49,7 @@ func apply_physics(delta : float) -> void:
 		coy_time = false
 	else:
 		touching_ground = false
+		animation.play("idle")
 
 	if(!is_on_floor()):
 		vspeed += (gravity * delta)

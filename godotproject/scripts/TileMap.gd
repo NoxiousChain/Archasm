@@ -36,7 +36,7 @@ func init_noise_gems():
 	noise_gems.seed = randi()
 	noise_gems.octaves = 9
 	noise_gems.period = 6.6
-	noise_gems.persistence = 0
+	noise_gems.persistence = 0.15
 	noise_gems.lacunarity = 0.1
 	
 
@@ -71,7 +71,7 @@ func generate_gems():
 				if(noise_gems.get_noise_2d(x,y) > 0.5):
 					
 					#Get percentage of the way down
-					var percent : float = (float(y) / float(max_y)) * 100
+					var percent : int = (float(y) / float(max_y)) * 100
 					var gemID = 0 # mud
 					
 					#Further down the more rare the gem
