@@ -71,7 +71,7 @@ func generate_gems():
 				if(noise_gems.get_noise_2d(x,y) > 0.5):
 					
 					#Get percentage of the way down
-					var percent : int = (float(y) / float(max_y)) * 100
+					var percent : float = (float(y) / float(max_y)) * 100
 					var gemID = 0 # mud
 					
 					#Further down the more rare the gem
@@ -148,9 +148,9 @@ func _physics_process(_delta: float) -> void:
 			set_cellv(title,0)
 		
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed("paused"):
-		get_tree().change_scene("res://scenes/GamePause.tscn")
+		var _err = get_tree().change_scene("res://scenes/GamePause.tscn")
 
 func _toggle_interact():
 	interact_enabled = !interact_enabled

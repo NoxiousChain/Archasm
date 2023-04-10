@@ -20,6 +20,7 @@ onready var coy_timer = $coyote_timer
 
 # Status, health, etc. variables and signals
 # setget methods are only called when referenced outside the class - if you need functionality, call self.var instead of just var
+var player_name = "DEBUG_NAME"
 var health = 100 setget set_health # just a setter
 signal health_changed
 

@@ -6,7 +6,7 @@ export(int) var snap_size_y = 8
 var mouse_pos : Vector2 = Vector2.ZERO
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_position_snapped()
 
 func update_position_snapped():

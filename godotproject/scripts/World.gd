@@ -16,8 +16,8 @@ func _ready():
 	timer.start()
 	
 	# Connect signals
-	timer.connect("timeout", self, "_on_timer_timeout")
-	connect("toggle_interact", $TileMap, "_toggle_interact")
+	var _err = timer.connect("timeout", self, "_on_timer_timeout")
+	_err = connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
 	
@@ -40,7 +40,7 @@ func toggle_inventory():
 		$HUD/Inventory.show()
 	$HUD/Inventory.set_process_input(!visible)
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("ui_focus_next"):
 		toggle_inventory()
 		emit_signal("toggle_interact")

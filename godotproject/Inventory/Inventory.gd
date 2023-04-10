@@ -1,15 +1,22 @@
 extends Node2D
 
-onready var gridContainer = $GridContainer
+onready var inventory = $Inventory
+onready var hotbar = $Hotbar
+onready var armorSlots = [$HelmetSlot, $ChestSlot, $LegsSlot, $AccessorySlot1, $AccessorySlot2]
 onready var bgTexture = $TextureRect
-onready var sscale = $GridContainer.rect_scale
+onready var sscale = $Inventory.rect_scale
+
 var heldItem: TextureRect = null
 const SlotClass = preload("res://Inventory/Slot.gd")
 var offset = 0
 
 func _ready():
 	add_to_group("Persist")
-	for slot in gridContainer.get_children():
+	for slot in inventory.get_children():
+		slot.connect("gui_input", self, "slot_gui_input", [slot])
+	for slot in hotbar.get_children():
+		slot.connect("gui_input", self, "slot_gui_input", [slot])
+	for slot in armorSlots:
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
 		
 func slot_gui_input(event: InputEvent, slot: SlotClass):

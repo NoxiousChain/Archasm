@@ -1,25 +1,18 @@
 extends Panel
 
-var defaultTexture = preload("res://resources/Inventory/test-inventory-slot.png")
-var emptyTexture = preload("res://resources/Inventory/test-inventory-slot.png")
+var defaultTexture = preload("res://resources/inventory/inventory_slot.png")
 
 var defaultStyle: StyleBoxTexture = null
-var emptyStyle: StyleBoxTexture = null
 
 var item: TextureRect = null
 
 func _ready():
 	defaultStyle = StyleBoxTexture.new()
-	emptyStyle = StyleBoxTexture.new()
 	defaultStyle.texture = defaultTexture
-	emptyStyle.texture = emptyTexture
 	refresh_style()
 
 func refresh_style():
-	if item == null:
-		set('custom_styles/panel', emptyStyle)
-	else:
-		set('custom_styles/panel', defaultStyle)
+	set('custom_styles/panel', defaultStyle)
 
 func full():
 	return item != null
