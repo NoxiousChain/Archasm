@@ -3,14 +3,13 @@ extends KinematicBody2D
 var speed = 200
 var motion : Vector2
 var gravity = 100
+
 var move_speed : float = 0
-export var max_move_speed = 150
-onready var player = get_node("../DayNightCycleForeground/player")
-
-
 var vspeed : float = 0
 
 onready var screen_size = get_viewport_rect().size
+export var max_move_speed = 150
+onready var player = get_node("../DayNightCycleForeground/player")
 
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("goblin")
@@ -27,11 +26,12 @@ func apply_physics(delta : float) -> void:
 	vspeed += (gravity * delta)
 	motion.y = vspeed
 	motion.x = move_speed
-	animation.play("gobAnim")
+	
 	motion = move_and_slide(motion)
 	
 
 func movement(var delta : float) -> void:
+	animation.play("gobAnim")
 	if position.x < (player.getPosition().x):    
 		direction = 1
 	if position.x > (player.getPosition().x):
@@ -42,10 +42,7 @@ func movement(var delta : float) -> void:
 	if motion.x > 0:
 		sprite.flip_h = false
 
-	move_speed += speed * delta * direction
-		
-	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
+	
 	
 	if(is_on_wall()):
-		if(is_on_floor()):
-			position.y = position.y-20
+		position.y = position.y-20

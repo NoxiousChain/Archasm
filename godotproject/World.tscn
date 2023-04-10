@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://TileSets/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
@@ -99,6 +99,15 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
 }
+
+[sub_resource type="OpenSimplexNoise" id=10]
+octaves = 9
+period = 6.6
+persistence = 0.672
+lacunarity = 0.1
+
+[sub_resource type="NoiseTexture" id=11]
+noise = SubResource( 10 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 13 )
@@ -205,7 +214,12 @@ anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="enemy" parent="." instance=ExtResource( 16 )]
+position = Vector2( -20, 73 )
 
 [node name="HUD" parent="." instance=ExtResource( 17 )]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -590, -79 )
+texture = SubResource( 11 )
 
 [editable path="DayNightCycleForeground/player"]

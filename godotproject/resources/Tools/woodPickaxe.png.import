@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tileMap1.png-dc9d9429805a21d66d7d7d6e9f0e7e5d.stex"
+path="res://.import/woodPickaxe.png-b7d56d0164861a09238e667baa5e3e94.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tileMap1.png"
-dest_files=[ "res://.import/tileMap1.png-dc9d9429805a21d66d7d7d6e9f0e7e5d.stex" ]
+source_file="res://resources/Tools/woodPickaxe.png"
+dest_files=[ "res://.import/woodPickaxe.png-b7d56d0164861a09238e667baa5e3e94.stex" ]
 
 [params]
 

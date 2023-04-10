@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tileMap.png-9e6a09f33b96207d1ec59ef648f15e0a.stex"
+path="res://.import/goblin-Sheet.png-8ed5ce42f4c9f70599bc132ce3502383.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tileMap.png"
-dest_files=[ "res://.import/tileMap.png-9e6a09f33b96207d1ec59ef648f15e0a.stex" ]
+source_file="res://resources/Mobs/goblin-Sheet.png"
+dest_files=[ "res://.import/goblin-Sheet.png-8ed5ce42f4c9f70599bc132ce3502383.stex" ]
 
 [params]
 
