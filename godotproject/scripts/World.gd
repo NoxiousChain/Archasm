@@ -3,9 +3,9 @@ extends Node2D
 signal toggle_interact
 
 func _ready():
-	$AnimationPlayer.play("DayNight_cycle")
-	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
-	
+#	$AnimationPlayer.play("DayNight_cycle")
+#	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
+#
 	var rand = RandomNumberGenerator.new()
 	var timer := Timer.new()
 	add_child(timer)

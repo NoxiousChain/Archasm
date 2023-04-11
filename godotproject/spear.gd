@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-export var speed = 500 # Speed of the projectile
+export var speed = 600 # Speed of the projectile
+export var arcHeight = 300 # Height of the arc
 export var lifetime = 2.0 # Lifetime of the projectile in seconds
 
 var velocity = Vector2() # Velocity of the projectile
@@ -15,7 +16,19 @@ func _physics_process(delta):
 	lifetime_timer += delta
 	
 	# Update the projectile's position based on its velocity
-	move_and_collide(velocity * delta)
+	# with an arc trajectory
+	var gravity = Vector2(0, 270)# Gravity affects the arc trajectory
+	var delta_pos = velocity * delta
+	delta_pos += 0.5 * gravity * delta * delta
+	velocity += gravity * delta
+	
+	# Update the rotation based on the velocity direction
+	if velocity.length_squared() > 0:
+		rotation = velocity.angle()
+		if velocity.x == 0:
+			rotation = 0
+
+	move_and_collide(delta_pos)
 	
 	# If the lifetime timer exceeds the lifetime, remove the projectile
 	if lifetime_timer > lifetime:
