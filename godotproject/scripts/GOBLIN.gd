@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var speed = 170
-var jump_power = 200
+var jump_power = 170
 const gravity = 600
 var velocity = Vector2.ZERO
 
@@ -17,7 +17,7 @@ var isSpearShot = false  # New flag to track if a spear has been shot recently
 
 func _ready():
 	animation.play("gobAnim")
-	spearTimer.wait_time = 1  # Set the wait time for the spear timer
+	spearTimer.wait_time = 2  # Set the wait time for the spear timer
 
 	# Connect the timer's timeout signal to a callback function
 	spearTimer.connect("timeout", self, "_on_spear_timer_timeout")
