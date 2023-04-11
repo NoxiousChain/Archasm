@@ -14,6 +14,8 @@ onready var spearTimer = Timer.new()
 onready var spearScene = preload("../Scenes/spear.tscn")
 
 var isSpearShot = false  # New flag to track if a spear has been shot recently
+var rand = RandomNumberGenerator.new()
+
 
 func _ready():
 	animation.play("gobAnim")
@@ -61,6 +63,8 @@ func shoot_spear():
 
 	# Reset and start the timer
 	spearTimer.stop()
+	var randTime = rand.randf_range(5, 10)
+	spearTimer.wait_time = randTime
 	spearTimer.start()
 
 func _on_spear_timer_timeout():
