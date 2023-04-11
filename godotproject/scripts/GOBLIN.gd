@@ -63,7 +63,7 @@ func shoot_spear():
 
 	# Reset and start the timer
 	spearTimer.stop()
-	var randTime = rand.randf_range(5, 10)
+	var randTime = rand.randf_range(3, 7)
 	spearTimer.wait_time = randTime
 	spearTimer.start()
 
