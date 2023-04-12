@@ -21,7 +21,7 @@ func _ready():
 
 func _on_timer_timeout() -> void:
 	
-	var enemyscene = load("res://Scenes/Goblin.tscn")
+	var enemyscene = load("res://scenes/GOBLIN.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
 	

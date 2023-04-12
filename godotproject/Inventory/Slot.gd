@@ -4,7 +4,7 @@ var defaultTexture = preload("res://resources/inventory/inventory_slot.png")
 
 var defaultStyle: StyleBoxTexture = null
 
-var item: TextureRect = null
+var item = null
 
 func _ready():
 	defaultStyle = StyleBoxTexture.new()
@@ -34,3 +34,7 @@ func put_in_slot(_item: TextureRect):
 	item.set_position(Vector2(2,2))
 	add_child(item)
 	refresh_style()
+
+# Generic slots accept all item types. Override if different acceptance criteria is required (see armor slot examples)
+func slot_accepts_item(_i) -> bool:
+	return true

@@ -25,6 +25,7 @@ void ItemSprite::_register_methods()
 	register_method("showDescription", &ItemSprite::showDescription);
 	register_method("_setItem", &ItemSprite::_setItem);
 	register_method("_getItem", &ItemSprite::_getItem);
+	register_method("get_slot_type", &ItemSprite::get_slot_type);
 
 	register_property<ItemSprite, Ref<Item>>("item", &ItemSprite::_setItem, &ItemSprite::_getItem, Ref<Item>());
 }
@@ -63,4 +64,9 @@ void ItemSprite::showDescription(bool visible)
 		item_description->set_visible(visible);
 	}
 	else ERR_PRINT("Item description does not exist!");
+}
+
+String ItemSprite::get_slot_type()
+{
+	return item->get_slot_type();
 }

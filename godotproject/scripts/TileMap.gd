@@ -71,7 +71,7 @@ func generate_gems():
 				if(noise_gems.get_noise_2d(x,y) > 0.5):
 					
 					#Get percentage of the way down
-					var percent : int = (float(y) / float(max_y)) * 100
+					var percent : int = int((float(y) / float(max_y)) * 100)
 					var gemID = 0 # mud
 					
 					#Further down the more rare the gem

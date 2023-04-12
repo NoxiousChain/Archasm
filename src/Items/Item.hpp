@@ -67,6 +67,11 @@ namespace godot {
 
 		// TODO: Add virtual functions to handle input
 		virtual void on_use();
+
+		// Returns slot type - used for slot typing restrictions
+		// Possible return values:
+		// DEFAULT (all), HELMET, CHEST, LEGS, ACCESSORY_UPPER, ACCESSORY_LOWER
+		virtual String get_slot_type();
 	};
 
 }

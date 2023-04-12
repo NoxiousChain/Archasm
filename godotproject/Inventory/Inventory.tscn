@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Inventory/Slot.gd" type="Script" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://resources/fonts/Slapa/slapa_12.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Inventory/PlayerLabel.gd" type="Script" id=7]
 [ext_resource path="res://resources/fonts/Slapa/slapa_16.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Inventory/HelmetSlot.gd" type="Script" id=9]
+[ext_resource path="res://Inventory/LegsSlot.gd" type="Script" id=10]
+[ext_resource path="res://Inventory/AccessorySlotLower.gd" type="Script" id=11]
+[ext_resource path="res://Inventory/AccessorySlotUpper.gd" type="Script" id=12]
+[ext_resource path="res://Inventory/ChestSlot.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 3 )
@@ -432,7 +437,7 @@ margin_right = 255.0
 margin_bottom = 143.0
 rect_min_size = Vector2( 20, 20 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 9 )
 __meta__ = {
 "_editor_description_": "The helmet icon is actually from the inventory background. Though the slot is technically marked as visible, its modulation has been adjusted to make it transparent"
 }
@@ -445,7 +450,7 @@ margin_right = 255.0
 margin_bottom = 187.0
 rect_min_size = Vector2( 20, 20 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 13 )
 __meta__ = {
 "_editor_description_": "The chest icon is actually from the inventory background. Though the slot is technically marked as visible, its modulation has been adjusted to make it transparent"
 }
@@ -458,7 +463,7 @@ margin_right = 255.0
 margin_bottom = 231.0
 rect_min_size = Vector2( 20, 20 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": "The pants icon is actually from the inventory background. Though the slot is technically marked as visible, its modulation has been adjusted to make it transparent"
 }
@@ -471,7 +476,7 @@ margin_right = 425.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 20, 20 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 12 )
 __meta__ = {
 "_editor_description_": "The necklace  icon is actually from the inventory background. Though the slot is technically marked as visible, its modulation has been adjusted to make it transparent"
 }
@@ -484,7 +489,7 @@ margin_right = 424.0
 margin_bottom = 209.0
 rect_min_size = Vector2( 20, 20 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 11 )
 __meta__ = {
 "_editor_description_": "The ring icon is actually from the inventory background. Though the slot is technically marked as visible, its modulation has been adjusted to make it transparent"
 }
