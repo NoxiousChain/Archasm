@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
 }, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/player.gd"
+}, {
 "base": "Resource",
 "class": "PlayerStats",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "HUD": "",
+"Player": "",
 "PlayerStats": ""
 }
 
@@ -34,6 +40,10 @@ config/icon="res://icon2.png"
 
 window/size/width=1280
 window/size/height=720
+
+[global]
+
+export=false
 
 [gui]
 
@@ -108,6 +118,11 @@ paused={
 ui_shift={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+damage_player={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":45,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

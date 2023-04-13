@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export var gravity = 600
 export var acc = 350
@@ -18,16 +19,26 @@ onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
 
+signal stats_loaded
+
+onready var hud = get_node("/root/World/HUD")
+onready var inventory = get_node("/root/World/HUD/Inventory")
+
 # Dictionary that contains all player stats
 # Data gets loaded from player_stats.tres
-var stats_resource = preload("res://Player/player_stats.tres")
+# If we add better save options this will need to be expanded
+onready var stats_resource = preload("res://Player/player_stats.tres")
 var player_stats = {}
 
-signal health_updated(health)
+signal health_updated(health, max_health, animation)
 signal killed()
 
 func _ready():
 	load_stats()
+	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
+	_err = connect("health_updated", hud, "update_healthbar")
+	_err = connect("health_updated", inventory, "update_health")
+	emit_signal("stats_loaded", self)
 	
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
@@ -115,7 +126,7 @@ func load_stats():
 	player_stats["attack"] = stats_resource.attack
 	player_stats["defense"] = stats_resource.defense
 	player_stats["speed_multi"] = stats_resource.speed_multi
-	
+	emit_signal("stats_loaded", self)
 
 func get_stat(key):
 	return player_stats.get(key)
@@ -136,23 +147,42 @@ func save_stats():
 	ResourceSaver.save("res://Player/player_stats.tres", stats_resource)
 # ----------------------------------------------------
 
-
-
-
+# Some methods for getting common stats
+func get_name() -> String:
+	return get_stat("name")
+func get_max_health() -> int:
+	return get_stat("max_health")
+func get_health() -> int:
+	return get_stat("health")
+func get_attack() -> float:
+	return get_stat("attack")
+func get_defense() -> int:
+	return get_stat("defense")
 
 
 func damage(amount):
-	set_health(get_stat("health") - amount) # set_health handles player death
+	# try to save some computation time
+	if amount == 0: 
+		return
+	# restrict to range(0,max_health)
+	var max_health = get_max_health()
+	var health = clamp(get_health() - amount, 0, max_health)
+	set_stat("health", health)
+	emit_signal("health_updated", health, max_health, 0)
+	if health == 0:
+		kill()
+		emit_signal("killed")
 	 
 func kill():
 	pass
 	
 func set_health(val)                                                                                                                                                                                                                                                                                                     :
-	var prev_health = get_stat("health")
-	var health = clamp(val, 0, get_stat("max_health")) # make sure new health doesn't exceed max health
+	var prev_health = get_health()
+	var max_health = get_max_health()
+	var health = clamp(val, 0, max_health) # make sure new health doesn't exceed max health
 	if health != prev_health:
 		set_stat("health", health)	# update actual health stat
-		emit_signal("health_updated", health)
+		emit_signal("health_updated", health, max_health, 0)
 		if health == 0:
 			kill()
 			emit_signal("killed")

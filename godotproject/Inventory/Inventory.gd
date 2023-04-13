@@ -21,8 +21,6 @@ func _ready():
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
 	for slot in armorSlots:
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
-	
-	#set_process_input(true)
 		
 func slot_gui_input(event: InputEvent, slot):
 	if event is InputEventMouseButton:
@@ -166,3 +164,18 @@ func _notification(what):
 		if dragging:
 			dragging = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+# _animation only here so its compatible with update_health signal 
+# any calls to this function must already have health clamped
+func update_health(health, max_health, _animation):
+	$HealthStat.set_text(str(health) + "/" + str(max_health))
+
+func update_stats(player):
+	$HealthStat.set_text(str(player.get_health()) + "/" + str(player.get_max_health()))
+	$ArmorStat.set_text(str(player.get_defense()))
+	$AttackStat.set_text(str(player.get_attack() * 100) + "%")
+	
+# updates all values using data from player_stats
+func update_stats_and_name(player):
+	update_stats(player)
+	$PlayerLabel.set_text(player.get_name())

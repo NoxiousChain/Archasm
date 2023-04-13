@@ -2,6 +2,8 @@ extends Node2D
 
 signal toggle_interact
 
+onready var inventory = $HUD/Inventory
+
 func _ready():
 #	$AnimationPlayer.play("DayNight_cycle")
 #	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
@@ -33,14 +35,17 @@ func _on_timer_timeout() -> void:
 	add_child(enemy)
 	
 func toggle_inventory():
-	var visible = $HUD/Inventory.visible
+	var visible = inventory.visible
 	if visible:
-		$HUD/Inventory.hide()
+		inventory.hide()
 	else:
-		$HUD/Inventory.show()
-	$HUD/Inventory.set_process_input(!visible)
+		inventory.show()
+	inventory.set_process_input(!visible)
 
 func _input(_event):
 	if Input.is_action_just_pressed("ui_focus_next"):
 		toggle_inventory()
 		emit_signal("toggle_interact")
+	elif Input.is_action_just_pressed("damage_player"):
+		$DayNightCycleForeground/player.damage(10)
+		print($DayNightCycleForeground/player.get_health())

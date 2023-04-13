@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Inventory/Slot.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/inventory/inventory.png" type="Texture" id=4]
 [ext_resource path="res://resources/fonts/Slapa/slapa_24.tres" type="DynamicFont" id=5]
 [ext_resource path="res://resources/fonts/Slapa/slapa_12.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Inventory/PlayerLabel.gd" type="Script" id=7]
 [ext_resource path="res://resources/fonts/Slapa/slapa_16.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Inventory/HelmetSlot.gd" type="Script" id=9]
 [ext_resource path="res://Inventory/LegsSlot.gd" type="Script" id=10]
@@ -535,7 +534,6 @@ margin_right = 443.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 5 )
 text = "PLAYER_NAME"
-script = ExtResource( 7 )
 
 [node name="TitleLabel" type="Label" parent="."]
 margin_left = 6.0
@@ -552,7 +550,6 @@ margin_top = 102.0
 margin_right = 148.0
 margin_bottom = 126.0
 custom_fonts/font = ExtResource( 8 )
-text = "16/32"
 
 [node name="ArmorStat" type="Label" parent="."]
 margin_left = 67.0
@@ -561,7 +558,6 @@ margin_right = 149.0
 margin_bottom = 180.0
 custom_colors/font_color_shadow = Color( 0.0745098, 0.109804, 0.278431, 1 )
 custom_fonts/font = ExtResource( 8 )
-text = "45"
 
 [node name="AttackStat" type="Label" parent="."]
 margin_left = 67.0
@@ -569,4 +565,3 @@ margin_top = 210.0
 margin_right = 148.0
 margin_bottom = 234.0
 custom_fonts/font = ExtResource( 8 )
-text = "140%"

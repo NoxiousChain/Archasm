@@ -4,3 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
+name = "Test Name"
+max_health = 100
+health = 80
+attack = 1.4
+defense = 45
+speed_multi = 1.2

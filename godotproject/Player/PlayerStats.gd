@@ -12,10 +12,10 @@ class_name PlayerStats
 # If you add any stats here, they MUST be added to the load, save, get, and set functions in player.gd
 # Stats will not be useable otherwise.
 
-var name : String
-var max_health : int			# max player health. modified by armor, status effects, etc.
-var health : int				# current player health
-var attack: float 				# base attack multiplier. modified by armor, status effects, etc.
-var defense : int				# defense value
+export(String) var name
+export(int) var max_health		# max player health. modified by armor, status effects, etc.
+export(int) var health			# current player health
+export(float) var attack		# base attack multiplier. modified by armor, status effects, etc.
+export(int) var defense			# defense value
 
-var speed_multi : float			# speed multiplier. modified by status effects, etc.
+export(float) var speed_multi	# speed multiplier. modified by status effects, etc.
