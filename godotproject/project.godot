@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "CanvasLayer",
+"base": "",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="Untitled-game-wiki"
 run/main_scene="res://Intro.tscn"
 config/icon="res://icon2.png"
+
+[autoload]
+
+PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 
 [display]
 
