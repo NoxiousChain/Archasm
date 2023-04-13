@@ -5,6 +5,9 @@ var jump_power = 170
 const gravity = 600
 var velocity = Vector2.ZERO
 
+export(int) var health = 100
+var max_health = health
+
 onready var player = get_node("../DayNightCycleForeground/player")
 onready var sprite : Sprite = get_node("goblin")
 onready var animation = $AnimationPlayer
@@ -70,3 +73,9 @@ func shoot_spear():
 func _on_spear_timer_timeout():
 	shoot_spear()  # Shoot a spear when the timer times out
 	isSpearShot = false  # Set the flag to false after the timer times out
+
+func damage(damage):
+	health -= damage
+	$HPBar.set_percent_value_int(float(health)/max_health * 100)
+	if health <= 0:
+		queue_free()

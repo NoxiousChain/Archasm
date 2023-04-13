@@ -102,12 +102,8 @@ func quick_move(var delta : float) -> void:
 	if motion.x > 0:
 		sprite.flip_h = false
 
-func _on_coyatoe_timer_timeout() -> void:
-	coy_time = false
-	
 func getPosition() -> Vector2:
 	return position
-
 
 func damage(amount):
 	set_health(health - amount)
