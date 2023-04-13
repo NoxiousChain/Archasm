@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/axe.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/light.png" type="Texture" id=3]
-[ext_resource path="res://resources/player_sheet.png" type="Texture" id=4]
+[ext_resource path="res://resources/playerSheet.png" type="Texture" id=4]
 [ext_resource path="res://scripts/PlayerLight.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -41,6 +41,38 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "jump_air"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 9, 9 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "jump_liftOff"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 8, 8, 8 ]
+}
+
 [sub_resource type="Animation" id=4]
 resource_name = "run"
 length = 0.7
@@ -58,6 +90,10 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 11.0
+height = 36.0
+
 [node name="player" type="KinematicBody2D"]
 collision_layer = 0
 script = ExtResource( 1 )
@@ -69,6 +105,7 @@ position = Vector2( 16, 7 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 7
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 2 )
@@ -85,6 +122,8 @@ script = ExtResource( 7 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/idle = SubResource( 3 )
+anims/jump_air = SubResource( 6 )
+anims/jump_liftOff = SubResource( 7 )
 anims/run = SubResource( 4 )
 
 [node name="coyote_timer" type="Timer" parent="."]
@@ -109,3 +148,9 @@ position = Vector2( 7, 29 )
 enabled = true
 cast_to = Vector2( 0, 16 )
 collision_mask = 3
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -1, 2 )
+shape = SubResource( 5 )

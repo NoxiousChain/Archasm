@@ -54,9 +54,12 @@ func apply_physics(delta : float) -> void:
 
 	if(!is_on_floor()):
 		vspeed += (gravity * delta)
+		animation.play("jump_liftOff")
+		animation.play("jump_air")
 	else:
 		vspeed = 0
 		if(Input.is_action_just_pressed("move_jump")):
+			
 			coy_time = false
 			coy_timer.stop()
 			vspeed = -jump_height

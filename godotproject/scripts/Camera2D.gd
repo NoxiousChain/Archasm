@@ -1,7 +1,7 @@
 extends Camera2D
 
 
-var spd = 20
+var spd = 10
 
 func _physics_process(_delta: float) -> void:
 	if(Input.is_action_pressed("ui_right")):
