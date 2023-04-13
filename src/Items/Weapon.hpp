@@ -39,10 +39,10 @@ namespace godot {
 
 		double attack;
 
-	};
+	public:
+		virtual double getDamage(); // Returns the damage on an initial hit. This is based solely on attack damage and any effects
+		virtual void onAttack();
+		virtual void onAltAttack();
 
-public:
-	virtual double getDamage(); // Returns the damage on an initial hit. This is based solely on attack damage and any effects
-	virtual void onAttack();
-	virtual void onAltAttack();
+	};
 }

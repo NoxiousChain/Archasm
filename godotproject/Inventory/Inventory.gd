@@ -6,7 +6,7 @@ onready var armorSlots = [$HelmetSlot, $ChestSlot, $LegsSlot, $AccessorySlot1, $
 onready var bgTexture = $TextureRect
 onready var sscale = $Inventory.rect_scale*2
 
-var heldItem: TextureRect = null
+var heldItem = null
 const SlotClass = preload("res://Inventory/Slot.gd")
 var offset = 0
 var dragging = false
@@ -24,11 +24,11 @@ func _ready():
 	
 	#set_process_input(true)
 		
-func slot_gui_input(event: InputEvent, slot: SlotClass):
+func slot_gui_input(event: InputEvent, slot):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT && event.is_pressed():
-			# If holding an item
-			if heldItem != null:
+			# If holding an item and slot accepts item type
+			if heldItem != null && slot.call("slot_accepts_item", heldItem):
 				# If full, swap held item with slot item
 				if slot.full():
 					var copy = slot.take_from_slot()

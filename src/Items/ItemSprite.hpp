@@ -34,4 +34,6 @@ public:
 	Ref<Item> _getItem() const;
 
 	void showDescription(bool visible = true);
+
+	String get_slot_type();
 };

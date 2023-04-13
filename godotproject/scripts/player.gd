@@ -20,7 +20,7 @@ onready var coy_timer = $coyote_timer
 
 # Status, health, etc. variables and signals
 # setget methods are only called when referenced outside the class - if you need functionality, call self.var instead of just var
-export (float) var max_health = 100 
+export (float) var max_health = 100.0 
 onready var health = max_health setget set_health # just a setter
 
 signal health_updated(health)

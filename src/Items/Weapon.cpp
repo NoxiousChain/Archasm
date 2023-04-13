@@ -4,8 +4,6 @@ void Weapon::_init()
 {
 	effects = 0;
 	attack = 0.0;
-	poisonDmg = 0.0;
-	fireDmg = 0.0;
 }
 
 void Weapon::_register_methods()
@@ -24,4 +22,19 @@ void Weapon::_register_methods()
 void Weapon::genItemDescription(MarginContainer* description_container, ItemDescription* item_description)
 {
 	genDescriptionContainer(description_container);
+}
+
+double Weapon::getDamage()
+{
+	return attack;
+}
+
+void Weapon::onAttack()
+{
+	
+}
+
+void Weapon::onAltAttack()
+{
+
 }

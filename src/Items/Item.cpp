@@ -85,3 +85,8 @@ void Item::genItemDescription(MarginContainer* description_container, ItemDescri
 void Item::on_use()
 {
 }
+
+String Item::get_slot_type()
+{
+	return "DEFAULT";
+}
