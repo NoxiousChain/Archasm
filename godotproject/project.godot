@@ -32,6 +32,7 @@ PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 
 window/size/width=1280
 window/size/height=720
+window/size/fullscreen=true
 
 [gui]
 
