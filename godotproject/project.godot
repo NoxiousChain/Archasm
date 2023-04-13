@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
+}, {
+"base": "Resource",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://Player/PlayerStats.gd"
 } ]
 _global_script_class_icons={
-"HUD": ""
+"HUD": "",
+"PlayerStats": ""
 }
 
 [application]

@@ -18,16 +18,16 @@ onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
 
-# Status, health, etc. variables and signals
-# setget methods are only called when referenced outside the class - if you need functionality, call self.var instead of just var
-export (float) var max_health = 100.0 
-onready var health = max_health setget set_health # just a setter
+# Dictionary that contains all player stats
+# Data gets loaded from player_stats.tres
+var stats_resource = preload("res://Player/player_stats.tres")
+var player_stats = {}
 
 signal health_updated(health)
 signal killed()
 
 func _ready():
-	pass
+	load_stats()
 	
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
@@ -105,17 +105,53 @@ func _on_coyatoe_timer_timeout() -> void:
 func getPosition() -> Vector2:
 	return position
 
+# PLAYER STATS
+# Any new stats that are created must be added to all 4 of these functions
+# ----------------------------------------------------
+func load_stats():
+	player_stats["name"] = stats_resource.name
+	player_stats["max_health"] = stats_resource.max_health
+	player_stats["health"] = stats_resource.health
+	player_stats["attack"] = stats_resource.attack
+	player_stats["defense"] = stats_resource.defense
+	player_stats["speed_multi"] = stats_resource.speed_multi
+	
+
+func get_stat(key):
+	return player_stats.get(key)
+	
+func set_stat(key, value):
+	if key in player_stats:
+		player_stats[key] = value
+
+func save_stats():
+	stats_resource.name = player_stats["name"]
+	stats_resource.max_health = player_stats["max_health"]
+	stats_resource.health = player_stats["health"]
+	stats_resource.attack = player_stats["attack"]
+	stats_resource.defense = player_stats["defense"]
+	stats_resource.speed_multi = player_stats["speed_multi"]
+
+	# Save updated resource file
+	ResourceSaver.save("res://Player/player_stats.tres", stats_resource)
+# ----------------------------------------------------
+
+
+
+
+
 
 func damage(amount):
-	set_health(health - amount)
+	set_health(get_stat("health") - amount) # set_health handles player death
 	 
 func kill():
 	pass
 	
-func set_health(val) -> void:
-	var prev_health = health
-	health = clamp(val, 0, max_health)
+func set_health(val)                                                                                                                                                                                                                                                                                                     :
+	var prev_health = get_stat("health")
+	var health = clamp(val, 0, get_stat("max_health")) # make sure new health doesn't exceed max health
 	if health != prev_health:
+		set_stat("health", health)	# update actual health stat
 		emit_signal("health_updated", health)
 		if health == 0:
 			kill()
