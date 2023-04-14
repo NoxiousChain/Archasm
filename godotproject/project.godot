@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
+"base": "CanvasLayer",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
@@ -27,6 +27,7 @@ config/icon="res://icon2.png"
 [autoload]
 
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
+Selector="*res://scenes/Selector.tscn"
 
 [display]
 

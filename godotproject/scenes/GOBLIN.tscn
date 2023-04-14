@@ -39,7 +39,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[node name="Goblin" type="KinematicBody2D"]
+[node name="Goblin" type="KinematicBody2D" groups=["enemy"]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

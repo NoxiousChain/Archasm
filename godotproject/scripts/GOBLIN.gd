@@ -74,8 +74,13 @@ func _on_spear_timer_timeout():
 	shoot_spear()  # Shoot a spear when the timer times out
 	isSpearShot = false  # Set the flag to false after the timer times out
 
-func damage(damage):
+func apply_damage(damage):
 	health -= damage
-	$HPBar.set_percent_value_int(float(health)/max_health * 100)
 	if health <= 0:
+		health = 0  # Make sure health does not go below zero
+		$HPBar.set_percent_value_int(float(health)/max_health * 100)
 		queue_free()
+	else:
+		$HPBar.set_percent_value_int(float(health)/max_health * 100)
+
+

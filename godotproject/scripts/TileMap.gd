@@ -11,7 +11,7 @@ var snap_size_y = 16
 
 var debug : bool = false
 
-onready var selector = $selector
+onready var selector = $"/root/Selector"
 
 var interact_enabled = true
 
@@ -132,7 +132,7 @@ func generate_id(noise_level : float):
 func _physics_process(_delta: float) -> void:
 	if interact_enabled:
 		if(Input.is_action_pressed("mb_left")):
-			var title : Vector2 = world_to_map(selector.mouse_pos * 8)
+			var title : Vector2 = world_to_map(selector.mouse_pos * 16)
 			var title_id = get_cellv(title)
 			var new_id = -1
 			
@@ -144,7 +144,7 @@ func _physics_process(_delta: float) -> void:
 				set_cellv(title,new_id)
 				
 		if(Input.is_action_pressed("mb_right")):
-			var title: Vector2 = world_to_map(selector.mouse_pos * 8)
+			var title: Vector2 = world_to_map(selector.mouse_pos * 16)
 			set_cellv(title,0)
 		
 
