@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Mainmenu/Library 3 am.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://Mainmenu/TiltPrism-Regular-VariableFont_XROT,YROT.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Mainmenu/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scripts/Options.gd" type="Script" id=4]
 [ext_resource path="res://Mainmenu/menusplash.png" type="Texture" id=5]
 
@@ -10,13 +10,43 @@
 size = 50
 font_data = ExtResource( 3 )
 
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
 [sub_resource type="DynamicFont" id=3]
 size = 50
 font_data = ExtResource( 3 )
 
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
 [sub_resource type="DynamicFont" id=4]
 size = 50
 font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=19]
 
 [sub_resource type="DynamicFont" id=1]
 size = 125
@@ -34,38 +64,53 @@ texture = ExtResource( 5 )
 centered = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.018
-anchor_top = 0.954
-anchor_right = 0.037
-anchor_bottom = 0.954
-margin_left = 625.44
-margin_top = -456.32
-margin_right = 830.44
-margin_bottom = -238.32
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.66
+margin_top = -75.0
+margin_right = 114.66
+margin_bottom = 143.0
 
 [node name="Startbutton" type="Button" parent="VBoxContainer"]
 margin_right = 229.0
-margin_bottom = 70.0
+margin_bottom = 44.0
 hint_tooltip = "obviously starts the game"
 focus_neighbour_top = NodePath("../Quit")
 custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 text = "Start"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
-margin_top = 74.0
+margin_top = 48.0
 margin_right = 229.0
-margin_bottom = 144.0
+margin_bottom = 92.0
 custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
 text = "Options"
 script = ExtResource( 4 )
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
-margin_top = 148.0
+margin_top = 96.0
 margin_right = 229.0
-margin_bottom = 218.0
-hint_tooltip = "bro, If I gotta explain what this does you need help"
+margin_bottom = 140.0
+hint_tooltip = "quitting is for losers"
 focus_neighbour_bottom = NodePath("../Startbutton")
 custom_fonts/font = SubResource( 4 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/focus = SubResource( 17 )
+custom_styles/disabled = SubResource( 18 )
+custom_styles/normal = SubResource( 19 )
 text = "Quit"
 
 [node name="Label" type="Label" parent="."]
