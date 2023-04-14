@@ -109,7 +109,6 @@ func generate_gems():
 
 					set_cell(x,y,gemID)
 
-
 func create_tree(x,y,length,new):
 	if new:
 		for i in length:

@@ -8,6 +8,8 @@ var velocity = Vector2.ZERO
 export(int) var health = 100
 var max_health = health
 
+onready var healthBar = $HPBar
+
 onready var player = get_node("../DayNightCycleForeground/player")
 onready var sprite : Sprite = get_node("goblin")
 onready var animation = $AnimationPlayer
@@ -21,6 +23,7 @@ var rand = RandomNumberGenerator.new()
 
 
 func _ready():
+	healthBar.visible = false
 	animation.play("gobAnim")
 	spearTimer.wait_time = 2  # Set the wait time for the spear timer
 
@@ -75,7 +78,9 @@ func _on_spear_timer_timeout():
 	isSpearShot = false  # Set the flag to false after the timer times out
 
 func apply_damage(damage):
+	healthBar.visible = true
 	health -= damage
+	
 	if health <= 0:
 		health = 0  # Make sure health does not go below zero
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)

@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "CanvasLayer",
+"base": "",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
