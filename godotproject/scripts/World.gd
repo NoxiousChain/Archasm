@@ -1,5 +1,7 @@
 extends Node2D
 
+const chunk_length = 500 #WIP not working on it right now
+
 signal toggle_interact
 
 func _ready():
@@ -20,13 +22,15 @@ func _ready():
 	_err = connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
-	
-	var enemyscene = load("res://scenes/GOBLIN.tscn")
+	var goblin = load("res://scenes/GOBLIN.tscn")
+	var voidling = load("res://scenes/enemy.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
 	
-	var enemy = enemyscene.instance()
+	var enemy = goblin.instance()
+	
 	rand.randomize()
+	
 	var x = rand.randf_range(0, screen_size.x)
 	enemy.position.y = (-screen_size.y/2)+325
 	enemy.position.x = x

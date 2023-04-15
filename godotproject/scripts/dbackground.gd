@@ -3,8 +3,6 @@ extends TileMap
 export(int) var max_x = 500
 export(int) var max_y = 500
 
-onready var selector : Sprite = get_node("/root/World/TileMap/selector")
-
 var noise : OpenSimplexNoise = OpenSimplexNoise.new()
 
 var snap_size_x = 16

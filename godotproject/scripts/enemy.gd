@@ -1,27 +1,39 @@
 extends KinematicBody2D
 
-const WALK_SPEED = 1000000
-const GRAVITY = 600
+var speed = 170
+var velocity = Vector2.ZERO
 
-onready var player = get_node("World/DayNightCycleForeground/player")
+export(int) var health = 100
+var max_health = health
+
+onready var healthBar = $HPBar
+
+onready var player = get_node("../DayNightCycleForeground/player")
+onready var sprite : Sprite = get_node("Sprite")
+onready var animation = $AnimationPlayer
 
 func _ready():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	position.x = rng.randf_range(-100,100)
-	position.y = -100
+	healthBar.visible = false
 	
 func _physics_process(delta):
-	if player:
-		var direction = (player.position - position).normalized()
-		if not is_on_floor():
-			direction.y += GRAVITY
-		
-		move_and_slide(direction * WALK_SPEED)
-		
-		for i in get_slide_count():
-			var collision = get_slide_collision(i)
-			# if collision.collider.name == "Player":
-			var object = collision.collider
-			if object.is_in_group("player"):
-				object.die()
+	var direction = (player.global_position - global_position).normalized()
+	var velocity = direction * speed
+	var floor_normal = Vector2.UP
+	var collision = move_and_slide(velocity, floor_normal)
+	if direction.x < 0:
+		sprite.flip_h = true
+	if direction.x > 0:
+		sprite.flip_h = false
+
+func apply_damage(damage):
+	healthBar.visible = true
+	health -= damage
+	
+	if health <= 0:
+		health = 0  # Make sure health does not go below zero
+		$HPBar.set_percent_value_int(float(health)/max_health * 100)
+		queue_free()
+	else:
+		$HPBar.set_percent_value_int(float(health)/max_health * 100)
+
+

@@ -7,7 +7,6 @@ var velocity = Vector2.ZERO
 
 export(int) var health = 100
 var max_health = health
-
 onready var healthBar = $HPBar
 
 onready var player = get_node("../DayNightCycleForeground/player")
@@ -24,7 +23,6 @@ var rand = RandomNumberGenerator.new()
 
 func _ready():
 	healthBar.visible = false
-	animation.play("gobAnim")
 	spearTimer.wait_time = 2  # Set the wait time for the spear timer
 
 	# Connect the timer's timeout signal to a callback function
@@ -40,6 +38,12 @@ func _physics_process(delta):
 	# Check if the goblin is within a certain range of the player
 	if get_global_position().distance_to(player.get_global_position()) < 200:
 		velocity.x = 0  # Stop moving horizontally
+		if is_on_floor():
+			velocity.y = 0  # stop moving up
+		if health <= 0:
+			on_death()
+		else:
+			animation.play("still")
 
 		# Shoot a spear if the timer is stopped and a spear has not been shot recently
 		if spearTimer.is_stopped() and not isSpearShot:
@@ -48,6 +52,10 @@ func _physics_process(delta):
 
 	else:
 		velocity.x = direction.x * speed  # Resume horizontal movement
+		if health <= 0:
+			on_death()
+		else:
+			animation.play("gobAnim")
 
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -84,8 +92,13 @@ func apply_damage(damage):
 	if health <= 0:
 		health = 0  # Make sure health does not go below zero
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)
-		queue_free()
 	else:
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)
-
-
+		
+func on_death():
+		animation.stop()
+		animation.play("dying")
+		velocity = Vector2.ZERO
+		spearTimer.stop()
+		isSpearShot = true
+		queue_free()

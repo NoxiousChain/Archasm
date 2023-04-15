@@ -132,7 +132,7 @@ func _input(event):
 
 		# Cast a ray from the mouse position to detect if it hits an enemy
 		var space_state = get_world_2d().direct_space_state
-		var result = space_state.intersect_ray(get_global_transform().origin, mouse_pos, [], 1)
+		var result = space_state.intersect_ray(get_global_transform().origin, mouse_pos, [], 2)
 
 		# Check if the ray hits an enemy
 		if result:
