@@ -37,6 +37,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 16, 17, 18, 19, 20, 21, 22, 23, 15 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "gobAnim"
@@ -83,7 +97,7 @@ scale = Vector2( 0.122203, 0.105556 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "dying"
+autoplay = "gobAnim"
 anims/RESET = SubResource( 3 )
 anims/dying = SubResource( 4 )
 anims/gobAnim = SubResource( 2 )

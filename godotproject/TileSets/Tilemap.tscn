@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://TileSets/dirt.tres" type="TileSet" id=1]
+[ext_resource path="res://TileSets/stone.tres" type="TileSet" id=3]
+[ext_resource path="res://TileSets/Stone.gd" type="Script" id=4]
+[ext_resource path="res://TileSets/Dirt.gd" type="Script" id=5]
+
+[node name="Tilemap" type="Node2D"]
+
+[node name="Dirt" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 5 )
+
+[node name="Stone" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 4 )

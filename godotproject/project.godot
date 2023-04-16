@@ -20,8 +20,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Untitled-game-wiki"
-run/main_scene="res://Intro.tscn"
+config/name="Archasm"
+run/main_scene="res://TileSets/Tilemap.tscn"
 config/icon="res://icon2.png"
 
 [autoload]

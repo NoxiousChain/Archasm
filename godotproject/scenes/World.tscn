@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://TileSets/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
@@ -6,61 +6,10 @@
 [ext_resource path="res://scenes/voidling.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
-[ext_resource path="res://scripts/clouds.gd" type="Script" id=7]
-[ext_resource path="res://resources/Background/cloud.png" type="Texture" id=8]
-[ext_resource path="res://resources/Background/mountain2.png" type="Texture" id=9]
-[ext_resource path="res://resources/Background/pine1.png" type="Texture" id=10]
-[ext_resource path="res://resources/Background/pine2.png" type="Texture" id=11]
-[ext_resource path="res://resources/Background/sky.png" type="Texture" id=12]
+[ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/World.gd" type="Script" id=13]
-[ext_resource path="res://TileSets/dirtBackground.tres" type="TileSet" id=14]
-[ext_resource path="res://scripts/dbackground.gd" type="Script" id=15]
 [ext_resource path="res://scenes/GOBLIN.tscn" type="PackedScene" id=16]
 [ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=17]
-
-[sub_resource type="Animation" id=8]
-resource_name = "DayNightBack_cycle"
-length = 45.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("DayNightCycleBackground:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 16, 24, 32, 39.9, 281, 481.3, 521.1, 681, 731.5, 780 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.811765, 0.74902, 0.494118, 1 ), Color( 0.266667, 0.364706, 0.552941, 1 ), Color( 0.0909882, 0.149457, 0.261719, 1 ), Color( 0.72549, 0.713726, 0.52549, 1 ), Color( 0.196078, 0.215686, 0.466667, 1 ), Color( 0.00392157, 0.00784314, 0.117647, 1 ), Color( 0.0156863, 0.0196078, 0.141176, 1 ), Color( 0.188235, 0.196078, 0.439216, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=7]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("DayNightCycleForeground:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DayNightCycleBackground:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="CanvasItemMaterial" id=9]
 light_mode = 1
@@ -109,68 +58,7 @@ cell_size = Vector2( 16, 16 )
 format = 1
 script = ExtResource( 2 )
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="dbackground" type="TileMap" parent="ParallaxBackground/ParallaxLayer2"]
-tile_set = ExtResource( 14 )
-cell_size = Vector2( 16, 16 )
-format = 1
-script = ExtResource( 15 )
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 1900, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 669, -763 )
-scale = Vector2( 2.837, 5.785 )
-texture = ExtResource( 12 )
-
-[node name="clouds" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.1, 1 )
-motion_mirroring = Vector2( 1600, 0 )
-script = ExtResource( 7 )
-CLOUD_SPEED = -9.0
-
-[node name="cloud" type="Sprite" parent="ParallaxBackground/clouds"]
-position = Vector2( 632, -609 )
-scale = Vector2( 2.681, 3 )
-texture = ExtResource( 8 )
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.1, 1 )
-motion_mirroring = Vector2( 1900, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
-position = Vector2( 613.927, -284.5 )
-scale = Vector2( 2.76184, 4.48 )
-texture = ExtResource( 9 )
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 1900, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
-position = Vector2( 618.004, -166.563 )
-scale = Vector2( 2.77324, 1.673 )
-texture = ExtResource( 11 )
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.7, 1 )
-motion_mirroring = Vector2( 1980, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 697.499, -128 )
-scale = Vector2( 3.313, 1.73 )
-texture = ExtResource( 10 )
-
-[node name="DayNightCycleBackground" type="CanvasModulate" parent="ParallaxBackground"]
-position = Vector2( 0, 66 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/DayNightBack_cycle = SubResource( 8 )
-anims/RESET = SubResource( 7 )
+[node name="ParallaxBackground" parent="." instance=ExtResource( 7 )]
 
 [node name="DayNightCycleForeground" type="CanvasModulate" parent="."]
 color = Color( 0.858824, 0.847059, 0.847059, 1 )
