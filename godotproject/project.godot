@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Archasm"
-run/main_scene="res://TileSets/Tilemap.tscn"
+run/main_scene="res://scenes/Intro.tscn"
 config/icon="res://icon2.png"
 
 [autoload]

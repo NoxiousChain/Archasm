@@ -12,7 +12,7 @@ func _ready() -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("paused"):
 		get_tree().paused = !get_tree().paused
 		quitButton.visible = true
 		continueButton.visible = true
