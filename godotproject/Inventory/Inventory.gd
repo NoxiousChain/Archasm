@@ -21,39 +21,94 @@ func _ready():
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
 	for slot in armorSlots:
 		slot.connect("gui_input", self, "slot_gui_input", [slot])
-	
-	#set_process_input(true)
 		
 func slot_gui_input(event: InputEvent, slot):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT && event.is_pressed():
-			# If holding an item and slot accepts item type
-			if heldItem != null && slot.call("slot_accepts_item", heldItem):
-				# If full, swap held item with slot item
-				if slot.full():
-					var copy = slot.take_from_slot()
+			# If player is holding shift we will do quick switches
+			if Input.is_action_pressed("ui_shift") && slot.full():
+				var copy = slot.take_from_slot()
+				if slot in inventory.get_children():
+					# first try to place item in armor slots
+					for aSlot in armorSlots:
+						# if armor slot is empty and item can go into it, move item to slot
+						if !aSlot.full() && aSlot.call("slot_accepts_item", copy):
+							aSlot.put_in_slot(copy)
+							return
+					# place in first open hotbar slot
+					for hSlot in hotbar.get_children():
+						if !hSlot.full(): # no need for an accept check, hotbar accepts all items
+							hSlot.put_in_slot(copy)
+							return
+					# place in first open inventory slot
+					for iSlot in inventory.get_children():
+						if !iSlot.full():
+							iSlot.put_in_slot(copy)
+							return
+					
+				elif slot in hotbar.get_children():
+					# first try to place item in armor slots
+					for aSlot in armorSlots:
+						# if armor slot is empty and item can go into it, move item to slot
+						if !aSlot.full() && aSlot.call("slot_accepts_item", copy):
+							aSlot.put_in_slot(copy)
+							return
+					# place in first open inventory slot
+					for iSlot in inventory.get_children():
+						if !iSlot.full():
+							iSlot.put_in_slot(copy)
+							return
+					# place in first open hotbar slot
+					for hSlot in hotbar.get_children():
+						if !hSlot.full(): # no need for an accept check, hotbar accepts all items
+							hSlot.put_in_slot(copy)
+							return
+				else:
+					# place in first open inventory slot
+					for iSlot in inventory.get_children():
+						if !iSlot.full():
+							iSlot.put_in_slot(copy)
+							return
+					# place in first open hotbar slot
+					for hSlot in hotbar.get_children():
+						if !hSlot.full(): # no need for an accept check, hotbar accepts all items
+							hSlot.put_in_slot(copy)
+							return
+					# place back into armor slot
+					for aSlot in armorSlots:
+						# if armor slot is empty and item can go into it, move item to slot
+						if !aSlot.full() && aSlot.call("slot_accepts_item", copy):
+							aSlot.put_in_slot(copy)
+							return
+			# If player is not holding shift, do regular processing
+			else:
+				# if holding an item and slot accepts item type
+				if heldItem != null && slot.call("slot_accepts_item", heldItem):
+					# If full, swap held item with slot item
+					if slot.full():
+						var copy = slot.take_from_slot()
+						offset = event.position*sscale
+						offset = offset.limit_length(10.0)
+						heldItem.expand = false
+						remove_child(heldItem)
+						slot.put_in_slot(heldItem)
+						heldItem = copy
+						heldItem.set_scale(sscale)
+						heldItem.set_global_position(get_global_mouse_position() - offset)
+						add_child(heldItem)
+					else: # Just put held item into slot
+						remove_child(heldItem)
+						slot.put_in_slot(heldItem)
+						heldItem = null
+						mouse_held_on_place = true
+				# If not holding anything and slot is full
+				elif slot.full():
+					heldItem = slot.take_from_slot()
+					heldItem.set_scale(sscale)
+					add_child(heldItem)
 					offset = event.position*sscale
 					offset = offset.limit_length(10.0)
-					heldItem.expand = false
-					remove_child(heldItem)
-					slot.put_in_slot(heldItem)
-					heldItem = copy
-					heldItem.set_scale(sscale)
 					heldItem.set_global_position(get_global_mouse_position() - offset)
-					add_child(heldItem)
-				else: # Just put held item into slot
-					remove_child(heldItem)
-					slot.put_in_slot(heldItem)
-					heldItem = null
-					mouse_held_on_place = true
-			# If not holding anything and slot is full
-			elif slot.full():
-				heldItem = slot.take_from_slot()
-				heldItem.set_scale(sscale)
-				add_child(heldItem)
-				offset = event.position*sscale
-				offset = offset.limit_length(10.0)
-				heldItem.set_global_position(get_global_mouse_position() - offset)
 		elif event.button_index == BUTTON_LEFT && !event.is_pressed():
 			mouse_held_on_place = false
 		elif event.button_index == BUTTON_RIGHT && event.is_pressed():
@@ -109,3 +164,18 @@ func _notification(what):
 		if dragging:
 			dragging = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+# _animation only here so its compatible with update_health signal 
+# any calls to this function must already have health clamped
+func update_health(health, max_health, _animation):
+	$HealthStat.set_text(str(health) + "/" + str(max_health))
+
+func update_stats(player):
+	$HealthStat.set_text(str(player.get_health()) + "/" + str(player.get_max_health()))
+	$ArmorStat.set_text(str(player.get_defense()))
+	$AttackStat.set_text(str(player.get_attack() * 100) + "%")
+	
+# updates all values using data from player_stats
+func update_stats_and_name(player):
+	update_stats(player)
+	$PlayerLabel.set_text(player.get_name())

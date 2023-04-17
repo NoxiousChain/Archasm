@@ -52,8 +52,8 @@ void HUD::pull(Vector2 from, float magnitude)
 
 void HUD::update_healthbar(const float p_health, const float p_max_health, const int animation)
 {
-	// Clamp health value between 0-1 and set value based on that proportion
-	healthbar_bar->set_value(godot::Math::clamp(p_health, (real_t)0.f, 1.f));
+	// healthbar value must be between 0-1
+	healthbar_bar->set_value(p_health / p_max_health);
 	
 	run_healthbar_animation(animation);
 }
