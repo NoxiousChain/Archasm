@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource( 1 )
 name = ""
-max_health = 0
-health = 0
-attack = 0.0
-defense = 0
-speed_multi = 0.0
+max_health = 100
+health = 100
+attack = 1.2
+defense = 5
+speed_multi = 1.1

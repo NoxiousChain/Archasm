@@ -170,12 +170,22 @@ func damage(amount):
 		return
 	# restrict to range(0,max_health)
 	var max_health = get_max_health()
-	var health = clamp(get_health() - amount, 0, max_health)
+	var health = clamp(get_health() - amount, 0.0, max_health)
 	set_stat("health", health)
 	emit_signal("health_updated", health, max_health, 0)
 	if health == 0:
 		kill()
 		emit_signal("killed")
+		
+func heal(amount):
+	# try to save some computation time
+	if amount == 0: 
+		return
+	# restrict to range(0,max_health)
+	var max_health = get_max_health()
+	var health = clamp(get_health() + amount, 0, max_health)
+	set_stat("health", health)
+	emit_signal("health_updated", health, max_health, 0)
 	 
 func kill():
 	pass
@@ -186,7 +196,7 @@ func set_health(val)                                                            
 	var health = clamp(val, 0, max_health) # make sure new health doesn't exceed max health
 	if health != prev_health:
 		set_stat("health", health)	# update actual health stat
-		emit_signal("health_updated", health, max_health, 0)
+		emit_signal("health_updated", float(health), float(max_health), 0)
 		if health == 0:
 			kill()
 			emit_signal("killed")

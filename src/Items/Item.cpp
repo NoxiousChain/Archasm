@@ -10,8 +10,6 @@ Item::~Item()
 
 void Item::_init()
 {
-	Godot::print("Item::_init() called");
-
 	attributes = 0;
 	texture = Ref<Texture>();
 	stackSize = 1;
@@ -20,8 +18,6 @@ void Item::_init()
 
 void Item::_register_methods()
 {
-	Godot::print("Item::_register_methods() called");
-
 	register_method("_ready", &Item::_ready);
 	register_method("genDescriptionContainer", &Item::genDescriptionContainer);
 	register_method("genItemDescription", &Item::genItemDescription);

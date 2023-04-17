@@ -25,7 +25,7 @@ func _ready():
 
 func _on_timer_timeout() -> void:
 	var goblin = load("res://scenes/GOBLIN.tscn")
-	var voidling = load("res://scenes/enemy.tscn")
+	var voidling = load("res://scenes/voidling.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
 	
@@ -50,6 +50,7 @@ func _input(_event):
 	if Input.is_action_just_pressed("ui_focus_next"):
 		toggle_inventory()
 		emit_signal("toggle_interact")
-	elif Input.is_action_just_pressed("damage_player"):
-		$DayNightCycleForeground/player.damage(10)
-		print($DayNightCycleForeground/player.get_health())
+	elif Input.is_action_pressed("damage_player"):
+		$DayNightCycleForeground/player.damage(1)
+	elif Input.is_action_pressed("heal_player"):
+		$DayNightCycleForeground/player.heal(1)

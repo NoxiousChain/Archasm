@@ -7,9 +7,6 @@ void HUD::_register_methods()
 	register_method("pull", &HUD::pull);
 	register_method("update_healthbar", &HUD::update_healthbar);
 	register_method("run_healthbar_animation", &HUD::run_healthbar_animation);
-
-	//register_property<HUD, Sprite*>("healthBar_Sprite", &HUD::healthBar_Sprite, nullptr);
-	//register_property<HUD, TextureProgress*>("healthBar_Bar", &HUD::healthBar_Bar, nullptr);
 }
 
 void HUD::_init()
@@ -52,9 +49,13 @@ void HUD::pull(Vector2 from, float magnitude)
 
 void HUD::update_healthbar(const float p_health, const float p_max_health, const int animation)
 {
+	float health = p_health / p_max_health;
+	godot::Godot::print("HEALTH PROPORTION: " + String(to_string(health));
+	if (health <= 0) {
+		healthbar_bar->call("draw_heart", Array::make(false));
+	}
 	// healthbar value must be between 0-1
 	healthbar_bar->set_value(p_health / p_max_health);
-	
 	run_healthbar_animation(animation);
 }
 
