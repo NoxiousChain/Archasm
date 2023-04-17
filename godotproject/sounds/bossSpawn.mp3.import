@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bossSpawn.mp3-a0e19186b427b91fa3ac6f6311a8d5c0.mp3str"
+
+[deps]
+
+source_file="res://sounds/bossSpawn.mp3"
+dest_files=[ "res://.import/bossSpawn.mp3-a0e19186b427b91fa3ac6f6311a8d5c0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
