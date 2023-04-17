@@ -37,3 +37,4 @@ func apply_damage(damage):
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)
 
 
+

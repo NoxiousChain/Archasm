@@ -20,7 +20,6 @@ onready var spearScene = preload("../Scenes/spear.tscn")
 var isSpearShot = false  # New flag to track if a spear has been shot recently
 var rand = RandomNumberGenerator.new()
 
-
 func _ready():
 	healthBar.visible = false
 	spearTimer.wait_time = 2  # Set the wait time for the spear timer
