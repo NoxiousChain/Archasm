@@ -9,6 +9,7 @@
 #include <Math.hpp>
 #include <Texture.hpp>
 #include <Input.hpp>
+#include "HealthBar_Bar.hpp"
 
 class HUD : public CanvasLayer {
 	GODOT_CLASS(HUD, CanvasLayer)
@@ -24,7 +25,7 @@ public:
 
 private:
 	Sprite* healthbar_sprite;
-	TextureProgress* healthbar_bar;
+	HealthBar_Bar* healthbar_bar;
 
 	/// @brief Runs animation on healthbar when player health status changes
 	/// @param animation_type Cast enum to int e.g. (int)HealthBarAnimationType::TYPE

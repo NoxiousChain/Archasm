@@ -54,3 +54,5 @@ func _input(_event):
 		$DayNightCycleForeground/player.damage(1)
 	elif Input.is_action_pressed("heal_player"):
 		$DayNightCycleForeground/player.heal(1)
+	elif Input.is_action_pressed("debug"):
+		$HUD/HealthBar_Bar.call("set_color", Color.green)

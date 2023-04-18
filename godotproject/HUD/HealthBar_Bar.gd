@@ -15,39 +15,36 @@ func draw_heart(visible: bool = true):
 	heart_sprite.visible = visible
 
 func set_color(col: Color = Color.red):
-	# TODO: add functionality for different colors
-	# Here is an implementation of a hue shift:
-
-	# calculate difference between hues in radians
-	var hue_diff_rad = abs(Color.red.h - col.h) * PI/2
+	# Quick implementation of a hue shift. This is a pretty slow function,
+	# because it makes an entire copy of each image, modifies each pixel individually,
+	# and returns an entirely new texture. Should definitely be shader work, if possible.
+	# However, this works, and fast enough to not affect gameplay much.
+	# I could also rewrite this in c++ for better speed.
 	
-	# start with heart sprite texture
-	var img = heart_sprite.texture.get_data()
-	# iterate through all pixels
+	# change hue for both heart and bar
+	heart_sprite.texture = change_hue(heart_sprite.texture, col.h)
+	texture_progress = change_hue(texture_progress, col.h)
+	
+	update()
+	heart_sprite.update()
+
+	# Hue shift is a bit slow. Might want to either just make the textures and switch between them, 
+	# or I could try to do some shader work (not sure how easy that is to do with godot)
+
+func change_hue(texture, target_hue):
+	var img = texture.get_data()
+	img.lock()
+	
+	# iterate thru all pixels
 	for x in range(img.get_width()):
 		for y in range(img.get_height()):
-			# get hsv value
-			var hsv = img.get_pixelv(x, y).to_hsv()
+			# get pixel
+			var pixel = img.get_pixel(x,y)
 			# adjust hue
-			hsv.h += hue_diff_rad
-			hsv.h = hsv.h % 1.0
+			pixel.h = target_hue
 			# set new hue value
-			img.set_pixelv(x, y, hsv.to_rgb())
+			img.set_pixel(x,y,pixel)
 	# set texture
 	var img_tex = ImageTexture.new()
 	img_tex.create_from_image(img)
-	heart_sprite.texture = img_tex
-	
-	# repeat for progress texture
-	img = texture_progress.get_data()
-	for x in range(img.get_width()):
-		for y in range(img.get_height()):
-			var hsv = img.get_pixelv(x, y).to_hsv()
-			hsv.h += hue_diff_rad
-			hsv.h = hsv.h % 1.0
-			img.set_pixelv(x, y, hsv.to_rgb())
-	img_tex.create_from_image(img)
-	texture_progress = img_tex
-
-	# Hue shift could be a bit slow. Might want to either just make the textures and switch between them, 
-	# or I could try to do some shader work (not sure how easy that is to do with godot)
+	return img_tex

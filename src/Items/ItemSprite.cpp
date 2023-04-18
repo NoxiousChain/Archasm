@@ -10,8 +10,6 @@ ItemSprite::~ItemSprite()
 
 void ItemSprite::_init()
 {
-	Godot::print("ItemSprite::_init() called");
-
 	item = Ref<Item>();
 	description_container = nullptr;
 	item_description = nullptr;
@@ -19,8 +17,6 @@ void ItemSprite::_init()
 
 void ItemSprite::_register_methods()
 {
-	Godot::print("ItemSprite::_register_methods() called");
-
 	register_method("_ready", &ItemSprite::_ready);
 	register_method("showDescription", &ItemSprite::showDescription);
 	register_method("_setItem", &ItemSprite::_setItem);
@@ -32,8 +28,6 @@ void ItemSprite::_register_methods()
 
 void ItemSprite::_ready()
 {
-	Godot::print("ItemSprite::_ready() called");
-
 	item_description = ItemDescription::_new();
 	description_container = MarginContainer::_new();
 	add_child(description_container);

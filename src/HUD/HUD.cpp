@@ -24,14 +24,14 @@ void HUD::_ready()
 			ERR_PRINT("get_node() failed on HealthBar_Sprite");
 		}
 	}
-	node = get_node<TextureProgress>("HealthBar_Bar");
+	node = get_node(NodePath("HealthBar_Bar"));
 	if (node != nullptr) {
-		healthbar_bar = Object::cast_to<TextureProgress>(node);
-		if (healthbar_sprite != nullptr) {
+		healthbar_bar = Object::cast_to<HealthBar_Bar>(node);
+		if (healthbar_bar != nullptr) {
 			healthbar_bar->set_value(1);
 			healthbar_bar->set_min(0);
 			healthbar_bar->set_max(1);
-			healthbar_bar->call("draw_heart");
+			healthbar_bar->drawHeart();
 		}
 		else {
 			ERR_PRINT("get_node() failed on HealthBar_Bar");
@@ -50,9 +50,9 @@ void HUD::pull(Vector2 from, float magnitude)
 void HUD::update_healthbar(const float p_health, const float p_max_health, const int animation)
 {
 	float health = p_health / p_max_health;
-	godot::Godot::print("HEALTH PROPORTION: " + String(to_string(health));
 	if (health <= 0) {
-		healthbar_bar->call("draw_heart", Array::make(false));
+		healthbar_bar->drawHeart(false);
+		//healthbar_bar->call("draw_heart", Array::make(false));
 	}
 	// healthbar value must be between 0-1
 	healthbar_bar->set_value(p_health / p_max_health);

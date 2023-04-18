@@ -36,7 +36,6 @@ void Item::_register_methods()
 
 void Item::_ready()
 {
-	Godot::print("Item::_ready() called");
 }
 
 Ref<Texture> Item::getTexture() const
