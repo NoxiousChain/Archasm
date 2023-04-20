@@ -71,8 +71,6 @@ func shoot_spear():
 	spearInstance.position = global_position  # Set the position of the spear instance to the goblin's position
 	spearInstance.look_at(player.global_position)  # Look at the player's position
 	get_parent().add_child(spearInstance)
-	$AudioStreamPlayer2D.stream = goblinLaugh
-	$AudioStreamPlayer2D.play()
 
 	# Reset and start the timer
 	spearTimer.stop()
