@@ -21,6 +21,7 @@ enum {
 	treeLeaves = 37
 	treeTrunk = 38
 	treeBase = 39
+	dirt = 45
 }
 
 
@@ -49,19 +50,20 @@ func generate_level():
 	for x in max_x:
 		var ground = abs(noise.get_noise_2d(x,0)*5)
 		for y in range(ground, max_y):
-			var title_id = generate_id(noise.get_noise_2d(x,y))
+#			var dirt = generate_id(noise.get_noise_2d(x,y))
 			if randi()%1 == 1 and get_cell(x,y-1) == -1:
-					set_cell(x,y-1, title_id)
-			if(title_id != -1):
-				set_cell(x,y,title_id)
-				if y < 30:
-					if randi()%4 == 1 and get_cell(x,y-1) == -1:
-						set_cell(x,y-1,flower1)
-					if randi()%4 == 1 and get_cell(x,y-1) == -1:
-						set_cell(x,y-1,flower2)
-					if randi()%5 == 4 and get_cell(x,y-1) == -1:
-						create_tree(x,y-4,randi()%4 + 4,true)
-
+					set_cell(x,y-1, dirt)
+			if(dirt != -1):
+				set_cell(x,y,dirt)
+			if y < 30:
+				if randi()%4 == 1 and get_cell(x,y-1) == -1:
+					set_cell(x,y-1,flower1)
+				if randi()%4 == 1 and get_cell(x,y-1) == -1:
+					set_cell(x,y-1,flower2)
+				if randi()%5 == 4 and get_cell(x,y-1) == -1:
+					create_tree(x,y-4,randi()%4 + 4,true)
+	
+	update_bitmask_region(Vector2(0,0), Vector2(max_x, max_y))
 
 func generate_gems():
 	for x in max_x:
@@ -132,12 +134,12 @@ func _physics_process(_delta: float) -> void:
 	if interact_enabled:
 		if(Input.is_action_pressed("mb_left")):
 			var title : Vector2 = world_to_map(selector.mouse_pos * 16)
-			var title_id = get_cellv(title)
+			var dirt = get_cellv(title)
 			var new_id = -1
 			
-			if(title_id != -1):
-				if(title_id < 4):
-					new_id = (title_id +1)
+			if(dirt != -1):
+				if(dirt < 4):
+					new_id = (dirt +1)
 				else:
 					new_id = -1
 				set_cellv(title,new_id)

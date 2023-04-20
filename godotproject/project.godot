@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "CanvasLayer",
+"base": "",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
@@ -33,13 +33,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Archasm"
-run/main_scene="res://scenes/Intro.tscn"
+run/main_scene="res://scenes/World.tscn"
 config/icon="res://icon2.png"
 
 [autoload]
 
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 Selector="*res://scenes/Selector.tscn"
+Tex="*res://scripts/singleton/Tex.gd"
 
 [display]
 

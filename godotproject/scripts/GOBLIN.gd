@@ -80,11 +80,8 @@ func _on_spear_timer_timeout():
 	isSpearShot = false  # Set the flag to false after the timer times out
 
 func apply_damage(damage):
-	if health >= 0:
-		pass
-	else:
-		healthBar.visible = true
-		health -= damage
+	healthBar.visible = true
+	health -= damage
 	
 	if health <= 0:
 		health = 0  # Make sure health does not go below zero

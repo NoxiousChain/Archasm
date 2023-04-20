@@ -16,9 +16,9 @@ func _ready() -> void:
 func generate_level():
 	for x in max_x:
 		for y in max_y:
-			var title_id = generate_id(noise.get_noise_2d(x,y))
-			if(title_id != -1):
-				set_cell(x,y,title_id)
+			var dirt = generate_id(noise.get_noise_2d(x,y))
+			if(dirt != -1):
+				set_cell(x,y,dirt)
 	for i in range(max_x):
 		set_cell(i,0,0)
 		set_cell(i,1,0)
