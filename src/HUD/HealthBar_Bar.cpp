@@ -17,7 +17,7 @@ void HealthBar_Bar::_ready()
 	heartSprite = Sprite::_new();
 	heartSprite->set_texture(ResourceLoader::get_singleton()->load("res://resources/HUD/healthbar_heart_red.png"));
 	add_child(heartSprite);
-	heartSprite->set_position(Vector2(62, 16));
+	heartSprite->set_position(Vector2(64, 16));
 }
 
 void HealthBar_Bar::drawHeart(bool visible) 
@@ -37,7 +37,6 @@ void HealthBar_Bar::setColor(const Color& color)
 	heartSprite->update();
 }
 
-// Not currently working. Needs to be fixed
 Ref<Texture> HealthBar_Bar::changeHue(Ref<Texture> texture, float targetHue)
 {
 	Ref<Image> img = texture->get_data();
@@ -53,8 +52,9 @@ Ref<Texture> HealthBar_Bar::changeHue(Ref<Texture> texture, float targetHue)
 			img->set_pixel(x, y, pixel);
 		}
 	}
+	img->unlock();
 	
-	Ref<Texture> imgTex = ImageTexture::_new();
-	imgTex->call("create_from_image", &img);
+	Ref<ImageTexture> imgTex = ImageTexture::_new();
+	imgTex->create_from_image(img);
 	return imgTex;
 }

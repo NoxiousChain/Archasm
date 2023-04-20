@@ -21,7 +21,7 @@ public:
 	void _ready();
 	
 	void drawHeart(bool visible = true);
-	void setColor(const Color& color = Color(255, 0, 0));
+	void setColor(const Color& color = Color(1, 0, 0));
 
 private:
 	Ref<Texture> changeHue(Ref<Texture> texture, float targetHue);
