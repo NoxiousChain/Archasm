@@ -66,9 +66,6 @@ color = Color( 0.858824, 0.847059, 0.847059, 1 )
 [node name="player" parent="DayNightCycleForeground" instance=ExtResource( 5 )]
 material = SubResource( 9 )
 position = Vector2( 1024, -219 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Area2D" parent="DayNightCycleForeground/player" index="0"]
 tilemap_path = NodePath("../../../TileMap")

@@ -34,22 +34,22 @@ func stop_swing():
 	swing_timer.stop()
 	ani_player.stop()
 	$Sprite.scale = Vector2(.5,.5)
+#
+#func _swing_timer_timeout() -> void:
+#	hit_block()
+#	if(is_swinging):
+#		swing_timer.start(swing_time)
+#		ani_player.play("swing")
 
-func _swing_timer_timeout() -> void:
-	hit_block()
-	if(is_swinging):
-		swing_timer.start(swing_time)
-		ani_player.play("swing")
-
-
-func hit_block():
-	var tile : Vector2 = tilemap.world_to_map($CollisionShape2D.global_position)
-	var id = tilemap.get_cell(int(tile.x),int(tile.y))
-	
-	if(id != -1 and id < 5): #  we've hit a mud block
-		if(id == 4): # last mud block stage so delete
-			tilemap.set_cell(int(tile.x),int(tile.y),-1) # -1 is nothing
-		else:
-			tilemap.set_cell(int(tile.x),int(tile.y) ,id+1)
-			#todo: particles
-	pass
+#
+#func hit_block():
+#	var tile : Vector2 = tilemap.world_to_map($CollisionShape2D.global_position)
+#	var id = tilemap.get_cell(int(tile.x),int(tile.y))
+#
+#	if(id != -1 and id < 5): #  we've hit a mud block
+#		if(id == 4): # last mud block stage so delete
+#			tilemap.set_cell(int(tile.x),int(tile.y),-1) # -1 is nothing
+#		else:
+#			tilemap.set_cell(int(tile.x),int(tile.y) ,id+1)
+#			#todo: particles
+#	pass
