@@ -3,7 +3,7 @@
 [ext_resource path="res://HUD/HUD.gdns" type="Script" id=1]
 [ext_resource path="res://resources/HUD/healthbar_bar_red.png" type="Texture" id=2]
 [ext_resource path="res://resources/HUD/healthbar_empty.png" type="Texture" id=3]
-[ext_resource path="res://HUD/HealthBar_Bar.gdns" type="Script" id=4]
+[ext_resource path="res://HUD/HealthBar_Bar.gd" type="Script" id=4]
 [ext_resource path="res://Inventory/Inventory.tscn" type="PackedScene" id=5]
 
 [node name="HUD" type="CanvasLayer"]
