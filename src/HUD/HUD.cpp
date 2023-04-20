@@ -15,7 +15,7 @@ void HUD::_init()
 
 void HUD::_ready()
 {
-	Node* node = get_node(NodePath("HealthBar_Sprite"));
+	Node* node = get_node("HealthBar_Sprite");
 	if (node != nullptr) {
 		healthbar_sprite = Object::cast_to<Sprite>(node);
 		if (healthbar_sprite != nullptr) {
@@ -24,7 +24,8 @@ void HUD::_ready()
 			ERR_PRINT("get_node() failed on HealthBar_Sprite");
 		}
 	}
-	node = get_node(NodePath("HealthBar_Bar"));
+	node = get_node("HealthBar_Bar");
+	//node = get_node(NodePath("HealthBar_Bar"));
 	if (node != nullptr) {
 		healthbar_bar = Object::cast_to<HealthBar_Bar>(node);
 		if (healthbar_bar != nullptr) {
