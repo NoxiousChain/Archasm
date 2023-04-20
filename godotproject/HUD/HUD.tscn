@@ -3,8 +3,8 @@
 [ext_resource path="res://HUD/HUD.gdns" type="Script" id=1]
 [ext_resource path="res://resources/HUD/healthbar_bar_red.png" type="Texture" id=2]
 [ext_resource path="res://resources/HUD/healthbar_empty.png" type="Texture" id=3]
+[ext_resource path="res://HUD/HealthBar_Bar.gd" type="Script" id=4]
 [ext_resource path="res://Inventory/Inventory.tscn" type="PackedScene" id=5]
-[ext_resource path="res://HUD/HealthBar_Bar.gd" type="Script" id=6]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -25,7 +25,7 @@ value = 1.0
 texture_over = ExtResource( 3 )
 texture_progress = ExtResource( 2 )
 texture_progress_offset = Vector2( 32, 11 )
-script = ExtResource( 6 )
+script = ExtResource( 4 )
 
 [node name="Inventory" parent="." instance=ExtResource( 5 )]
 visible = false

@@ -1,5 +1,6 @@
 #include "../Common.hpp"
 #include "../HUD/HUD.hpp"
+#include "../HUD/HealthBar_Bar.hpp"
 #include "../Items/Item.hpp"
 #include "../Items/Armor.hpp"
 #include "../Items/Weapon.hpp"
@@ -29,4 +30,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void* handle)
     godot::register_class<Weapon>();
     godot::register_class<InventorySlot>();
     godot::register_class<Inventory>();
+    godot::register_class<HealthBar_Bar>();
 }

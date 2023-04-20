@@ -6,6 +6,8 @@ signal toggle_interact
 
 onready var inventory = $HUD/Inventory
 
+var debug_toggle = false
+
 func _ready():
 #	$AnimationPlayer.play("DayNight_cycle")
 #	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
@@ -54,3 +56,9 @@ func _input(_event):
 		$DayNightCycleForeground/player.damage(1)
 	elif Input.is_action_pressed("heal_player"):
 		$DayNightCycleForeground/player.heal(1)
+	elif Input.is_action_pressed("debug"):
+		if !debug_toggle:
+			$HUD/HealthBar_Bar.call("set_color", Color.green)
+		else:
+			$HUD/HealthBar_Bar.call("set_color")
+		debug_toggle = !debug_toggle
