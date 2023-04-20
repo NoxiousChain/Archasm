@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 var speed = 170
-var velocity = Vector2.ZERO
 
 export(int) var health = 100
 var max_health = health
@@ -19,7 +18,6 @@ func _physics_process(delta):
 	var direction = (player.global_position - global_position).normalized()
 	var velocity = direction * speed
 	var floor_normal = Vector2.UP
-	var collision = move_and_slide(velocity, floor_normal)
 	if direction.x < 0:
 		sprite.flip_h = true
 	if direction.x > 0:

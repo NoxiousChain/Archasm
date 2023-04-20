@@ -35,6 +35,9 @@ func _ready():
 	spearTimer.start()
 
 func _physics_process(delta):
+	if !is_inside_tree():
+		return
+	
 	var direction = (player.get_global_position() - get_global_position()).normalized()
 	
 	if not health == 0:
@@ -94,7 +97,5 @@ func apply_damage(damage):
 		velocity = Vector2.ZERO
 		spearTimer.stop()
 		isSpearShot = true
-		$AudioStreamPlayer2D.stream = goblinDeath
-		$AudioStreamPlayer2D.play()
 	else:
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)

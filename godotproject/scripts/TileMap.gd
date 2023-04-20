@@ -1,7 +1,7 @@
 extends TileMap
 
 export(int) var max_x = 500
-export(int) var max_y = 500
+export(int) var max_y = 100
 
 var noise : OpenSimplexNoise = OpenSimplexNoise.new()
 var noise_gems : OpenSimplexNoise = OpenSimplexNoise.new()
@@ -16,12 +16,12 @@ onready var selector = $"/root/Selector"
 var interact_enabled = true
 
 enum {
-	flower1 = 35
-	flower2 = 36
-	treeLeaves = 37
-	treeTrunk = 38
-	treeBase = 39
-	dirt = 45
+	flower1 = 11
+	flower2 = 12
+	treeLeaves = 9
+	treeTrunk = 10
+	treeBase = 8
+	dirt = 18
 }
 
 
@@ -79,34 +79,34 @@ func generate_gems():
 					#Further down the more rare the gem
 					if(percent in range(3.5,20)):
 						if(rand_range(0,1)) > 0.05: # 95%
-							gemID = 5
+							gemID = 2
 						else:
-							gemID = 10 #5% chance of a better gem
+							gemID = 3 #5% chance of a better gem
 					elif(percent in range(21,40)):
 						if(rand_range(0,1)) > 0.2: # 80%
-							gemID = 10
+							gemID = 3
 						else:
-							gemID = 15 #20% chance of a better gem
+							gemID = 4 #20% chance of a better gem
 					elif(percent in range(41,60)):
 						if(rand_range(0,1)) > 0.2: # 80%
-							gemID = 15
+							gemID = 4
 						else:
-							gemID = 20 #20% chance of a better gem
+							gemID = 5 #20% chance of a better gem
 					elif(percent in range(61,80)):
 						if(rand_range(0,1)) > 0.05: # 95%
-							gemID = 20
+							gemID = 5
 						else:
-							gemID = 25 #5% best gem
+							gemID = 6 #5% best gem
 					elif(percent in range(81,90)):
 						if(rand_range(0,1)) > 0.2: # 80%
-							gemID = 25
+							gemID = 6
 						else:
-							gemID = 30 #20% chance of the best gem
+							gemID = 6 #20% chance of the best gem
 					elif(percent in range(90,100)):
 						if(rand_range(0,1)) > 0.2: # 80%
-							gemID = 30
+							gemID = 7
 						else:
-							gemID = 34 #20% chance of the best gem
+							gemID = 7 #20% chance of the best gem
 					
 
 					set_cell(x,y,gemID)
@@ -130,24 +130,16 @@ func generate_id(noise_level : float):
 		else:
 			return 0
 
-func _physics_process(_delta: float) -> void:
+func _process(delta):
+	var mouse_pos = get_global_mouse_position()
+	var map_pos = world_to_map(mouse_pos)
+	var tile_id = get_cellv(map_pos)
 	if interact_enabled:
-		if(Input.is_action_pressed("mb_left")):
-			var title : Vector2 = world_to_map(selector.mouse_pos * 16)
-			var dirt = get_cellv(title)
-			var new_id = -1
-			
-			if(dirt != -1):
-				if(dirt < 4):
-					new_id = (dirt +1)
-				else:
-					new_id = -1
-				set_cellv(title,new_id)
-				
+		if Input.is_action_pressed("mb_left"):
+			if tile_id != -1:
+				set_cellv(map_pos, -1)
 		if(Input.is_action_pressed("mb_right")):
-			var title: Vector2 = world_to_map(selector.mouse_pos * 16)
-			set_cellv(title,0)
-		
+			set_cellv(map_pos, 0)
 
 func _input(_event):
 	if Input.is_action_pressed("paused"):
