@@ -5,6 +5,9 @@ var jump_power = 170
 const gravity = 600
 var velocity = Vector2.ZERO
 
+var goblinLaugh = preload("res://Sounds/goblinLaugh.wav")
+var goblinDeath = preload("res://Sounds/goblinDeath.wav")
+
 export(int) var health = 100
 var max_health = health
 onready var healthBar = $HPBar
@@ -68,6 +71,8 @@ func shoot_spear():
 	spearInstance.position = global_position  # Set the position of the spear instance to the goblin's position
 	spearInstance.look_at(player.global_position)  # Look at the player's position
 	get_parent().add_child(spearInstance)
+	$AudioStreamPlayer2D.stream = goblinLaugh
+	$AudioStreamPlayer2D.play()
 
 	# Reset and start the timer
 	spearTimer.stop()
@@ -91,5 +96,7 @@ func apply_damage(damage):
 		velocity = Vector2.ZERO
 		spearTimer.stop()
 		isSpearShot = true
+		$AudioStreamPlayer2D.stream = goblinDeath
+		$AudioStreamPlayer2D.play()
 	else:
 		$HPBar.set_percent_value_int(float(health)/max_health * 100)

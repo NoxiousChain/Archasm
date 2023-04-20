@@ -26,7 +26,7 @@ func _ready():
 	_err = connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
-	var goblin = load("res://scenes/GOBLIN.tscn")
+	var goblin = load("res://scenes/Goblin.tscn")
 	var voidling = load("res://scenes/voidling.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
