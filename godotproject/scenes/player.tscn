@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/axe.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/light.png" type="Texture" id=3]
-[ext_resource path="res://resources/playerSheet.png" type="Texture" id=4]
+[ext_resource path="res://resources/player/playerSheet.png" type="Texture" id=4]
 [ext_resource path="res://scripts/PlayerLight.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]

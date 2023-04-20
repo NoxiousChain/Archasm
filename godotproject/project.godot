@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Archasm"
-run/main_scene="res://scenes/Tilemaps/World.tscn"
+run/main_scene="res://scenes/World.tscn"
 config/icon="res://icon2.png"
 
 [autoload]
