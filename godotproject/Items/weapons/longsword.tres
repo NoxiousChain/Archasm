@@ -1,14 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://Items/Weapon.gdns" type="Script" id=1]
+[ext_resource path="res://Items/weapons/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://resources/inventory/test_sword.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
-effects = 11
-rarity = 1
-attack = 5.0
-name = ""
+name = "Longsword"
 description = ""
 meta = ""
-stackSize = 1
+texture = ExtResource( 2 )
+stack_size = 1
 quantity = 1
+effects = 36
+attack = 1.3

@@ -9,10 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
+"base": "Item",
+"class": "Armor",
+"language": "GDScript",
+"path": "res://Items/armor/Armor.gd"
+}, {
+"base": "CanvasLayer",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
+}, {
+"base": "Resource",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Items/Item.gd"
+}, {
+"base": "RichTextLabel",
+"class": "ItemDescription",
+"language": "GDScript",
+"path": "res://Items/ItemDescription.gd"
+}, {
+"base": "TextureRect",
+"class": "ItemSprite",
+"language": "GDScript",
+"path": "res://Items/ItemSprite.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -23,11 +43,21 @@ _global_script_classes=[ {
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://Player/PlayerStats.gd"
+}, {
+"base": "Item",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://Items/weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
+"Armor": "",
 "HUD": "",
+"Item": "",
+"ItemDescription": "",
+"ItemSprite": "",
 "Player": "",
-"PlayerStats": ""
+"PlayerStats": "",
+"Weapon": ""
 }
 
 [application]

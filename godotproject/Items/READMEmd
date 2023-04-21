@@ -1,0 +1,58 @@
+# ITEMS & INVENTORY: A guide
+## Basic information:
+#### Items
+Items are composed of two parts:
+- TextureRect: stores the visual data for the item
+- Item (Resource): stores all of the stats of the weapon
+Items are designed to be inheritable and very customized. If you need more functionality for a specific item, just make a new child and add it.
+#### Inventory
+The inventory is composed of several parts:
+- A base Node2D node "Inventory". This node handles basically everything.
+- A TextureRect, for the inventory background
+- 2 GridContainers, which hold the inventory and hotbar slots
+  - Each GridContainer has several slots as children nodes
+- Several individual slots for armor
+- Labels
+***
+## How to extend the Item class and create custom items:
+The base class is Item. This defines several methods and variables that all items will need. 
+You can add any other variables/methods as needed, and all existing items will automatically update with these variables/methods
+When you `extend` a class, the child class has all the same variables and methods as the parent class.
+You can then define any other variables/methods that the child class will need.
+When calling a method, GDScript will search the class itself, and if it doesn't exist, it will search the parent class, and go up the hierarchy. Thus, you can override methods from the parent class if you need.
+```gdscript
+    # Define the name of the child class you are creating. This will let you access the class in other scripts
+    class_name Weapon
+    # Extend whatever class you want, so long as its base class is Item
+    extends Item
+
+    # add any variables here
+    export(float) var attack
+
+    func _ready():
+        pass
+    
+    # implement any functions that you need. These two should almost always be implemented in the child class
+    func on_use():
+        pass
+    func on_alt_use():
+        pass
+```
+***
+## How to create an item scene:
+1. Create a new resource file.
+   1. Go to the filesystem. `Right-click -> New Resource -> Resource -> Create`. It should be end with `.tres`. Name it whatever you want, and save.
+   2. Attach the script you want. This can just be the weapon.gd script, for example, or a custom script if you'd like. Only requirement is that the script inherits from the Item class
+   3. Fill out variables in the inspector and save. This resource file will now save these variables permanently, and load these values whenever the game loads. You can change these at any time.
+2. Create a new scene, and name it `[Your Item].tscn`.
+3. Add a TextureRect to this scene, and attach the `ItemSprite.gd` script to it.
+4. The TextureRect should now have a new place in the inspector to put a Resource file. Put the file you made there.
+5. Set the texture to the item texture.
+***
+## How to load an item scene in GDScript:
+1. Create an item scene if you haven't already. See above for instructions on how to do this.
+2. Instantiate a new scene like so:
+```gdscript
+var scene: PackedScene = load("res://path/to/scene.tscn")
+var scene_instance = scene.instance()
+```
