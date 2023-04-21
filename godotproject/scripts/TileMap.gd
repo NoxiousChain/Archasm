@@ -43,16 +43,27 @@ func init_noise_gems():
 
 func generate_level():
 	noise.seed = randi()%1000
+	noise.period = 50
+	noise.persistence = 0.3
 	for i in range(10):
 		set_cell(63+i,0,0)
 		set_cell(63+i,1,0)
 	
-	for x in max_x:
-		var ground = abs(noise.get_noise_2d(x,0)*5)
-		for y in range(ground, max_y):
-#			var dirt = generate_id(noise.get_noise_2d(x,y))
-			if randi()%1 == 1 and get_cell(x,y-1) == -1:
-					set_cell(x,y-1, dirt)
+#	for x in range(max_x):
+#		for y in range(max_y):
+#			var noise_height = dirt_noise.get_noise_1d(x)
+#			if ceil(noise_height * mount_range_y) < y or y > space_between_mounts:
+#				set_cellv(Vector2(x, y), 0)
+#			if randi()%5 == 4 and get_cell(x,y-1) == -1:
+#					create_tree(x,y-2,randi()%4 + 4,true)
+					
+	for x in range (max_x):
+		for y in range(max_y):
+			var ground = abs(noise.get_noise_2d(x,0))
+			if ceil(ground * 50) < y or y > 20:
+				set_cellv(Vector2(x, y), dirt)
+#			if randi()%1 == 1 and get_cell(x,y-1) == -1:
+#					set_cell(x,y-1, dirt)
 			if(dirt != -1):
 				set_cell(x,y,dirt)
 			if y < 30:
