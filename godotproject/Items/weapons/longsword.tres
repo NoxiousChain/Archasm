@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-effects = 0
+effects = 11
 rarity = 1
-attack = 0.0
+attack = 5.0
 name = ""
 description = ""
 meta = ""

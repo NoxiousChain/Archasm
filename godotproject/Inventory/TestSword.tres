@@ -6,13 +6,11 @@
 [resource]
 script = ExtResource( 1 )
 effects = 13
+rarity = 1
 attack = 8.0
-poisonDmg = 0.0
-fireDmg = 0.0
 name = "Test Sword"
 description = "[color=red]hard ass sword[/color]"
 meta = "[color=purple][i]meta text example[/i][/color]"
 texture = ExtResource( 2 )
-attributes = 0
 stackSize = 1
 quantity = 1
