@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Inventory/TestSword.tres" type="Resource" id=1]
-[ext_resource path="res://Inventory/ItemSprite.gdns" type="Script" id=2]
+[ext_resource path="res://Items/ItemSprite.gd" type="Script" id=1]
+[ext_resource path="res://Items/weapons/longsword.tres" type="Resource" id=2]
 [ext_resource path="res://resources/inventory/test_sword.png" type="Texture" id=3]
 
 [node name="TextureRect" type="TextureRect"]
@@ -9,5 +9,5 @@ margin_right = 38.0
 margin_bottom = 38.0
 mouse_filter = 2
 texture = ExtResource( 3 )
-script = ExtResource( 2 )
-item = ExtResource( 1 )
+script = ExtResource( 1 )
+item_res = ExtResource( 2 )

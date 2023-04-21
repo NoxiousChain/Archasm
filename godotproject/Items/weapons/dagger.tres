@@ -5,12 +5,10 @@
 [resource]
 script = ExtResource( 1 )
 effects = 0
+rarity = 1
 attack = 0.0
-poisonDmg = 0.0
-fireDmg = 0.0
 name = ""
 description = ""
 meta = ""
-attributes = 0
 stackSize = 1
 quantity = 1
