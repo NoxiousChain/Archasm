@@ -1,0 +1,14 @@
+{
+	"Dirt Block": {
+		"ItemCategory": "Block",
+		"StackSize": 999,
+		"Description": "An extracted chunk of terrestrial matter excavated from the soil."
+	},
+	"Stone Block": {
+		"ItemCategory": "Block",
+		"StackSize": 999,
+		"Description": "A quarry-derived mass of mineral matter excavated from the earth."
+	},
+
+
+}
