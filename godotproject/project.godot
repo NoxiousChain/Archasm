@@ -9,10 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Item",
+"base": "Reference",
 "class": "Armor",
 "language": "GDScript",
-"path": "res://Items/armor/Armor.gd"
+"path": "res://Items/classes/Armor.gd"
 }, {
 "base": "",
 "class": "HUD",
@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Items/Item.gd"
+"path": "res://Items/classes/Item.gd"
 }, {
 "base": "RichTextLabel",
 "class": "ItemDescription",
@@ -44,10 +44,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/PlayerStats.gd"
 }, {
-"base": "Item",
+"base": "Reference",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://Items/weapons/Weapon.gd"
+"path": "res://Items/classes/Weapon.gd"
 } ]
 _global_script_class_icons={
 "Armor": "",
@@ -69,7 +69,6 @@ config/icon="res://icon2.png"
 [autoload]
 
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
-Selector="*res://scenes/Selector.tscn"
 Tex="*res://scripts/singleton/Tex.gd"
 JsonItemData="*res://Data/JSON_itemData.gd"
 

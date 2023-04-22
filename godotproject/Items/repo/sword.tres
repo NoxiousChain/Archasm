@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Items/assets/weapons/Wooden Sword.png" type="Texture" id=1]
+[ext_resource path="res://Items/classes/Weapon.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "Wooden Sword"
+description = "A sword made out of wood"
+meta = "n/a"
+texture = ExtResource( 1 )
+stack_size = 1
+quantity = 1
+effects = 9
+attack = 2.0

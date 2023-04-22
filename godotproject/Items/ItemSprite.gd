@@ -6,6 +6,7 @@ var item : Item
 var description_container : MarginContainer
 var item_description : ItemDescription
 
+onready var MyLabel = $RichTextLabel
 
 func _ready():
 	item_description = ItemDescription.new()
@@ -22,6 +23,7 @@ func _ready():
 func set_item(_item: Resource):
 	item = _item as Item
 	set_texture(item.texture)
+#	$RichTextLabel.bbcode_text = str(_item.getQuantity())
 
 func get_item() -> Item:
 	return item as Item
@@ -40,3 +42,6 @@ func destroy():
 	description_container = null
 	item_description.queue_free()
 	item_description = null
+
+func addQuantity(addedQuant : int):
+	item_res.addQuantity(addedQuant)
