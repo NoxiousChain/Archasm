@@ -1,4 +1,5 @@
-  # Basic definition for a weapon class. Needs implementation of most functions
+
+# Basic definition for a weapon class. Needs implementation of most functions
 class_name Weapon
 extends Item
 
@@ -47,3 +48,4 @@ func on_attack():
 
 func on_alt_attack():
 	pass
+

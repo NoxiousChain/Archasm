@@ -1,3 +1,4 @@
+
 # Basic definition for a armor class. Needs a lot more.
 class_name Armor
 extends Item

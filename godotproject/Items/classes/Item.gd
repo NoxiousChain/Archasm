@@ -1,3 +1,4 @@
+
 class_name Item
 extends Resource
 # These are for display purposes in the item description.
@@ -8,8 +9,8 @@ export(String) var meta				# Funny one-liner/interesting text at the bottom.
 
 export(Texture) var texture			# Texture for the item. This is used in inventories.
 
-export(int) var stack_size = 1		# maximum stack size
-export(int) var quantity = 1		# number of items currently in the stack
+export(int) var stack_size		# maximum stack size
+export(int) var quantity			# number of items currently in the stack
 
 func _ready():
 	pass
@@ -53,9 +54,6 @@ func get_slot_type() -> String:
 
 func addQuantity(addedQuant : int):
 	quantity += addedQuant
-
-func getTexture() -> Texture:
-	return texture
 	
 func getQuantity() -> int:
 	return quantity
