@@ -9,7 +9,7 @@ onready var sscale = $Inventory.rect_scale*2
 var heldItem = null
 const SlotClass = preload("res://Inventory/Slot.gd")
 var offset = 0
-var dragging = true
+var dragging = false
 var drag_start_local_pos = Vector2()
 var mouse_held_on_place = false
 

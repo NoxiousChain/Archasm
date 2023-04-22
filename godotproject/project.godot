@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Item",
 "class": "Armor",
 "language": "GDScript",
 "path": "res://Items/classes/Armor.gd"
@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player/PlayerStats.gd"
 }, {
-"base": "Reference",
+"base": "Item",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://Items/classes/Weapon.gd"
