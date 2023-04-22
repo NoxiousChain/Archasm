@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stone.png-a4d56710d116e9f5c5b99933a23fdec8.stex"
+path="res://.import/Copper Ore.png-e4433ca05de47012da24c96abd1b1d85.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/items/stone.png"
-dest_files=[ "res://.import/stone.png-a4d56710d116e9f5c5b99933a23fdec8.stex" ]
+source_file="res://resources/items/blocks/Copper Ore.png"
+dest_files=[ "res://.import/Copper Ore.png-e4433ca05de47012da24c96abd1b1d85.stex" ]
 
 [params]
 

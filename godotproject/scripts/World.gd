@@ -11,7 +11,7 @@ var debug_toggle = false
 func _ready():
 	$AnimationPlayer.play("DayNight_cycle")
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
-##
+
 #	var rand = RandomNumberGenerator.new()
 #	var timer := Timer.new()
 #	add_child(timer)

@@ -18,7 +18,7 @@ enum {
 	TRUNK_TOP = 12,
 	STONE = 13,
 	
-	PURPLEA = 16,
+	PURPLEA = 14,
 	
 	DIRT_1 = 21,
 	DIRT_2 = 22,

@@ -8,7 +8,7 @@ export(String) var meta				# Funny one-liner/interesting text at the bottom.
 
 export(Texture) var texture			# Texture for the item. This is used in inventories.
 
-export(int) var stack_size = 1		# maximum stack size
+export(int) var stack_size = 10		# maximum stack size
 export(int) var quantity = 1		# number of items currently in the stack
 
 func _ready():

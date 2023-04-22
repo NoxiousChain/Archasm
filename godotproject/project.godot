@@ -63,7 +63,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Archasm"
-run/main_scene="res://scenes/World.tscn"
+run/main_scene="res://scenes/Intro.tscn"
 config/icon="res://icon2.png"
 
 [autoload]
@@ -71,11 +71,14 @@ config/icon="res://icon2.png"
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 Selector="*res://scenes/Selector.tscn"
 Tex="*res://scripts/singleton/Tex.gd"
+JsonItemData="*res://Data/JSON_itemData.gd"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1440
+window/size/height=810
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [global]
 
@@ -178,6 +181,7 @@ debug={
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Projectiles"
+2d_physics/layer_5="Items"
 
 [physics]
 

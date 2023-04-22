@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://TileSets/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Selector.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/voidling.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
@@ -83,8 +82,5 @@ anims/RESET = SubResource( 4 )
 
 [node name="Selector" parent="." instance=ExtResource( 3 )]
 position = Vector2( 10, 10 )
-
-[node name="voidling" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1752, 824 )
 
 [editable path="DayNightCycleForeground/player"]

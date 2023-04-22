@@ -58,9 +58,6 @@ offset = Vector2( 0, 100 )
 transform = Transform2D( 1, 0, 0, 1, 0, 100 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="dbackground" type="TileMap" parent="ParallaxLayer2"]
 tile_set = ExtResource( 1 )
