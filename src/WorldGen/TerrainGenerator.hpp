@@ -1,13 +1,16 @@
 #pragma once
 
 #include "../Common.hpp"
+#include <time.h>
 #include <Node.hpp>
+#include <Ref.hpp>
 #include <OpenSimplexNoise.hpp>
 #include <TileMap.hpp>
 #include <File.hpp>
 #include <JSON.hpp>
 #include <JSONParseResult.hpp>
 #include <Array.hpp>
+#include <RandomNumberGenerator.hpp>
 #include "BlockType.hpp"
 #include "KDTree/KDTree.hpp"
 
@@ -23,8 +26,13 @@ class TerrainGenerator : public Node {
 	GODOT_CLASS(TerrainGenerator, Node)
 
 private:
+	// RNG
+	Ref<RandomNumberGenerator> rng;
+
 	// Noise maps
-	OpenSimplexNoise noise;
+	Ref<OpenSimplexNoise> biomeNoise[3];	// elevation, wetness, temperature
+	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
+	Ref<OpenSimplexNoise> caveNoise;
 
 	// Tile map
 	TileMap* tilemap;
@@ -39,5 +47,4 @@ public:
 
 private:
 	void loadBlockDataFromJSON(const String& filepath);
-	void addBlockToKDTree()
 };

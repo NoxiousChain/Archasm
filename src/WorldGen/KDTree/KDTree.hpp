@@ -1,9 +1,9 @@
 #pragma once
 #include "KDNode.hpp"
 
-// Implements a K-D tree specifically designed to handle BlockType objects
-// This is used for terrain generation - stores block data by three parameters:
-// elevation, wetness, and temperature. Returns closest match
+// Implements a KD tree specifically designed to handle BlockType objects
+// This is used for terrain generation - stores block data via three parameters:
+// elevation, wetness, and temperature. Returns closest average match to all three
 
 class KDTree {
 private:

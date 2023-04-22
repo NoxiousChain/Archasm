@@ -1,0 +1,208 @@
+{
+  "blocks": [
+    {
+      "name": "dirt",
+      "index": 0,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.9,
+        "temperature_min": 0.2,
+        "temperature_max": 0.8,
+        "wetness_min": 0.3,
+        "wetness_max": 0.6
+      }
+    },
+    {
+      "name": "grass",
+      "index": 1,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.6,
+        "temperature_min": 0.4,
+        "temperature_max": 0.8,
+        "wetness_min": 0.4,
+        "wetness_max": 0.8
+      }
+    },
+    {
+      "name": "gravel",
+      "index": 2,
+      "conditions": {
+        "elevation_min": 0.2,
+        "elevation_max": 0.8,
+        "temperature_min": 0.3,
+        "temperature_max": 0.7,
+        "wetness_min": 0.2,
+        "wetness_max": 0.5
+      }
+    },
+    {
+      "name": "stone",
+      "index": 3,
+      "conditions": {
+        "elevation_min": 0.3,
+        "elevation_max": 0.9,
+        "temperature_min": 0.2,
+        "temperature_max": 0.8,
+        "wetness_min": 0.1,
+        "wetness_max": 0.6
+      }
+    },
+    {
+      "name": "sand",
+      "index": 4,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.4,
+        "temperature_min": 0.6,
+        "temperature_max": 1.0,
+        "wetness_min": 0.0,
+        "wetness_max": 0.3
+      }
+    },
+    {
+      "name": "clay",
+      "index": 5,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.4,
+        "temperature_min": 0.4,
+        "temperature_max": 0.8,
+        "wetness_min": 0.6,
+        "wetness_max": 1.0
+      }
+    },
+    {
+      "name": "sandstone",
+      "index": 6,
+      "conditions": {
+        "elevation_min": 0.1,
+        "elevation_max": 0.5,
+        "temperature_min": 0.6,
+        "temperature_max": 1.0,
+        "wetness_min": 0.1,
+        "wetness_max": 0.4
+      }
+    },
+    {
+      "name": "snow",
+      "index": 7,
+      "conditions": {
+        "elevation_min": 0.2,
+        "elevation_max": 0.9,
+        "temperature_min": 0.0,
+        "temperature_max": 0.3,
+        "wetness_min": 0.4,
+        "wetness_max": 1.0
+      }
+    },
+    {
+      "name": "ice",
+      "index": 8,
+      "conditions": {
+        "elevation_min": 0.3,
+        "elevation_max": 0.9,
+        "temperature_min": 0.0,
+        "temperature_max": 0.2,
+        "wetness_min": 0.4,
+        "wetness_max": 1.0
+      }
+    },
+    {
+      "name": "coal",
+      "index": 9,
+      "conditions": {
+        "elevation_min": 0.4,
+        "elevation_max": 0.8,
+        "temperature_min": 0.3,
+        "temperature_max": 0.7,
+        "wetness_min": 0.2,
+        "wetness_max": 0.6
+      }
+    },
+    {
+      "name": "copper_ore",
+      "index": 10,
+      "conditions": {
+        "elevation_min": 0.5,
+        "elevation_max": 0.7,
+        "temperature_min": 0.3,
+        "temperature_max": 0.7,
+        "wetness_min": 0.1,
+        "wetness_max": 0.8
+      }
+    },
+    {
+      "name": "iron_ore",
+      "index": 11,
+      "conditions": {
+        "elevation_min": 0.6,
+        "elevation_max": 0.75,
+        "temperature_min": 0.1,
+        "temperature_max": 0.7,
+        "wetness_min": 0.3,
+        "wetness_max": 0.8
+      }
+    },
+    {
+      "name": "gold_ore",
+      "index": 12,
+      "conditions": {
+        "elevation_min": 0.65,
+        "elevation_max": 0.8,
+        "temperature_min": 0.2,
+        "temperature_max": 0.6,
+        "wetness_min": 0.1,
+        "wetness_max": 0.4
+      }
+    },
+    {
+      "name": "jadeite_ore",
+      "index": 13,
+      "conditions": {
+        "elevation_min": 0.7,
+        "elevation_max": 0.85,
+        "temperature_min": 0.3,
+        "temperature_max": 0.6,
+        "wetness_min": 0.0,
+        "wetness_max": 0.3
+      }
+    },
+    {
+      "name": "diamond_ore",
+      "index": 14,
+      "conditions": {
+        "elevation_min": 0.75,
+        "elevation_max": 0.9,
+        "temperature_min": 0.3,
+        "temperature_max": 0.7,
+        "wetness_min": 0.3,
+        "wetness_max": 0.7
+      }
+    },
+    {
+      "name": "platinum_ore",
+      "index": 15,
+      "conditions": {
+        "elevation_min": 0.8,
+        "elevation_max": 0.9,
+        "temperature_min": 0.3,
+        "temperature_max": 0.7,
+        "wetness_min": 0.1,
+        "wetness_max": 0.45
+      }
+    },
+    {
+      "name": "mud",
+      "index": 16,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.4,
+        "temperature_min": 0.4,
+        "temperature_max": 0.8,
+        "wetness_min": 0.7,
+        "wetness_max": 1.0
+      }
+    }
+  ]
+}

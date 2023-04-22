@@ -1,6 +1,6 @@
 #include "BlockType.hpp"
 
-BlockType::BlockType(size_t index, double elevationMin, double elevationMax, double wetnessMin, double wetnessMax, double tempMin, double tempMax)
+BlockType::BlockType(const String& name, size_t index, double elevationMin, double elevationMax, double wetnessMin, double wetnessMax, double tempMin, double tempMax)
 {
 	this->index = index;
 	conditions.elevation = { elevationMin, elevationMax };
@@ -8,7 +8,15 @@ BlockType::BlockType(size_t index, double elevationMin, double elevationMax, dou
 	conditions.temperature = { tempMin, tempMax };
 }
 
-BlockType::BlockType(size_t index, std::vector<double> data)
+BlockType::BlockType(const String& name, size_t index, const std::vector<double>& data)
+{
+	this->index = index;
+	conditions.elevation = { data[0], data[1] };
+	conditions.wetness = { data[2], data[3] };
+	conditions.temperature = { data[4], data[5] };
+}
+
+BlockType::BlockType(const String& name, size_t index, const Array& data)
 {
 	this->index = index;
 	conditions.elevation = { data[0], data[1] };
