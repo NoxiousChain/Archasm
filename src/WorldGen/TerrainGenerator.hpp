@@ -13,6 +13,7 @@
 #include <RandomNumberGenerator.hpp>
 #include "BlockType.hpp"
 #include "KDTree/KDTree.hpp"
+#include "Chunks/ChunkManager.hpp"
 
 /*
 Terrain generator. This class handles all functionality for generating the world.
@@ -34,8 +35,7 @@ private:
 	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
 	Ref<OpenSimplexNoise> caveNoise;
 
-	// Tile map
-	TileMap* tilemap;
+	ChunkManager chunkManager;
 	
 	// Tile data
 	KDTree blockTypes;

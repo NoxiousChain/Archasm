@@ -81,7 +81,7 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 		// Get data
 		String name = json_block["name"];
 		size_t index = json_block["index"];
-		Array conditions = json_block["conditions"];
+		Array& conditions = json_block["conditions"];
 
 		// Instantiate block and add to KD tree
 		BlockType block(name, index, conditions);
