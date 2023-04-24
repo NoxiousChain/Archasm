@@ -3,14 +3,14 @@ class_name Item
 extends Resource
 # These are for display purposes in the item description.
 # I had a few ideas for how this would look; see ItemDescription.gd
-export(String) var name				# The actual item name
-export(String) var description		# Base item description
-export(String) var meta				# Funny one-liner/interesting text at the bottom.
+export(String) var name						# The actual item name
+export(String) var description				# Base item description
+export(String) var meta						# Funny one-liner/interesting text at the bottom.
 
-export(Texture) var texture			# Texture for the item. This is used in inventories.
+export(Texture) var texture					# Texture for the item. This is used in inventories.
 
-export(int) var stack_size		# maximum stack size
-export(int) var quantity			# number of items currently in the stack
+export(int) var stack_size					# maximum stack size
+export(int) var quantity
 
 func _ready():
 	pass
@@ -51,9 +51,3 @@ func on_alt_use():
 # DEFAULT (accepts all types), HELMET, CHEST, LEGS, ACCESSORY_UPPER, ACCESSORY_LOWER
 func get_slot_type() -> String:
 	return "DEFAULT"
-
-func addQuantity(addedQuant : int):
-	quantity += addedQuant
-	
-func getQuantity() -> int:
-	return quantity

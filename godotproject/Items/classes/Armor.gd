@@ -14,7 +14,7 @@ func get_protection() -> float:
 	return protection
 	
 func gen_item_description(description_container: MarginContainer, item_description: ItemDescription):
-	gen_description_container(description_container)
+		gen_description_container(description_container)
 
 # You can probably leave these empty, or make them deal a bit of damage
 func on_use():
