@@ -1,0 +1,27 @@
+{
+	"events": [
+		{
+			"character": "character-1682350005.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hello, welcome to the world of Archasm."
+		},
+		{
+			"character": "character-1682350005.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "There is an evil cult leader names Jon Segui trying to take over the world. You must stop him!"
+		},
+		{
+			"character": "character-1682350005.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Get started by chopping down trees and then head into the mines!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1682350044.json",
+		"name": "start-game-dialog"
+	}
+}

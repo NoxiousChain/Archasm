@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://TileSets/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
+[ext_resource path="res://scenes/NPC.gd" type="Script" id=3]
+[ext_resource path="res://resources/guy.png" type="Texture" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
@@ -46,6 +48,9 @@ tracks/0/keys = {
 "values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=10]
+radius = 106.86
+
 [node name="World" type="Node2D"]
 script = ExtResource( 13 )
 
@@ -78,5 +83,17 @@ anims/DayNight_cycle = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="HUD" parent="." instance=ExtResource( 17 )]
+
+[node name="NPC" type="Area2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="NPC"]
+position = Vector2( 1280, -43 )
+scale = Vector2( 0.0874704, 0.06 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
+position = Vector2( 1277, -54 )
+shape = SubResource( 10 )
 
 [editable path="DayNightCycleForeground/player"]
