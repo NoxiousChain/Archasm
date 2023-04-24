@@ -11,3 +11,12 @@ mouse_filter = 2
 texture = ExtResource( 3 )
 script = ExtResource( 1 )
 item_res = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 53.0
+margin_bottom = 49.0
+bbcode_enabled = true
+text = "1"
+scroll_active = false

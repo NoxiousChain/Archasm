@@ -29,12 +29,12 @@ func gen_description_container(description_container : MarginContainer):
 
 # This function generates the description for an item to be used with the hover text
 # It's very basic. Needs more work
-func gen_item_description(description_container : MarginContainer, item_description : ItemDescription):
-	gen_description_container(description_container)
-	var build = name + "\n\n" + description
-	if !meta.empty():
-		build += "\n\n" + meta
-	item_description.build(build)
+#func gen_item_description(description_container : MarginContainer, item_description : ItemDescription):
+#	gen_description_container(description_container)
+#	var build = name + "\n\n" + description
+#	if !meta.empty():
+#		build += "\n\n" + meta
+#	item_description.build(build)
 
 # This function will be called when the user left clicks with the item in their active hand
 # Should almost always be overridden in child classes, unless the item has no functionality
@@ -51,3 +51,9 @@ func on_alt_use():
 # DEFAULT (accepts all types), HELMET, CHEST, LEGS, ACCESSORY_UPPER, ACCESSORY_LOWER
 func get_slot_type() -> String:
 	return "DEFAULT"
+
+func addQuantity(addedQuant : int):
+	quantity += addedQuant
+	
+func getQuantity() -> int:
+	return quantity

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://TileSets/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=2]
-[ext_resource path="res://scenes/NPC.gd" type="Script" id=3]
+[ext_resource path="res://scripts/NPC.gd" type="Script" id=3]
 [ext_resource path="res://resources/guy.png" type="Texture" id=4]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
@@ -49,7 +49,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=10]
-radius = 106.86
+radius = 56.0
 
 [node name="World" type="Node2D"]
 script = ExtResource( 13 )
@@ -84,16 +84,16 @@ anims/RESET = SubResource( 4 )
 
 [node name="HUD" parent="." instance=ExtResource( 17 )]
 
-[node name="NPC" type="Area2D" parent="."]
+[node name="Guide" type="Area2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="NPC"]
-position = Vector2( 1280, -43 )
-scale = Vector2( 0.0874704, 0.06 )
+[node name="Sprite" type="Sprite" parent="Guide"]
+position = Vector2( 1281.5, -39.875 )
+scale = Vector2( 0.0910166, 0.065102 )
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
-position = Vector2( 1277, -54 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guide"]
+position = Vector2( 1280, -40 )
 shape = SubResource( 10 )
 
 [editable path="DayNightCycleForeground/player"]

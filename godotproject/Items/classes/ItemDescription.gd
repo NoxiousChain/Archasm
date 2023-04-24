@@ -16,9 +16,12 @@ func _ready():
 	set_use_bbcode(true)
 	set_scroll_active(false)
 	set_fit_content_height(true)
+	
 
 func build(contents : String):
 	append_bbcode(contents)
+
+
 
 # Display of an item description:
 
