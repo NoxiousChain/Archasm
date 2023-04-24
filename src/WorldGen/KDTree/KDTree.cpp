@@ -22,8 +22,9 @@ std::unique_ptr<KDNode> KDTree::insertRecursive(std::unique_ptr<KDNode> node, co
 	const BlockType::Conditions& nodeConditions = node->block.getConditions();
 	const BlockType::Conditions& blockConditions = block.getConditions();
 
-	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.wetness.min : nodeConditions.temperature.min);
-	double blockKey = axis == 0 ? blockConditions.elevation.min : (axis == 1 ? blockConditions.wetness.min : blockConditions.temperature.min);
+	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.
+		.min : nodeConditions.temperature.min);
+	double blockKey = axis == 0 ? blockConditions.elevation.min : (axis == 1 ? blockConditions.humidity.min : blockConditions.temperature.min);
 
 	if (blockKey < nodeKey) {
 		node->left = insertRecursive(std::move(node->left), block, depth + 1);
@@ -37,12 +38,12 @@ std::unique_ptr<KDNode> KDTree::insertRecursive(std::unique_ptr<KDNode> node, co
 
 // Wrapper for nearestRecursive function
 // Finds the best matching BlockType for the specified conditions
-BlockType KDTree::nearestNeighbor(double elevation, double wetness, double temperature) {
-	return nearestRecursive(root.get(), elevation, wetness, temperature, 0);
+BlockType KDTree::nearestNeighbor(double elevation, double humidity, double temperature) {
+	return nearestRecursive(root.get(), elevation, humidity, temperature, 0);
 }
 
 // Performs a recursive search to find the node that best matches the parameters
-BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double wetness, double temperature, int depth)
+BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double humidity, double temperature, int depth)
 {
 	if (!node) {
 		return BlockType(); // Return empty block if none found
@@ -51,16 +52,16 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double wetnes
 	int axis = node->axis;
 	const BlockType::Conditions& nodeConditions = node->block.getConditions();
 	
-	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.wetness.min : nodeConditions.temperature.min);
-	double targetKey = axis == 0 ? elevation : (axis == 1 ? wetness : temperature);
+	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.humidity.min : nodeConditions.temperature.min);
+	double targetKey = axis == 0 ? elevation : (axis == 1 ? humidity : temperature);
 
 	KDNode* next = targetKey < nodeKey ? node->left.get() : node->right.get();
 	KDNode* other = targetKey < nodeKey ? node->right.get() : node->left.get();
 
-	BlockType best = nearestRecursive(next, elevation, wetness, temperature, depth + 1);
-	double bestDistSq = distanceSquared(best, elevation, wetness, temperature);
+	BlockType best = nearestRecursive(next, elevation, humidity, temperature, depth + 1);
+	double bestDistSq = distanceSquared(best, elevation, humidity, temperature);
 
-	if (bestDistSq > distanceSquared(node->block, elevation, wetness, temperature)) {
+	if (bestDistSq > distanceSquared(node->block, elevation, humidity, temperature)) {
 		best = node->block;
 	}
 
@@ -68,9 +69,9 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double wetnes
 	double planeDistance = targetKey - nodeKey;
 	// If the distance^2 is less than the current best distance squared, we check the other node
 	if (planeDistance * planeDistance < bestDistSq) {
-		BlockType tempBest = nearestRecursive(other, elevation, wetness, temperature, depth + 1);
+		BlockType tempBest = nearestRecursive(other, elevation, humidity, temperature, depth + 1);
 		// If the other node is better, we switch nodes
-		if (distanceSquared(tempBest, elevation, wetness, temperature) < bestDistSq) {
+		if (distanceSquared(tempBest, elevation, humidity, temperature) < bestDistSq) {
 			best = tempBest;
 		}
 	}
@@ -78,14 +79,14 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double wetnes
 	return best;
 }
 
-double KDTree::distanceSquared(const BlockType& block, double elevation, double wetness, double temperature)
+double KDTree::distanceSquared(const BlockType& block, double elevation, double humidity, double temperature)
 {
 	const BlockType::Conditions& blockConditions = block.getConditions;
 	// Get distance from actual to minimum for each
 	double deltaElevation = blockConditions.elevation.min - elevation;
-	double deltaWetness = blockConditions.wetness.min - wetness;
+	double deltahumidity = blockConditions.humidity.min - humidity;
 	double deltaTemp = blockConditions.temperature.min - temperature;
 	
 	// 3D pythagorean theorem squared
-	return deltaElevation * deltaElevation + deltaWetness * deltaWetness + deltaTemp * deltaTemp;
+	return deltaElevation * deltaElevation + deltahumidity * deltahumidity + deltaTemp * deltaTemp;
 }

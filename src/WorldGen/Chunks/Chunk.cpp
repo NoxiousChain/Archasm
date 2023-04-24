@@ -10,33 +10,34 @@ Chunk::Chunk(int x) : cx{ x }
 	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
 }
 
-void Chunk::load(const String& saveName)
+void Chunk::load(const String& saveName, TerrainGenerator* tg)
 {
-	File file;
-	Error err = file.open(hashName(saveName), File::READ);
+	Ref<File> file;
+	Error err = file->open(hashName(saveName), File::READ);
 
 	if (err = Error::OK) {
 		tileMap->clear();
 
 		// This will load all existing tiles.
-		while (file.get_position() < file.get_len()) {
-			int x = file.get_32();
-			int y = file.get_32();
-			int id = file.get_32();
+		while (file->get_position() < file->get_len()) {
+			int x = file->get_32();
+			int y = file->get_32();
+			int id = file->get_32();
 			tileMap->set_cell(x, y, id);
 		}
 
-		file.close();
+		file->close();
 	}
 	else { // If the file couldn't be found, the chunk needs to be generated
-
+		tileMap = tg->generateChunk(cx);
 	}
 }
 
 void Chunk::save(const String& saveName)
 {
-	File file;
-	Error err = file.open(hashName(saveName), File::WRITE);
+	Ref<File> file = File::_new();
+	String filepath = hashName(saveName);
+	Error err = file->open(filepath, File::WRITE);
 
 	if (err == Error::OK) {
 		for (int x = 0; x < CHUNK_WIDTH; x++) {
@@ -45,9 +46,9 @@ void Chunk::save(const String& saveName)
 
 				// Only save existing tiles
 				if (id != -1) {
-					file.store_32(x);
-					file.store_32(y);
-					file.store_32(id);
+					file->store_32(x);
+					file->store_32(y);
+					file->store_32(id);
 				}
 			}
 		}
@@ -56,7 +57,7 @@ void Chunk::save(const String& saveName)
 		Godot::print_error("Failed to save chunk " + String::num_int64(cx));
 	}
 
-	file.close();
+	file->close();
 }
 
 int Chunk::getX() const 

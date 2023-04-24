@@ -10,6 +10,7 @@
 #include <condition_variable>
 
 #include "Chunk.hpp"
+#include "Terrain/TerrainGenerator.hpp"
 
 // The main world scene will consist of several small tilemap scenes
 // that will be loaded in a separate thread as the game is running,
@@ -24,9 +25,9 @@ private:
 	// How many chunks are loaded but invisible on both sides of the deque
 	// This is basically a small cache to allow threads time to create new
 	// chunks to reduce stuttering
-	static const size_t HIDDEN_CHUNKS = 4;
-	String saveName;
-	deque<Chunk> tileMaps;	// Holds chunk data. 
+	String saveName;		// Name of the currently loaded save file
+	deque<Chunk> tileMaps;	// Holds chunk data
+	TerrainGenerator tg;	// Generates terrain
 
 public:
 	// Equivalent to _new() & setting save name

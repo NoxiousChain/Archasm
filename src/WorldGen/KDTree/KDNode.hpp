@@ -1,5 +1,5 @@
 #pragma once
-#include "../BlockType.hpp"
+#include "Blocks/BlockType.hpp"
 #include <memory>
 
 class KDNode {

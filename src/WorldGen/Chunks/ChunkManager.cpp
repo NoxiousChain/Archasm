@@ -14,10 +14,8 @@ void ChunkManager::_register_methods()
 	register_method("create", &ChunkManager::create);
 	register_method("_ready", &ChunkManager::_ready);
 	register_method("set_save_name", &ChunkManager::setSaveName);
-	register_method("load_right_chunk", &ChunkManager::loadRightChunk);
-	register_method("load_left_chunk", &ChunkManager::loadLeftChunk);
-	register_method("save_right_chunk", &ChunkManager::saveLeftChunk);
-	register_method("save_left_chunk", &ChunkManager::saveLeftChunk);
+	register_method("load_chunk", &ChunkManager::loadChunk);
+	register_method("save_chunk", &ChunkManager::saveChunk);
 	register_method("load_all_chunks", &ChunkManager::loadAllChunks);
 	register_method("save_all_chunks", &ChunkManager::saveAllChunks);
 	register_method("world_to_chunk_x", &ChunkManager::worldToChunkX);
@@ -117,12 +115,12 @@ void ChunkManager::saveAllChunks()
 
 int ChunkManager::worldToChunkX(int worldX)
 {
-	return worldX / (Chunk::CELL_SIZE * Chunk::CHUNK_WIDTH);
+	return worldX / (CELL_SIZE * CHUNK_WIDTH);
 }
 
 int ChunkManager::chunkToWorldX(int chunkX)
 {
-	return chunkX * Chunk::CELL_SIZE * Chunk::CHUNK_WIDTH;
+	return chunkX * CELL_SIZE * CHUNK_WIDTH;
 }
 
 Ref<Chunk> ChunkManager::loadChunk(int chunkX)
@@ -147,10 +145,10 @@ void ChunkManager::threadSaveChunk(std::mutex& mtx, std::condition_variable& cv,
 void ChunkManager::threadLoadChunk(std::mutex& mtx, std::condition_variable& cv, bool& loadFinished, bool right)
 {
 	if (right) {
-		tileMaps.back().load(saveName);
+		tileMaps.back().load(saveName, &tg);
 	}
 	else {
-		tileMaps.front().load(saveName);
+		tileMaps.front().load(saveName, &tg);
 	}
 	std::unique_lock<std::mutex> lock(mtx);
 	loadFinished = true;
