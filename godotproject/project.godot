@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Items/classes/ItemDescription.gd"
 }, {
-"base": "Reference",
+"base": "TextureRect",
 "class": "ItemSprite",
 "language": "GDScript",
 "path": "res://Items/classes/ItemSprite.gd"

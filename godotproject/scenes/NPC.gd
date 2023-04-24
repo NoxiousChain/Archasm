@@ -14,6 +14,9 @@ func _input(event): #press enter when in range of the NPC to start dialog.
 			dialog.pause_mode = Node.PAUSE_MODE_PROCESS
 			dialog.connect('timeline_end', self, 'unpause')
 			add_child(dialog)
+			
+func unpause(timeline_name):
+	get_tree().paused = false
 
 func _on_NPC_body_entered(body):
 	if body.name == "player":
