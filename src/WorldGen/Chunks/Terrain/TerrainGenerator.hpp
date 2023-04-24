@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common.hpp"
+#include "../../../Common.hpp"
 
 #include <time.h>
 #include <cmath>
@@ -32,12 +32,12 @@ class TerrainGenerator : public Node {
 
 private:
 	// RNG
-	Ref<RandomNumberGenerator> rng;
+	RandomNumberGenerator* rng;
 
 	// Noise maps
-	Ref<OpenSimplexNoise> biomeNoise[3];	// elevation, humidity, temperature
-	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
-	Ref<OpenSimplexNoise> caveNoise;
+	OpenSimplexNoise* biomeNoise[3];	// elevation, humidity, temperature
+	OpenSimplexNoise* heightNoise;		// for generating height map
+	OpenSimplexNoise* caveNoise;
 	
 	// Tile data
 	KDTree blockTypes;
@@ -47,7 +47,7 @@ public:
 	void _init();
 	void _ready();
 
-	Ref<TileMap> generateChunk(int chunkX);
+	TileMap* generateChunk(int chunkX);
 
 private:
 	void loadBlockDataFromJSON(const String& filepath);
@@ -68,8 +68,6 @@ private:
 
 	// HEIGHT MAP GENERATION --------------------------------------------------//
 	// Generates a superposition sampled, cosinely interpolated terrain on a chunk. 
-	// Used to reduce aggressive spikes in height
 	std::vector<float> terrainSuperposCosp(int chunkX, int iterations = 8);
-
 	// ------------------------------------------------------------------------//
 };

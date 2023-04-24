@@ -3,15 +3,19 @@
 ChunkManager* ChunkManager::create(const String& saveName, int playerX, int screenWidth)
 {
 	ChunkManager* cm = ChunkManager::_new();
-	cm->setSaveName(saveName);
-	cm->loadAllChunks(playerX, screenWidth);
-
+	cm->initialize(saveName, playerX, screenWidth);
 	return cm;
+}
+
+void ChunkManager::initialize(const String& saveName, int playerX, int screenWidth)
+{
+	this->saveName = saveName;
+	loadAllChunks(playerX, screenWidth);
 }
 
 void ChunkManager::_register_methods()
 {
-	register_method("create", &ChunkManager::create);
+	register_method("initialize", &ChunkManager::initialize);
 	register_method("_ready", &ChunkManager::_ready);
 	register_method("set_save_name", &ChunkManager::setSaveName);
 	register_method("load_chunk", &ChunkManager::loadChunk);
@@ -22,8 +26,13 @@ void ChunkManager::_register_methods()
 	register_method("chunk_to_world_x", &ChunkManager::chunkToWorldX);
 }
 
+void ChunkManager::_init()
+{
+}
+
 void ChunkManager::_ready()
 {
+	tg = TerrainGenerator::_new();
 }
 
 void ChunkManager::setSaveName(const String& saveName)
@@ -34,17 +43,19 @@ void ChunkManager::setSaveName(const String& saveName)
 void ChunkManager::loadChunk(bool right)
 {
 	if (right) {
-		tileMaps.push_back(Chunk(tileMaps.back().getX + 1));
+		tileMaps.push_back(Chunk(tileMaps.back().getX() + 1));
 	}
 	else {
-		tileMaps.push_front(Chunk(tileMaps.front().getX() - 1))
+		tileMaps.push_front(Chunk(tileMaps.front().getX() - 1));
 	}
 
 	std::mutex mtx;
 	std::condition_variable cv;
 	bool loadFinished = false;
 
-	std::thread loadThread(threadLoadChunk, std::ref(mtx), std::ref(cv), std::ref(loadFinished), right);
+	std::thread loadThread([this, &mtx, &cv, &loadFinished, right] {
+		this->threadLoadChunk(mtx, cv, loadFinished, right);
+	});
 	{
 		std::unique_lock<std::mutex> lock(mtx);
 		cv.wait(lock, [&] { return loadFinished; });
@@ -58,7 +69,9 @@ void ChunkManager::saveChunk(bool right)
 	std::condition_variable cv;
 	bool saveFinished = false;
 
-	std::thread saveThread(threadSaveChunk, std::ref(mtx), std::ref(cv), std::ref(loadFinished), right);
+	std::thread saveThread([this, &mtx, &cv, &saveFinished, right] {
+		this->threadSaveChunk(mtx, cv, saveFinished, right);
+	});
 	{
 		std::unique_lock<std::mutex> lock(mtx);
 		cv.wait(lock, [&] { return saveFinished; });
@@ -77,7 +90,7 @@ void ChunkManager::saveChunk(bool right)
 void ChunkManager::loadAllChunks(int playerX, int screenWidth)
 {
 	int centerChunk = worldToChunkX(playerX);
-	int numChunks = worldToChunkX(width) + 2*HIDDEN_CHUNKS;
+	int numChunks = worldToChunkX(screenWidth) + 2*HIDDEN_CHUNKS;
 
 	// First load the center chunk, because other functions need at least 1 existing chunk to work properly
 	loadChunk(centerChunk);
@@ -123,11 +136,6 @@ int ChunkManager::chunkToWorldX(int chunkX)
 	return chunkX * CELL_SIZE * CHUNK_WIDTH;
 }
 
-Ref<Chunk> ChunkManager::loadChunk(int chunkX)
-{
-	tileMaps.push_back(Chunk(chunkX, saveName));
-}
-
 void ChunkManager::threadSaveChunk(std::mutex& mtx, std::condition_variable& cv, bool& saveFinished, bool right)
 {
 	if (right) {
@@ -145,10 +153,10 @@ void ChunkManager::threadSaveChunk(std::mutex& mtx, std::condition_variable& cv,
 void ChunkManager::threadLoadChunk(std::mutex& mtx, std::condition_variable& cv, bool& loadFinished, bool right)
 {
 	if (right) {
-		tileMaps.back().load(saveName, &tg);
+		tileMaps.back().load(saveName, tg);
 	}
 	else {
-		tileMaps.front().load(saveName, &tg);
+		tileMaps.front().load(saveName, tg);
 	}
 	std::unique_lock<std::mutex> lock(mtx);
 	loadFinished = true;

@@ -19,11 +19,10 @@ std::unique_ptr<KDNode> KDTree::insertRecursive(std::unique_ptr<KDNode> node, co
 	}
 
 	int axis = node->axis;
-	const BlockType::Conditions& nodeConditions = node->block.getConditions();
-	const BlockType::Conditions& blockConditions = block.getConditions();
+	const BlockType::Conditions nodeConditions = node->block.getConditions();
+	const BlockType::Conditions blockConditions = block.getConditions();
 
-	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.
-		.min : nodeConditions.temperature.min);
+	double nodeKey = axis == 0 ? nodeConditions.elevation.min : (axis == 1 ? nodeConditions.humidity.min : nodeConditions.temperature.min);
 	double blockKey = axis == 0 ? blockConditions.elevation.min : (axis == 1 ? blockConditions.humidity.min : blockConditions.temperature.min);
 
 	if (blockKey < nodeKey) {
@@ -81,7 +80,7 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double humidi
 
 double KDTree::distanceSquared(const BlockType& block, double elevation, double humidity, double temperature)
 {
-	const BlockType::Conditions& blockConditions = block.getConditions;
+	const BlockType::Conditions blockConditions = block.getConditions();
 	// Get distance from actual to minimum for each
 	double deltaElevation = blockConditions.elevation.min - elevation;
 	double deltahumidity = blockConditions.humidity.min - humidity;

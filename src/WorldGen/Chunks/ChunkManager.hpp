@@ -3,6 +3,7 @@
 #include <Node.hpp>
 #include <TileMap.hpp>
 #include <Dictionary.hpp>
+#include <String.hpp>
 
 #include <deque>
 #include <thread>
@@ -27,12 +28,13 @@ private:
 	// chunks to reduce stuttering
 	String saveName;		// Name of the currently loaded save file
 	deque<Chunk> tileMaps;	// Holds chunk data
-	TerrainGenerator tg;	// Generates terrain
+	TerrainGenerator* tg;	// Generates terrain
 
 public:
-	// Equivalent to _new() & setting save name
 	static ChunkManager* create(const String& saveName, int playerX, int screenWidth);
+	void initialize(const String& saveName, int playerX, int screenWidth);
 	static void _register_methods();
+	void _init();
 	void _ready();
 
 	// Sets saveName for hashing
@@ -56,11 +58,6 @@ public:
 	/// @param chunkX : chunk x coordinate
 	/// @returns worldX at (0,0) relative to the chunk
 	int chunkToWorldX(int chunkX);
-
-private:
-	// Loads chunk (no threading) and adds to the back of the deque
-	// This function should only be used once to generate the first chunk
-	Ref<Chunk> loadChunk(int chunkX);
 
 	// Thread safe function calls for loading and saving. Used by saveRightChunk() and saveLeftChunk()
 	void threadSaveChunk(std::mutex& mtx, std::condition_variable& cv, bool& saveFinished, bool right);

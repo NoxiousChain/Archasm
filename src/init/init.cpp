@@ -8,6 +8,7 @@
 #include "../Text/ItemDescription.hpp"
 #include "../Inventory/Inventory.hpp"
 #include "../Inventory/InventorySlot.hpp"
+#include "../WorldGen/Chunks/ChunkManager.hpp"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options* o)
 {
@@ -31,4 +32,6 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void* handle)
     godot::register_class<InventorySlot>();
     godot::register_class<Inventory>();
     godot::register_class<HealthBar_Bar>();
+    godot::register_class<TerrainGenerator>();
+    godot::register_class<ChunkManager>();
 }

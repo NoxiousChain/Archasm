@@ -54,25 +54,27 @@ void TerrainGenerator::_ready()
 	loadBlockDataFromJSON("res://resources/tiles/tiles.json");
 }
 
-Ref<TileMap> TerrainGenerator::generateChunk(int chunkX)
+TileMap* TerrainGenerator::generateChunk(int chunkX)
 {
-	Ref<TileMap> tilemap = TileMap::_new();
+	TileMap* tileMap = TileMap::_new();
 
 	// These are values for the chunk as a whole. 
 	// They will influence the other generation points
-	float elevation = biomeNoise[0]->get_noise_1d(chunkX);
-	float humidity = biomeNoise[1]->get_noise_1d(chunkX);
-	float temperature = biomeNoise[2]->get_noise_1d(chunkX);
+	float elevation = biomeNoise[0]->get_noise_1d((float)chunkX);
+	float humidity = biomeNoise[1]->get_noise_1d((float)chunkX);
+	float temperature = biomeNoise[2]->get_noise_1d((float)chunkX);
 
 	// Iterate through every cell
 	for (int x = 0; x < CHUNK_WIDTH; x++) {
-		float heightGen = heightNoise->get_noise_1d(x);
+		float heightGen = heightNoise->get_noise_1d((float)x);
 
 		for (int y = 0; y < CHUNK_HEIGHT; y++) {
 			
 
 		}
 	}
+
+	return tileMap;
 }
 
 int TerrainGenerator::getBlockTypeFromNoise(float elevation, float humidity, float temperature)
@@ -99,7 +101,7 @@ std::vector<float> TerrainGenerator::getElevationNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[0]->get_noise_1d(i));
+		generated.push_back(biomeNoise[0]->get_noise_1d((float)i));
 	}
 	return std::move(generated);
 }
@@ -109,7 +111,7 @@ std::vector<float> TerrainGenerator::getHumidityNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[1]->get_noise_1d(i));
+		generated.push_back(biomeNoise[1]->get_noise_1d((float)i));
 	}
 	return std::move(generated);
 }
@@ -119,7 +121,7 @@ std::vector<float> TerrainGenerator::getTemperatureNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[2]->get_noise_1d(i));
+		generated.push_back(biomeNoise[2]->get_noise_1d((float)i));
 	}
 	return std::move(generated);
 }
@@ -129,7 +131,7 @@ std::vector<float> TerrainGenerator::getHeightNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(heightNoise->get_noise_1d(i));
+		generated.push_back(heightNoise->get_noise_1d((float)i));
 	}
 	return std::move(generated);
 }
@@ -143,18 +145,18 @@ std::vector<float> TerrainGenerator::terrainSuperposCosp(int chunkX, int iterati
 	std::vector<float> heightNoise = getHeightNoise(chunkX);
 	std::vector<float> elevationNoise = getElevationNoise(chunkX);
 
-	size_t generatedSize = generated.size();
+	size_t generatedSize = heightNoise.size();
 	std::vector<float> result(generatedSize, 0.f);
 
 	for (int z = iterations; z > 0; z--) {
-		float weight = 1 / std::pow(2, z - 1);
+		float weight = 1.f / static_cast<float>(std::pow(2, z - 1));
 		int sample = 1 << (iterations - z);
 
 		weightSum += weight;
 
 		for (int i = 0, j = 0; i < generatedSize; i += sample, j++) {
 			float a = heightNoise[i] * (1 + elevationNoise[i]); // Modify the height using elevation. Just linear for now, might want to make it more interesting later
-			float b = heightNoise[(i + sample) % generatedSize] * (1 + elevation[(i + sample) % generatedSize];
+			float b = heightNoise[(i + sample) % generatedSize] * (1 + elevationNoise[(i + sample) % generatedSize]);
 
 			result[i] += weight * a;
 
@@ -180,7 +182,7 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 	File file;
 	Error err = file.open(filepath, File::READ);
 	if (err != Error::OK) {
-		Godot::print_error("Failed to open tile data JSON file");
+		Godot::print("Failed to open tile data JSON file");
 		return;
 	}
 
@@ -188,22 +190,25 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 	file.close();
 
 	// Parse JSON data
-	Variant data;
-	err = JSON::parse(fileContent, data);
+	JSON* json = JSON::get_singleton();
+	Ref<JSONParseResult> jpr;
+	jpr = json->parse(fileContent);
+	Dictionary data = jpr->get_result();
+	err = jpr->get_error();
 	if (err != Error::OK) {
-		Godot::print_error("Failed to parse tile data JSON file");
+		Godot::print("Failed to parse tile data JSON file");
 		return;
 	}
 
 	// Load block data into dictionary
-	Array& blocks = data["blocks"];
+	Array blocks = data["blocks"];
 	for (int i = 0; i < blocks.size(); i++) {
 		// Get dictionary of values for block at index from json
 		const Dictionary& json_block = blocks[i];
 		// Get data
 		String name = json_block["name"];
 		size_t index = json_block["index"];
-		Array& conditions = json_block["conditions"];
+		Array conditions = json_block["conditions"];
 
 		// Instantiate block and add to KD tree
 		BlockType block(name, index, conditions);

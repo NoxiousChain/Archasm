@@ -13,18 +13,16 @@
 class Chunk {
 private:
 	int cx;	// Because chunks span the entire world vertically, it just needs an x coordinate
-	Ref<TileMap> tileMap;
+	TileMap* tileMap;
 
 public:
-	// This constructor attempts to load the chunk immediately
-	Chunk(int x, const String& saveName);
 	Chunk(int x);
 
 	void load(const String& saveName, TerrainGenerator* tg);
 	void save(const String& saveName);
 
 	int getX() const;
-	Ref<TileMap> getTileMap() const;
+	TileMap* getTileMap() const;
 
 private:
 	String hashName(const String& saveName);

@@ -24,24 +24,24 @@ BlockType::BlockType(const String& name, size_t index, const Array& data)
 	conditions.temperature = { data[4], data[5] };
 }
 
-BlockType::Range BlockType::getElevationRange() const
+BlockType::Range& BlockType::getElevationRange() const
 {
-	return conditions.elevation;
+	return (Range&)conditions.elevation;
 }
 
-BlockType::Range BlockType::getHumidityRange() const
+BlockType::Range& BlockType::getHumidityRange() const
 {
-	return conditions.humidity;
+	return (Range&)conditions.humidity;
 }
 
-BlockType::Range BlockType::getTempRange() const
+BlockType::Range& BlockType::getTempRange() const
 {
-	return conditions.temperature;
+	return (Range&)conditions.temperature;
 }
 
-BlockType::Conditions BlockType::getConditions() const
+BlockType::Conditions& BlockType::getConditions() const
 {
-	return conditions;
+	return (Conditions&)conditions;
 }
 
 size_t BlockType::getIndex() const
