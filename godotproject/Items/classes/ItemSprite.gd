@@ -40,3 +40,5 @@ func destroy():
 	item_description.queue_free()
 	item_description = null
 
+func addQuantity(addedQuant : int):
+	item_res.addQuantity(addedQuant)

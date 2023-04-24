@@ -82,12 +82,12 @@ _global_script_classes=[ {
 "base": "RichTextLabel",
 "class": "ItemDescription",
 "language": "GDScript",
-"path": "res://Items/ItemDescription.gd"
+"path": "res://Items/classes/ItemDescription.gd"
 }, {
-"base": "TextureRect",
+"base": "Reference",
 "class": "ItemSprite",
 "language": "GDScript",
-"path": "res://Items/ItemSprite.gd"
+"path": "res://Items/classes/ItemSprite.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -136,7 +136,6 @@ config/icon="res://icon2.png"
 
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 Tex="*res://scripts/singleton/Tex.gd"
-JsonItemData="*res://Data/JSON_itemData.gd"
 
 [display]
 

@@ -153,6 +153,10 @@ var hand = {
 #		"img": preload("res://image/tiles/torche.png"), "anim": {"h": 3, "v": 2}},
 }
 
+var fonts = {
+	1 : preload("res://resources/fonts/recurso/RecursoSans-Medium.ttf")
+}
+
 func _ready():
 	trunk_tiles = add_similar_tiles(trunk_tiles)
 	
