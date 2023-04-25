@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/paquerette.png-047613f8c2ec6d792a6d2229c6e189e0.stex"
+path="res://.import/paquerette.png-59164ba04007efa33043461cf67f12f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/paquerette.png"
-dest_files=[ "res://.import/paquerette.png-047613f8c2ec6d792a6d2229c6e189e0.stex" ]
+source_file="res://resources/tiles/plains/obstacles/paquerette.png"
+dest_files=[ "res://.import/paquerette.png-59164ba04007efa33043461cf67f12f4.stex" ]
 
 [params]
 

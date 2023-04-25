@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/treeLeaves.png-1924f68160feb7acaa06aeea50417306.stex"
+path="res://.import/treeLeaves.png-dc9ab1ddafdddec0044ae77a87960988.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/treeLeaves.png"
-dest_files=[ "res://.import/treeLeaves.png-1924f68160feb7acaa06aeea50417306.stex" ]
+source_file="res://resources/tiles/plains/obstacles/treeLeaves.png"
+dest_files=[ "res://.import/treeLeaves.png-dc9ab1ddafdddec0044ae77a87960988.stex" ]
 
 [params]
 

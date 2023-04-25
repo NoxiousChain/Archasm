@@ -32,18 +32,18 @@ enum {
 }
 
 var tiles_tex = {
-	DIRT: [preload("res://resources/tiles/blocks/dirt.png"), Vector2(10,10), DIRT],
-	DIRT_GRASS: [preload("res://resources/tiles/blocks/grass.png"), Vector2(10,10), DIRT_GRASS],
-	GRAVEL: [preload("res://resources/tiles/blocks/gravel.png"), Vector2(10,10), GRAVEL],
-	STONE: [preload("res://resources/tiles/blocks/stone.png"), Vector2(10,10), STONE],
-	TRUNK: [preload("res://resources/tiles/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
-	TRUNK_LOW: [preload("res://resources/tiles/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
+	DIRT: [preload("res://resources/tiles/plains/dirt.png"), Vector2(10,10), DIRT],
+	DIRT_GRASS: [preload("res://resources/tiles/plains/grass.png"), Vector2(10,10), DIRT_GRASS],
+	GRAVEL: [preload("res://resources/tiles/plains/gravel.png"), Vector2(10,10), GRAVEL],
+	STONE: [preload("res://resources/tiles/plains/stone.png"), Vector2(10,10), STONE],
+	TRUNK: [preload("res://resources/tiles/plains/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
+	TRUNK_LOW: [preload("res://resources/tiles/plains/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
 	TRUNK_TOP = null,
 	
-	GRASS: [preload("res://resources/tiles/obstacles/grass.png"), Vector2(4,4), GRASS],
-	ROSE: [preload("res://resources/tiles/obstacles/rose.png"), Vector2(4,4), ROSE],
-	PAQUERETTE: [preload("res://resources/tiles/obstacles/paquerette.png"), Vector2(4,4), PAQUERETTE],
-	TULIPE: [preload("res://resources/tiles/obstacles/tulipe.png"), Vector2(4,4), TULIPE],
+	GRASS: [preload("res://resources/tiles/plains/obstacles/grass.png"), Vector2(4,4), GRASS],
+	ROSE: [preload("res://resources/tiles/plains/obstacles/rose.png"), Vector2(4,4), ROSE],
+	PAQUERETTE: [preload("res://resources/tiles/plains/obstacles/paquerette.png"), Vector2(4,4), PAQUERETTE],
+	TULIPE: [preload("res://resources/tiles/plains/obstacles/tulipe.png"), Vector2(4,4), TULIPE],
 	
 }
 

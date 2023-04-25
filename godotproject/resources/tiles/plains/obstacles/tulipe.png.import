@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tulipe.png-962880cd459f51a0e35f6353a0d8b90f.stex"
+path="res://.import/tulipe.png-08db0261b766ca6c7f623d5acf228da5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/tulipe.png"
-dest_files=[ "res://.import/tulipe.png-962880cd459f51a0e35f6353a0d8b90f.stex" ]
+source_file="res://resources/tiles/plains/obstacles/tulipe.png"
+dest_files=[ "res://.import/tulipe.png-08db0261b766ca6c7f623d5acf228da5.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/purplea.png-2eed4dd51edf66df5937265444685b5c.stex"
+path="res://.import/purplea.png-10cb9d2b7ef2476003008349c91bc33c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/purplea.png"
-dest_files=[ "res://.import/purplea.png-2eed4dd51edf66df5937265444685b5c.stex" ]
+source_file="res://resources/tiles/plains/obstacles/purplea.png"
+dest_files=[ "res://.import/purplea.png-10cb9d2b7ef2476003008349c91bc33c.stex" ]
 
 [params]
 

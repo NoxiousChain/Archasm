@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flower2.png-9ec028966301f886984a2f0ca93636e9.stex"
+path="res://.import/flower2.png-87570373b3587559f276da0173ad487b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/flower2.png"
-dest_files=[ "res://.import/flower2.png-9ec028966301f886984a2f0ca93636e9.stex" ]
+source_file="res://resources/tiles/plains/obstacles/flower2.png"
+dest_files=[ "res://.import/flower2.png-87570373b3587559f276da0173ad487b.stex" ]
 
 [params]
 

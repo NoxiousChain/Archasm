@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/treeBase.png-9568db7e034648cd7d6f2c54a57d8614.stex"
+path="res://.import/treeBase.png-f058424b617160e11a6e23d678174171.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/obstacles/treeBase.png"
-dest_files=[ "res://.import/treeBase.png-9568db7e034648cd7d6f2c54a57d8614.stex" ]
+source_file="res://resources/tiles/plains/obstacles/treeBase.png"
+dest_files=[ "res://.import/treeBase.png-f058424b617160e11a6e23d678174171.stex" ]
 
 [params]
 

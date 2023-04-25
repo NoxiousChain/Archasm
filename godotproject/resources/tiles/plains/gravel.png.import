@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gravel.png-5a448e823e6a7126dbc163ab551fb60d.stex"
+path="res://.import/gravel.png-50477968427ae159be217a90cb37e9a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tiles/blocks/gravel.png"
-dest_files=[ "res://.import/gravel.png-5a448e823e6a7126dbc163ab551fb60d.stex" ]
+source_file="res://resources/tiles/plains/gravel.png"
+dest_files=[ "res://.import/gravel.png-50477968427ae159be217a90cb37e9a1.stex" ]
 
 [params]
 
