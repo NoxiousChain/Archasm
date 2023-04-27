@@ -2,13 +2,10 @@
 
 void Inventory::_init()
 {
-	Godot::print("Inventory::_init() called");
 }
 
 void Inventory::_register_methods()
 {
-	Godot::print("Inventory::_register_methods() called");
-
 	register_method("_ready", &Inventory::_ready);
 	register_method("_input", &Inventory::_input);
 	register_method("_slot_gui_input", &Inventory::_slot_gui_input);
@@ -17,8 +14,6 @@ void Inventory::_register_methods()
 
 void Inventory::_ready()
 {
-	Godot::print("Inventory::_ready() called");
-
 	// All nodes in the "Persist" group should have a save function (entire point of the group lol)
 	add_to_group("Persist");
 	bgTexture = cast_to<TextureRect>(get_node("TextureRect"));
@@ -61,7 +56,6 @@ void Inventory::_input(Ref<InputEvent> event)
 // Note that all slot nodes follow the naming convention Slot[#] starting at 1 (e.g. get_node("Slot" + to_string(i+1)) would return slot at index i)
 void Inventory::_slot_gui_input(Ref<InputEvent> event, InventorySlot* slot)
 {
-	Godot::print("inventory received input");
 	const String eClass = event->get_class();
 	if (eClass == "InputEventMouseButton") {
 		Ref<InputEventMouseButton> mouse = cast_to<InputEventMouseButton>(event.ptr());

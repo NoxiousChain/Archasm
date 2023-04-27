@@ -1,5 +1,9 @@
 #include "TerrainGenerator.hpp"
 
+TerrainGenerator::~TerrainGenerator()
+{
+}
+
 void TerrainGenerator::_register_methods()
 {
 	register_method("_ready", &TerrainGenerator::_ready);
@@ -7,19 +11,24 @@ void TerrainGenerator::_register_methods()
 
 void TerrainGenerator::_init()
 {
-
+	Godot::print("TerrainGenerator::_init()");
+	rng.instance();
+	for (int i = 0; i < 3; i++) {
+		biomeNoise[i].instance();
+	}
+	heightNoise.instance();
+	caveNoise.instance();
 }
 
 void TerrainGenerator::_ready()
 {
-	rng = RandomNumberGenerator::_new();
+	Godot::print("TerrainGenerator::_ready()");
 	rng->set_seed(time(nullptr));
 
 	// Initialize all noise functions
 
 	// I can also try just using one noise function and incrementing y for the different conditions
 	for (int i = 0; i < 3; i++) {
-		biomeNoise[i] = OpenSimplexNoise::_new();
 		biomeNoise[i]->set_seed(rng->randi());
 		// Higher values -> more detailed features but longer computation time
 		biomeNoise[i]->set_octaves(5); // recommend 3-6
@@ -31,16 +40,14 @@ void TerrainGenerator::_ready()
 		biomeNoise[i]->set_lacunarity(2.0); // ~2.0
 	}
 
-	heightNoise = OpenSimplexNoise::_new();
 	heightNoise->set_seed(rng->randi());
 	heightNoise->set_octaves(6); // 4-8
 	// Determines smoothness vs roughness
-	heightNoise->set_persistence(.55); // .4-.7
+	heightNoise->set_persistence(.55f); // .4-.7
 	// Lower values -> more frequent height changes
 	heightNoise->set_period(100); // 50-150
-	heightNoise->set_lacunarity(2.0); // ~2.0
+	heightNoise->set_lacunarity(2.0f); // ~2.0
 
-	caveNoise = OpenSimplexNoise::_new();
 	caveNoise->set_seed(rng->randi());
 	// Lower values -> less detailed noise = larger, more connected caves
 	caveNoise->set_octaves(3); // 2-4
@@ -54,27 +61,24 @@ void TerrainGenerator::_ready()
 	loadBlockDataFromJSON("res://resources/tiles/tiles.json");
 }
 
-TileMap* TerrainGenerator::generateChunk(int chunkX)
+void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
-	TileMap* tileMap = TileMap::_new();
-
 	// These are values for the chunk as a whole. 
 	// They will influence the other generation points
 	float elevation = biomeNoise[0]->get_noise_1d((float)chunkX);
 	float humidity = biomeNoise[1]->get_noise_1d((float)chunkX);
 	float temperature = biomeNoise[2]->get_noise_1d((float)chunkX);
 
+	std::vector<float> terrain = terrainSuperposCosp(chunkX);
+
 	// Iterate through every cell
 	for (int x = 0; x < CHUNK_WIDTH; x++) {
-		float heightGen = heightNoise->get_noise_1d((float)x);
+		int height = int(terrain[x] * CHUNK_WIDTH);
 
-		for (int y = 0; y < CHUNK_HEIGHT; y++) {
-			
-
+		for (int y = CHUNK_HEIGHT - height; y < CHUNK_HEIGHT; y++) {
+			tileMap->set_cell(x, y, 0); // fill with dirt
 		}
 	}
-
-	return tileMap;
 }
 
 int TerrainGenerator::getBlockTypeFromNoise(float elevation, float humidity, float temperature)

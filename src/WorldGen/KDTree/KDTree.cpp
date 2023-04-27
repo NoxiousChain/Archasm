@@ -2,7 +2,10 @@
 #include <limits>
 #include <cmath>
 
-KDTree::KDTree() : root{ nullptr } {}
+KDTree::KDTree() : root{ nullptr } 
+{
+	Godot::print("KDTree constructed");
+}
 
 // Wrapper for insertRecursive function
 void KDTree::insert(const BlockType& block)
@@ -60,17 +63,17 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double humidi
 	BlockType best = nearestRecursive(next, elevation, humidity, temperature, depth + 1);
 	double bestDistSq = distanceSquared(best, elevation, humidity, temperature);
 
-	if (bestDistSq > distanceSquared(node->block, elevation, humidity, temperature)) {
+	if (best.isValid() && bestDistSq > distanceSquared(node->block, elevation, humidity, temperature)) {
 		best = node->block;
 	}
-
+	 
 	// Calculate the distance for this particular plane
 	double planeDistance = targetKey - nodeKey;
 	// If the distance^2 is less than the current best distance squared, we check the other node
 	if (planeDistance * planeDistance < bestDistSq) {
 		BlockType tempBest = nearestRecursive(other, elevation, humidity, temperature, depth + 1);
 		// If the other node is better, we switch nodes
-		if (distanceSquared(tempBest, elevation, humidity, temperature) < bestDistSq) {
+		if (tempBest.isValid() && distanceSquared(tempBest, elevation, humidity, temperature) < bestDistSq) {
 			best = tempBest;
 		}
 	}

@@ -80,6 +80,8 @@ window/size/height=720
 [global]
 
 export=false
+renering=false
+threading=false
 
 [gui]
 
@@ -185,5 +187,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+threads/thread_model=2
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 2d/thread_model=2

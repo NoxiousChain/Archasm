@@ -9,6 +9,7 @@ export var jump_height = 300
 var vspeed : float = 0
 var hspeed : float = 0
 var move_speed : float = 0
+var last_chunk : int = 0
 
 var test_damage = 40
 
@@ -22,6 +23,7 @@ var enemy_scene = preload("res://scenes/GOBLIN.tscn")
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
 onready var coy_timer = $coyote_timer
+onready var chunk_manager = get_parent().get_parent().get_node("ChunkManager").get_child(0)
 
 signal stats_loaded
 
@@ -37,16 +39,27 @@ var player_stats = {}
 signal health_updated(health, max_health, animation)
 signal killed()
 
+signal moved_chunks(dir)
+
 func _ready():
 	load_stats()
 	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
 	_err = connect("health_updated", hud, "update_healthbar")
 	_err = connect("health_updated", inventory, "update_health")
+	_err = connect("moved_chunks", get_parent().get_parent(), "update_chunks")
 	emit_signal("stats_loaded", self)
+	
+	last_chunk = chunk_manager.world_to_chunk_x(position.x)
 	
 func _physics_process(delta: float) -> void:
 	quick_move(delta)
 	apply_physics(delta)
+	var chunkX = chunk_manager.world_to_chunk_x(position.x)
+	var diff = chunkX - last_chunk
+	if diff == 0:
+		return
+	emit_signal("moved_chunks", diff > 0)
+	last_chunk = chunkX
 
 func apply_physics(delta : float) -> void:
 

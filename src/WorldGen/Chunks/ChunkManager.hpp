@@ -4,11 +4,18 @@
 #include <TileMap.hpp>
 #include <Dictionary.hpp>
 #include <String.hpp>
+#include <Thread.hpp>
+#include <Mutex.hpp>
+#include <Semaphore.hpp>
+#include <Array.hpp>
 
 #include <deque>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <string>
+#include <cassert>
+#include <iostream>
 
 #include "Chunk.hpp"
 #include "Terrain/TerrainGenerator.hpp"
@@ -30,6 +37,14 @@ private:
 	deque<Chunk> tileMaps;	// Holds chunk data
 	TerrainGenerator* tg;	// Generates terrain
 
+	std::vector<Ref<Thread>> threads;
+	Ref<Mutex> mtx;
+	static const int MAX_THREADS = 8;
+	int activeThreads = 0;
+
+public:
+	std::vector<bool> availableThreads;
+
 public:
 	static ChunkManager* create(const String& saveName, int playerX, int screenWidth);
 	void initialize(const String& saveName, int playerX, int screenWidth);
@@ -42,6 +57,7 @@ public:
 
 	void loadChunk(bool right);
 	void saveChunk(bool right);
+	void loadCenterChunk(int x);
 
 	/// To be called when the world is loaded. Loads all chunks around the player.
 	/// @param playerX : player x coordinate
@@ -59,8 +75,13 @@ public:
 	/// @returns worldX at (0,0) relative to the chunk
 	int chunkToWorldX(int chunkX);
 
-	// Thread safe function calls for loading and saving. Used by saveRightChunk() and saveLeftChunk()
-	void threadSaveChunk(std::mutex& mtx, std::condition_variable& cv, bool& saveFinished, bool right);
-	void threadLoadChunk(std::mutex& mtx, std::condition_variable& cv, bool& loadFinished, bool right);
+	// Finds next available thread for a function
+	int getAvailableThread();
+	void freeThread(int index);
 
+	// Thread safe function calls for loading and saving. Used by saveRightChunk() and saveLeftChunk()
+	//void threadSaveChunk(std::mutex& mtx, std::condition_variable& cv, bool& saveFinished, bool right);
+	//void threadLoadChunk(std::mutex& mtx, std::condition_variable& cv, bool& loadFinished, bool right);
+	void threadSaveChunk(bool right);
+	void threadLoadChunk(bool right);
 };

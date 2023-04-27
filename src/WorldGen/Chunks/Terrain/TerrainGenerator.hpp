@@ -32,22 +32,23 @@ class TerrainGenerator : public Node {
 
 private:
 	// RNG
-	RandomNumberGenerator* rng;
+	Ref<RandomNumberGenerator> rng;
 
 	// Noise maps
-	OpenSimplexNoise* biomeNoise[3];	// elevation, humidity, temperature
-	OpenSimplexNoise* heightNoise;		// for generating height map
-	OpenSimplexNoise* caveNoise;
+	Ref<OpenSimplexNoise> biomeNoise[3];	// elevation, humidity, temperature
+	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
+	Ref<OpenSimplexNoise> caveNoise;
 	
 	// Tile data
 	KDTree blockTypes;
 
 public:
+	~TerrainGenerator();
 	static void _register_methods();
 	void _init();
 	void _ready();
 
-	TileMap* generateChunk(int chunkX);
+	void generateChunk(int chunkX, TileMap* tileMap);
 
 private:
 	void loadBlockDataFromJSON(const String& filepath);

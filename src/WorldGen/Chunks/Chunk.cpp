@@ -2,12 +2,25 @@
 
 Chunk::Chunk(int x) : cx{ x }
 {
+	Godot::print("Chunk constructed");
+	tileMap = TileMap::_new();
 	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
+	tileMap->set_position(Vector2(chunkToWorldX(cx), 0));
+	Ref<Resource> loaded = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
+	tileMap->set_tileset(loaded);
+}
+
+Chunk::~Chunk()
+{
+	if (tileMap != nullptr) {
+		tileMap->queue_free();
+		tileMap = nullptr;
+	}
 }
 
 void Chunk::load(const String& saveName, TerrainGenerator* tg)
 {
-	Ref<File> file;
+	Ref<File> file = File::_new();
 	Error err = file->open(hashName(saveName), File::READ);
 
 	if (err == Error::OK) {
@@ -24,14 +37,15 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 		file->close();
 	}
 	else { // If the file couldn't be found, the chunk needs to be generated
-		tileMap = tg->generateChunk(cx);
+		Godot::print("tg generating chunk...");
+		tg->generateChunk(cx, tileMap);
 	}
 }
 
 void Chunk::save(const String& saveName)
 {
 	Ref<File> file = File::_new();
-	String filepath = hashName(saveName);
+	String filepath = String("res://resources/saves/") + hashName(saveName + String(cx));
 	Error err = file->open(filepath, File::WRITE);
 
 	if (err == Error::OK) {
@@ -63,6 +77,16 @@ int Chunk::getX() const
 TileMap* Chunk::getTileMap() const
 {
 	return tileMap;
+}
+
+int Chunk::worldToChunkX(int worldX)
+{
+	return worldX / (CELL_SIZE * CHUNK_WIDTH);
+}
+
+int Chunk::chunkToWorldX(int chunkX)
+{
+	return chunkX * CELL_SIZE * CHUNK_WIDTH;
 }
 
 String Chunk::hashName(const String& saveName)

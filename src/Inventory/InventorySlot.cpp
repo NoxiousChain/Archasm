@@ -14,8 +14,6 @@ InventorySlot::~InventorySlot()
 
 void InventorySlot::_init()
 {
-	Godot::print("InventorySlot::_init() called");
-
 	style = Ref<StyleBoxTexture>();
 	defaultStyleTexture = Ref<Texture>();
 	emptyStyleTexture = Ref<Texture>();
@@ -23,8 +21,6 @@ void InventorySlot::_init()
 
 void InventorySlot::_register_methods()
 {
-	Godot::print("InventorySlot::_register_methods() called");
-
 	register_property<InventorySlot, Ref<Texture>>("defaultStyleTexture", &InventorySlot::_setDefaultStyleTexture, &InventorySlot::_getDefaultStyleTexture, Ref<Texture>());
 	register_property<InventorySlot, Ref<Texture>>("emptyStyleTexture", &InventorySlot::_setEmptyStyleTexture, &InventorySlot::_getEmptyStyleTexture, Ref<Texture>());
 
@@ -38,7 +34,6 @@ void InventorySlot::_register_methods()
 
 void InventorySlot::_ready()
 {
-	Godot::print("InventorySlot::_ready() called");
 	style = get("custom_styles/panel");
 	refreshStyle();
 }
@@ -86,7 +81,6 @@ ItemSprite* InventorySlot::getItem()
 
 ItemSprite* InventorySlot::take_from_slot()
 {
-	Godot::print("take_from_slot() called");
 	if (itemSprite == nullptr) return nullptr;
 	remove_child(itemSprite);
 	ItemSprite* copy = itemSprite;
@@ -97,7 +91,6 @@ ItemSprite* InventorySlot::take_from_slot()
 
 void InventorySlot::put_in_slot(ItemSprite* item)
 {
-	Godot::print("put_in_slot() called");
 	if (item != nullptr) {
 		itemSprite = item;
 		itemSprite->set_position({ 0,0 });

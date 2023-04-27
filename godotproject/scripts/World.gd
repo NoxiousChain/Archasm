@@ -5,13 +5,18 @@ const chunk_length = 500 #WIP not working on it right now
 signal toggle_interact
 
 onready var inventory = $HUD/Inventory
+onready var player = $DayNightCycleForeground/player
+onready var cm = $ChunkManager.get_child(0)
 
 var debug_toggle = false
 
 func _ready():
 	$AnimationPlayer.play("DayNight_cycle")
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
-##
+
+	var screen_width = int(get_viewport_rect().size.x)
+	cm.initialize("testsave1", int(player.getPosition().x), screen_width)
+
 #	var rand = RandomNumberGenerator.new()
 #	var timer := Timer.new()
 #	add_child(timer)
@@ -40,6 +45,10 @@ func _ready():
 #	enemy.position.x = x
 #	add_child(enemy)
 	
+func update_chunks(dir: bool):
+	cm.load_chunk(dir)
+	cm.save_chunk(!dir)
+	
 func toggle_inventory():
 	var visible = inventory.visible
 	if visible:
@@ -53,9 +62,9 @@ func _input(_event):
 		toggle_inventory()
 		emit_signal("toggle_interact")
 	elif Input.is_action_pressed("damage_player"):
-		$DayNightCycleForeground/player.damage(1)
+		player.damage(1)
 	elif Input.is_action_pressed("heal_player"):
-		$DayNightCycleForeground/player.heal(1)
+		player.heal(1)
 	elif Input.is_action_pressed("debug"):
 		if !debug_toggle:
 			$HUD/HealthBar_Bar.call("set_color", Color.green)

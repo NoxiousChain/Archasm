@@ -4,6 +4,8 @@
 #include <TileMap.hpp>
 #include <File.hpp>
 #include <HashingContext.hpp>
+#include <TileSet.hpp>
+#include <ResourceLoader.hpp>
 #include "Terrain/TerrainGenerator.hpp"
 #include "ChunkConstants.hpp"
 
@@ -17,12 +19,22 @@ private:
 
 public:
 	Chunk(int x);
+	~Chunk();
 
 	void load(const String& saveName, TerrainGenerator* tg);
 	void save(const String& saveName);
 
 	int getX() const;
 	TileMap* getTileMap() const;
+
+	/// Converts world to chunk coordinates. 
+	/// @param worldX : world x coordinate
+	/// @returns chunk x coordinate
+	static int worldToChunkX(int worldX);
+	/// Converts chunk to world coordinates
+	/// @param chunkX : chunk x coordinate
+	/// @returns worldX at (0,0) relative to the chunk
+	static int chunkToWorldX(int chunkX);
 
 private:
 	String hashName(const String& saveName);
