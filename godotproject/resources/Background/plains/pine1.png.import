@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cloud.png-cd6ea05e982127cac3bec5bee5daca1f.stex"
+path="res://.import/pine1.png-fb92d038ab099678037579edbf3dfefd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Background/cloud.png"
-dest_files=[ "res://.import/cloud.png-cd6ea05e982127cac3bec5bee5daca1f.stex" ]
+source_file="res://resources/Background/plains/pine1.png"
+dest_files=[ "res://.import/pine1.png-fb92d038ab099678037579edbf3dfefd.stex" ]
 
 [params]
 
