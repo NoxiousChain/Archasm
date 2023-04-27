@@ -1,17 +1,20 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Mainmenu/Library 3 am.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Mainmenu/elsunlogo.png" type="Texture" id=2]
 [ext_resource path="res://Mainmenu/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scripts/Options.gd" type="Script" id=4]
 [ext_resource path="res://Mainmenu/menusplash.png" type="Texture" id=5]
 [ext_resource path="res://scripts/menuBG.gd" type="Script" id=6]
+[ext_resource path="res://scripts/websitelink.gd" type="Script" id=7]
+[ext_resource path="res://Mainmenu/logo2.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.94902, 0.917647, 0.0862745, 0.662745 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
@@ -25,7 +28,8 @@ font_data = ExtResource( 3 )
 size = 50
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.94902, 0.917647, 0.0862745, 0.662745 )
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
@@ -39,7 +43,8 @@ font_data = ExtResource( 3 )
 size = 50
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0.94902, 0.917647, 0.0862745, 0.662745 )
 
 [sub_resource type="StyleBoxEmpty" id=16]
 
@@ -49,9 +54,15 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="StyleBoxEmpty" id=19]
 
-[sub_resource type="DynamicFont" id=1]
-size = 125
-font_data = ExtResource( 2 )
+[sub_resource type="StyleBoxEmpty" id=23]
+
+[sub_resource type="StyleBoxEmpty" id=24]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=26]
+
+[sub_resource type="StyleBoxEmpty" id=27]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -86,7 +97,7 @@ margin_bottom = 44.0
 hint_tooltip = "obviously starts the game"
 focus_neighbour_top = NodePath("../Quit")
 custom_fonts/font = SubResource( 2 )
-custom_styles/hover = SubResource( 5 )
+custom_styles/hover = SubResource( 20 )
 custom_styles/pressed = SubResource( 6 )
 custom_styles/focus = SubResource( 7 )
 custom_styles/disabled = SubResource( 8 )
@@ -98,7 +109,7 @@ margin_top = 48.0
 margin_right = 232.0
 margin_bottom = 92.0
 custom_fonts/font = SubResource( 3 )
-custom_styles/hover = SubResource( 10 )
+custom_styles/hover = SubResource( 21 )
 custom_styles/pressed = SubResource( 11 )
 custom_styles/focus = SubResource( 12 )
 custom_styles/disabled = SubResource( 13 )
@@ -113,26 +124,36 @@ margin_bottom = 140.0
 hint_tooltip = "quitting is for losers"
 focus_neighbour_bottom = NodePath("../Startbutton")
 custom_fonts/font = SubResource( 4 )
-custom_styles/hover = SubResource( 15 )
+custom_styles/hover = SubResource( 22 )
 custom_styles/pressed = SubResource( 16 )
 custom_styles/focus = SubResource( 17 )
 custom_styles/disabled = SubResource( 18 )
 custom_styles/normal = SubResource( 19 )
 text = "Quit"
 
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 0.101
-anchor_right = 0.5
-anchor_bottom = 0.106
-margin_left = -424.0
-margin_top = 5.92
-margin_right = 434.0
-margin_bottom = 240.52
-custom_fonts/font = SubResource( 1 )
-text = "Archasm"
-align = 1
+[node name="ArchasmLogo" type="Sprite" parent="."]
+position = Vector2( 964, 218 )
+scale = Vector2( 0.646551, 0.646551 )
+texture = ExtResource( 8 )
+
+[node name="elsunlogo" type="Sprite" parent="."]
+position = Vector2( 118, 1000 )
+scale = Vector2( 0.163194, 0.163195 )
+texture = ExtResource( 2 )
+
+[node name="websitelink" type="Button" parent="elsunlogo"]
+margin_left = -404.0
+margin_top = -123.0
+margin_right = 386.0
+margin_bottom = 221.0
+custom_styles/hover = SubResource( 23 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 26 )
+custom_styles/normal = SubResource( 27 )
+script = ExtResource( 7 )
 
 [connection signal="pressed" from="VBoxContainer/Startbutton" to="." method="_on_Startbutton_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="elsunlogo/websitelink" to="elsunlogo/websitelink" method="_on_websitelink_pressed"]

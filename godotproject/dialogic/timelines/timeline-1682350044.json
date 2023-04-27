@@ -4,6 +4,12 @@
 			"character": "character-1682350005.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
+			"text": "Hey, you, you're finally awake"
+		},
+		{
+			"character": "character-1682350005.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
 			"text": "Hello, welcome to the world of Archasm."
 		},
 		{

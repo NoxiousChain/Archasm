@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://Mainmenu/menusplash.png" type="Texture" id=2]
-[ext_resource path="res://Mainmenu/TiltPrism-Regular-VariableFont_XROT,YROT.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Mainmenu/Library 3 am.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://Mainmenu/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=2]
 size = 70
@@ -15,7 +14,7 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 100
-font_data = ExtResource( 4 )
+font_data = ExtResource( 3 )
 
 [node name="PauseMenu" type="Control"]
 anchor_right = 1.0
@@ -23,7 +22,8 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 669, 508 )
+position = Vector2( 936, 543 )
+scale = Vector2( 1.06275, 1.06275 )
 texture = ExtResource( 2 )
 
 [node name="Leftside" type="VBoxContainer" parent="."]
@@ -38,22 +38,22 @@ __meta__ = {
 }
 
 [node name="Jump" type="Label" parent="Leftside"]
-margin_right = 617.0
-margin_bottom = 90.0
+margin_right = 738.0
+margin_bottom = 62.0
 custom_fonts/font = SubResource( 2 )
 text = "Jump: Space or 'W'"
 
 [node name="Left" type="Label" parent="Leftside"]
-margin_top = 94.0
-margin_right = 617.0
-margin_bottom = 184.0
+margin_top = 66.0
+margin_right = 738.0
+margin_bottom = 128.0
 custom_fonts/font = SubResource( 2 )
 text = "Left: 'A'"
 
 [node name="Right" type="Label" parent="Leftside"]
-margin_top = 188.0
-margin_right = 617.0
-margin_bottom = 278.0
+margin_top = 132.0
+margin_right = 738.0
+margin_bottom = 194.0
 custom_fonts/font = SubResource( 2 )
 text = "Right: 'D'"
 
@@ -69,32 +69,32 @@ __meta__ = {
 }
 
 [node name="Mine" type="Label" parent="Rightside"]
-margin_right = 603.0
-margin_bottom = 90.0
+margin_right = 738.0
+margin_bottom = 62.0
 custom_fonts/font = SubResource( 3 )
 text = "Mine: Left Click"
 
 [node name="Place" type="Label" parent="Rightside"]
-margin_top = 94.0
-margin_right = 603.0
-margin_bottom = 184.0
+margin_top = 66.0
+margin_right = 738.0
+margin_bottom = 128.0
 custom_fonts/font = SubResource( 3 )
 text = "Place: Right Click"
 
 [node name="Place2" type="Label" parent="Rightside"]
-margin_top = 188.0
-margin_right = 603.0
-margin_bottom = 278.0
+margin_top = 132.0
+margin_right = 738.0
+margin_bottom = 194.0
 custom_fonts/font = SubResource( 3 )
 text = "PAUSE: 'P'"
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -238.0
-margin_top = 64.0
-margin_right = 314.0
-margin_bottom = 186.0
+margin_left = -278.0
+margin_top = 111.0
+margin_right = 274.0
+margin_bottom = 233.0
 custom_fonts/font = SubResource( 4 )
 text = "CONTROLS"
 align = 1
