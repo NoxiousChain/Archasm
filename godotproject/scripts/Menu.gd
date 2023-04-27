@@ -10,4 +10,4 @@ func _on_Quit_pressed():
 	get_tree().quit()
 	
 func _on_Options_pressed():
-	var _err = get_tree().change_scene("res://scenes/PauseMenu.tscn")
+	var _err = get_tree().change_scene("res://scenes/ControlsMenu.tscn")
