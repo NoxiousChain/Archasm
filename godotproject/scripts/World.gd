@@ -15,8 +15,6 @@ func _ready():
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 
 	var screen_width = int(get_viewport_rect().size.x)
-	cm.set_save_name("testsave1")
-	#cm.load_chunk_at_x(int(player.getPosition().x))
 	cm.initialize("testsave1", int(player.getPosition().x), screen_width)
 
 #	var rand = RandomNumberGenerator.new()

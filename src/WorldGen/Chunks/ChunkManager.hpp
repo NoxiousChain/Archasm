@@ -1,10 +1,11 @@
 #pragma once
 #include "../../Common.hpp"
-#include <Node.hpp>
+#include <Node2D.hpp>
 #include <TileMap.hpp>
 #include <Dictionary.hpp>
 #include <String.hpp>
 #include <Array.hpp>
+#include <TileSet.hpp>
 
 #include <deque>
 #include <string>
@@ -15,8 +16,8 @@
 #include "Chunk.hpp"
 #include "Terrain/TerrainGenerator.hpp"
 
-class ChunkManager : public Node {
-	GODOT_CLASS(ChunkManager, Node)
+class ChunkManager : public Node2D {
+	GODOT_CLASS(ChunkManager, Node2D)
 
 private:
 	String saveName;

@@ -6,8 +6,9 @@ Chunk::Chunk(int x) : cx{ x }
 	tileMap = TileMap::_new();
 	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
 	tileMap->set_position(Vector2(chunkToWorldX(cx), 0));
-	Ref<Resource> loaded = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
-	tileMap->set_tileset(loaded);
+	Ref<Resource> tileset = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
+	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
+	Godot::print("Chunk " + String::num_int64(cx) + " loaded at " + String::num_int64(chunkToWorldX(cx)));
 }
 
 Chunk::~Chunk()
@@ -25,15 +26,15 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 	Error err = file->open(filepath, File::READ);
 	if (err == Error::OK) {
 		Godot::print("chunk loading from file...");
-		//tileMap->clear();
-		//
-		//// This will load all existing tiles.
-		//while (file->get_position() < file->get_len()) {
-		//	int64_t x = file->get_32();
-		//	int64_t y = file->get_32();
-		//	int64_t id = file->get_32();
-		//	tileMap->set_cell(x, y, id);
-		//}
+		tileMap->clear();
+		
+		// This will load all existing tiles.
+		while (file->get_position() < file->get_len()) {
+			int64_t x = file->get_32();
+			int64_t y = file->get_32();
+			int64_t id = file->get_32();
+			tileMap->set_cell(x, y, id);
+		}
 
 		file->close();
 	}

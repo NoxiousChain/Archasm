@@ -79,25 +79,30 @@ void ChunkManager::loadChunkAtX(int chunkX)
 	c->load(saveName, tg);
 	add_child(c->getTileMap());
 	c->getTileMap()->set_owner(this);
+	c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 	chunks.push_back(c);
 }
 
 void ChunkManager::loadChunk(bool right)
 {
 	if (right) {
-		auto c = make_shared<Chunk>(chunks.back()->getX() + 1);
+		int chunkX = chunks.back()->getX() + 1;
+		auto c = make_shared<Chunk>(chunkX);
 		c->getTileMap()->set_visible(false);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
 		c->load(saveName, tg);
+		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 		chunks.push_back(c);
 	}
 	else {
-		auto c = make_shared<Chunk>(chunks.back()->getX() - 1);
+		int chunkX = chunks.back()->getX() - 1;
+		auto c = make_shared<Chunk>(chunkX);
 		c->getTileMap()->set_visible(false);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
 		c->load(saveName, tg);
+		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 		chunks.push_front(c);
 	}
 }

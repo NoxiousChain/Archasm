@@ -69,3 +69,4 @@ private:
 	std::vector<float> terrainSuperposCosp(int chunkX, int iterations = 8);
 	// ------------------------------------------------------------------------//
 };
+
