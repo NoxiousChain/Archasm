@@ -5,7 +5,7 @@ Chunk::Chunk(int x) : cx{ x }
 	Godot::print("Chunk constructed");
 	tileMap = TileMap::_new();
 	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
-	tileMap->set_position(Vector2(chunkToWorldX(cx), 0));
+	tileMap->set_position(Vector2(real_t(chunkToWorldX(cx)), 0.f));
 	Ref<Resource> tileset = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
 	Godot::print("Chunk " + String::num_int64(cx) + " loaded at " + String::num_int64(chunkToWorldX(cx)));
@@ -52,17 +52,13 @@ void Chunk::save(const String& saveName)
 
 	if (err == Error::OK) {
 		Godot::print("saving chunk...");
-		for (int64_t x = 0; x < CHUNK_WIDTH; x++) {
-			for (int64_t y = 0; y < CHUNK_HEIGHT; y++) {
-				int64_t id = tileMap->get_cell(x, y);
-
-				// Only save existing tiles
-				if (id != -1) {
-					file->store_32(x);
-					file->store_32(y);
-					file->store_32(id);
-				}
-			}
+		Array& cells = tileMap->get_used_cells();
+		for (int i = 0; i < cells.size(); i++) {
+			Vector2 pos = cells[i];
+			int64_t id = tileMap->get_cellv(pos);
+			file->store_32(int64_t(pos.x));
+			file->store_32(int64_t(pos.y));
+			file->store_32(id);
 		}
 		file->close();
 	}
