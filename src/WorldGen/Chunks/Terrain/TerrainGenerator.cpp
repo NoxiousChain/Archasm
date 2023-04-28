@@ -17,7 +17,6 @@ void TerrainGenerator::_init()
 	}
 	heightNoise.instance();
 	caveNoise.instance();
-	request_ready();
 }
 
 void TerrainGenerator::_ready()

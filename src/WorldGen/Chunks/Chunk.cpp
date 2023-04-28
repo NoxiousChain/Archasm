@@ -21,19 +21,19 @@ Chunk::~Chunk()
 void Chunk::load(const String& saveName, TerrainGenerator* tg)
 {
 	Ref<File> file = File::_new();
-	Error err = file->open(hashName(saveName), File::READ);
-
+	String filepath = String("res://resources/saves/") + hashName(saveName);
+	Error err = file->open(filepath, File::READ);
 	if (err == Error::OK) {
 		Godot::print("chunk loading from file...");
-		tileMap->clear();
-
-		// This will load all existing tiles.
-		while (file->get_position() < file->get_len()) {
-			int64_t x = file->get_32();
-			int64_t y = file->get_32();
-			int64_t id = file->get_32();
-			tileMap->set_cell(x, y, id);
-		}
+		//tileMap->clear();
+		//
+		//// This will load all existing tiles.
+		//while (file->get_position() < file->get_len()) {
+		//	int64_t x = file->get_32();
+		//	int64_t y = file->get_32();
+		//	int64_t id = file->get_32();
+		//	tileMap->set_cell(x, y, id);
+		//}
 
 		file->close();
 	}
@@ -68,8 +68,6 @@ void Chunk::save(const String& saveName)
 	else {
 		Godot::print("Failed to save chunk " + String::num_int64(cx));
 	}
-
-	file->close();
 }
 
 int Chunk::getX() const 

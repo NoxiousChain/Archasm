@@ -67,77 +67,78 @@ void ChunkManager::loadAllChunks(int playerX, int screenW)
 	}
 	
 	// Hide invisible chunks
-	for (int i = 0; i < HIDDEN_CHUNKS; i++) {
-		chunks[i].getTileMap()->hide();
-		chunks[chunks.size() - (i + 1)].getTileMap()->hide();
+	for (size_t i = 0; i < HIDDEN_CHUNKS; i++) {
+		chunks[i]->getTileMap()->hide();
+		chunks[chunks.size() - (i + 1)]->getTileMap()->hide();
 	}
 }
 
 void ChunkManager::loadChunkAtX(int chunkX)
 {
-	Chunk c(chunkX);
-	c.load(saveName, tg);
-	add_child(c.getTileMap());
-	c.getTileMap()->set_owner(this);
-	chunks.push_back(std::move(c));
+	auto c = make_shared<Chunk>(chunkX);
+	c->load(saveName, tg);
+	add_child(c->getTileMap());
+	c->getTileMap()->set_owner(this);
+	chunks.push_back(c);
 }
 
 void ChunkManager::loadChunk(bool right)
 {
 	if (right) {
-		Chunk c(chunks.back().getX() + 1);
-		c.getTileMap()->set_visible(false);
-		add_child(c.getTileMap());
-		c.getTileMap()->set_owner(this);
-		c.load(saveName, tg);
-		chunks.push_back(std::move(c));
+		auto c = make_shared<Chunk>(chunks.back()->getX() + 1);
+		c->getTileMap()->set_visible(false);
+		add_child(c->getTileMap());
+		c->getTileMap()->set_owner(this);
+		c->load(saveName, tg);
+		chunks.push_back(c);
 	}
 	else {
-		Chunk c(chunks.front().getX() - 1);
-		c.getTileMap()->set_visible(false);
-		add_child(c.getTileMap());
-		c.getTileMap()->set_owner(this);
-		c.load(saveName, tg);
-		chunks.push_front(std::move(c));
+		auto c = make_shared<Chunk>(chunks.back()->getX() - 1);
+		c->getTileMap()->set_visible(false);
+		add_child(c->getTileMap());
+		c->getTileMap()->set_owner(this);
+		c->load(saveName, tg);
+		chunks.push_front(c);
 	}
 }
 
 void ChunkManager::saveAllChunks()
 {
-	for (Chunk& chunk : chunks) {
-		chunk.save(saveName);
+	for (auto& chunk : chunks) {
+		chunk->save(saveName);
 	}
 }
 
 void ChunkManager::saveChunk(bool right)
 {
-	right ? chunks.back().save(saveName) : chunks.front().save(saveName);
+	right ? chunks.back()->save(saveName) : chunks.front()->save(saveName);
 }
 
 void ChunkManager::deleteChunk(bool right, bool updateVisibility)
 {
+	Godot::print("deleting chunk...");
 	if (right) {
-		remove_child(chunks.back().getTileMap());
+		remove_child(chunks.back()->getTileMap());
 		chunks.pop_back();
 		if (updateVisibility) {
-			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(false);
-			chunks[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(true);
+			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(false);
+			chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(true);
 		}
 	}
 	else {
-		remove_child(chunks.front().getTileMap());
+		remove_child(chunks.front()->getTileMap());
 		chunks.pop_front();
 		if (updateVisibility) {
-			chunks[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(false);
-			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(true);
+			chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(false);
+			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(true);
 		}
 	}
 }
 
 void ChunkManager::deleteAllChunks()
 {
-	for (Chunk& chunk : chunks) {
-		remove_child(chunk.getTileMap());
+	for (auto& chunk : chunks) {
+		remove_child(chunk->getTileMap());
 		// Chunks handle their own tilemap deletion
 	}
 	chunks.clear();

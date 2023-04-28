@@ -39,3 +39,4 @@ public:
 private:
 	String hashName(const String& saveName);
 };
+

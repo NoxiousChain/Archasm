@@ -50,7 +50,7 @@ func _ready():
 func update_chunks(dir: bool):
 	cm.load_chunk(dir)
 	cm.save_chunk(!dir)
-	#cm.delete_chunk(!dir)
+	cm.delete_chunk(!dir)
 	
 func toggle_inventory():
 	var visible = inventory.visible

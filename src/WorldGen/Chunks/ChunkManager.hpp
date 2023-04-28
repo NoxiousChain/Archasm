@@ -10,6 +10,7 @@
 #include <string>
 #include <cassert>
 #include <iostream>
+#include <memory>
 
 #include "Chunk.hpp"
 #include "Terrain/TerrainGenerator.hpp"
@@ -19,7 +20,7 @@ class ChunkManager : public Node {
 
 private:
 	String saveName;
-	deque<Chunk> chunks;
+	deque<shared_ptr<Chunk>> chunks;
 	TerrainGenerator* tg;
 
 public:
