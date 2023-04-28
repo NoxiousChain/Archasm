@@ -72,11 +72,11 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 
 	// Iterate through every cell
 	for (int x = 0; x < terrain.size(); x++) {
-		int height = int(terrain[x] * CHUNK_HEIGHT);
+		int height = int(terrain[x] * CHUNK_HEIGHT) / 10;
 		//Godot::print(String::num_real(terrain[x]));
 		//Godot::print(String::num_int64(height));
 	
-		for (int y = CHUNK_HEIGHT - height; y < CHUNK_HEIGHT; y++) {
+		for (int y = -height + 50; y < 50; y++) {
 			tileMap->set_cell(x, y, 0); // fill with dirt
 		}
 	}
@@ -91,7 +91,7 @@ int TerrainGenerator::getBlockTypeFromNoise(float elevation, float humidity, flo
 
 float TerrainGenerator::mapv(float v, float ol, float oh, float nl, float nh)
 {
-	return nl + (v * ((nh - nl) / (oh - ol)));
+	return (v - ol) * (nh - nl) / (oh - ol) + nl;
 }
 
 float TerrainGenerator::cosp(float a, float b, float mu)

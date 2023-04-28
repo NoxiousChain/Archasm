@@ -67,10 +67,10 @@ void ChunkManager::loadAllChunks(int playerX, int screenW)
 	}
 	
 	// Hide invisible chunks
-	for (size_t i = 0; i < HIDDEN_CHUNKS; i++) {
-		chunks[i]->getTileMap()->hide();
-		chunks[chunks.size() - (i + 1)]->getTileMap()->hide();
-	}
+	//for (size_t i = 0; i < HIDDEN_CHUNKS; i++) {
+	//	chunks[i]->getTileMap()->hide();
+	//	chunks[chunks.size() - (i + 1)]->getTileMap()->hide();
+	//}
 }
 
 void ChunkManager::loadChunkAtX(int chunkX)
@@ -88,7 +88,6 @@ void ChunkManager::loadChunk(bool right)
 	if (right) {
 		int chunkX = chunks.back()->getX() + 1;
 		auto c = make_shared<Chunk>(chunkX);
-		c->getTileMap()->set_visible(false);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
 		c->load(saveName, tg);
@@ -98,7 +97,6 @@ void ChunkManager::loadChunk(bool right)
 	else {
 		int chunkX = chunks.back()->getX() - 1;
 		auto c = make_shared<Chunk>(chunkX);
-		c->getTileMap()->set_visible(false);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
 		c->load(saveName, tg);
@@ -125,18 +123,18 @@ void ChunkManager::deleteChunk(bool right, bool updateVisibility)
 	if (right) {
 		remove_child(chunks.back()->getTileMap());
 		chunks.pop_back();
-		if (updateVisibility) {
-			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(false);
-			chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(true);
-		}
+		//if (updateVisibility) {
+		//	chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(false);
+		//	chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(true);
+		//}
 	}
 	else {
 		remove_child(chunks.front()->getTileMap());
 		chunks.pop_front();
-		if (updateVisibility) {
-			chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(false);
-			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(true);
-		}
+		//if (updateVisibility) {
+		//	chunks[HIDDEN_CHUNKS - 1]->getTileMap()->set_visible(false);
+		//	chunks[chunks.size() - (HIDDEN_CHUNKS + 1)]->getTileMap()->set_visible(true);
+		//}
 	}
 }
 

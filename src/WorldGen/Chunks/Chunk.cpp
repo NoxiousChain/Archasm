@@ -24,7 +24,7 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 	Ref<File> file = File::_new();
 	String filepath = String("res://resources/saves/") + hashName(saveName);
 	Error err = file->open(filepath, File::READ);
-	if (err == Error::OK) {
+	if (err == Error::OK && file->get_len()) {
 		Godot::print("chunk loading from file...");
 		tileMap->clear();
 		

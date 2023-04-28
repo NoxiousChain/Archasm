@@ -57,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	var chunkX = chunk_manager.world_to_chunk_x(position.x)
 	var diff = chunkX - last_chunk
 	if diff == 0:
+		last_chunk = chunkX
 		return
 	emit_signal("moved_chunks", bool(diff > 0))
 	last_chunk = chunkX
