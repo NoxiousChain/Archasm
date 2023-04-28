@@ -31,9 +31,6 @@ class TerrainGenerator : public Node {
 	GODOT_CLASS(TerrainGenerator, Node)
 
 private:
-	// RNG
-	Ref<RandomNumberGenerator> rng;
-
 	// Noise maps
 	Ref<OpenSimplexNoise> biomeNoise[3];	// elevation, humidity, temperature
 	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
@@ -61,7 +58,7 @@ private:
 	// Returns the intermediate point between a and b, which is mu factor away from a
 	float cosp(float a, float b, float mu);
 
-	// Generation functions
+	// Generation functions. These return normalized values [0-1]
 	std::vector<float> getElevationNoise(int chunkX);
 	std::vector<float> getHumidityNoise(int chunkX);
 	std::vector<float> getTemperatureNoise(int chunkX);

@@ -46,7 +46,7 @@ func _ready():
 	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
 	_err = connect("health_updated", hud, "update_healthbar")
 	_err = connect("health_updated", inventory, "update_health")
-	_err = connect("moved_chunks", get_parent().get_parent(), "update_chunks")
+	_err = connect("moved_chunks", get_node("/root/World"), "update_chunks")
 	emit_signal("stats_loaded", self)
 	
 	last_chunk = chunk_manager.world_to_chunk_x(position.x)
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	var diff = chunkX - last_chunk
 	if diff == 0:
 		return
-	emit_signal("moved_chunks", diff > 0)
+	emit_signal("moved_chunks", bool(diff > 0))
 	last_chunk = chunkX
 
 func apply_physics(delta : float) -> void:

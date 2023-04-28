@@ -15,6 +15,8 @@ func _ready():
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 
 	var screen_width = int(get_viewport_rect().size.x)
+	cm.set_save_name("testsave1")
+	#cm.load_chunk_at_x(int(player.getPosition().x))
 	cm.initialize("testsave1", int(player.getPosition().x), screen_width)
 
 #	var rand = RandomNumberGenerator.new()
@@ -48,6 +50,7 @@ func _ready():
 func update_chunks(dir: bool):
 	cm.load_chunk(dir)
 	cm.save_chunk(!dir)
+	#cm.delete_chunk(!dir)
 	
 func toggle_inventory():
 	var visible = inventory.visible

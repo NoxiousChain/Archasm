@@ -1,174 +1,43 @@
 #include "ChunkManager.hpp"
 
-ChunkManager* ChunkManager::create(const String& saveName, int playerX, int screenWidth)
-{
-	ChunkManager* cm = ChunkManager::_new();
-	cm->initialize(saveName, playerX, screenWidth);
-	return cm;
-}
-
-void ChunkManager::initialize(const String& saveName, int playerX, int screenWidth)
-{
-	Godot::print("ChunkManager::initialize()");
-	this->saveName = saveName;
-	loadAllChunks(playerX, screenWidth);
-}
-
 void ChunkManager::_register_methods()
 {
-	register_method("initialize", &ChunkManager::initialize);
 	register_method("_ready", &ChunkManager::_ready);
+	register_method("initialize", &ChunkManager::initialize);
 	register_method("set_save_name", &ChunkManager::setSaveName);
-	register_method("load_chunk", &ChunkManager::loadChunk);
-	register_method("save_chunk", &ChunkManager::saveChunk);
-	register_method("load_all_chunks", &ChunkManager::loadAllChunks);
-	register_method("save_all_chunks", &ChunkManager::saveAllChunks);
-	register_method("load_center_chunk", &ChunkManager::loadCenterChunk);
 	register_method("world_to_chunk_x", &ChunkManager::worldToChunkX);
 	register_method("chunk_to_world_x", &ChunkManager::chunkToWorldX);
+	register_method("load_all_chunks", &ChunkManager::loadAllChunks);
+	register_method("load_chunk", &ChunkManager::loadChunk);
+	register_method("load_chunk_at_x", &ChunkManager::loadChunkAtX);
+	register_method("save_all_chunks", &ChunkManager::saveAllChunks);
+	register_method("save_chunk", &ChunkManager::saveChunk);
+	register_method("delete_chunk", &ChunkManager::deleteChunk);
+	register_method("delete_all_chunks", &ChunkManager::deleteAllChunks);
 }
 
 void ChunkManager::_init()
 {
 	Godot::print("ChunkManager::_init()");
-
-	threads.resize(MAX_THREADS);
-	availableThreads.resize(MAX_THREADS, true);
 }
 
 void ChunkManager::_ready()
 {
 	Godot::print("ChunkManager::_ready()");
 	tg = TerrainGenerator::_new();
+	tg->_ready(); // _ready() is never called automatically for some reason, so I do it manually here
+}
+
+void ChunkManager::initialize(const String& saveName, int playerX, int screenW)
+{
+	Godot::print("ChunkManager::initialize()");
+	this->saveName = saveName;
+	loadAllChunks(playerX, screenW);
 }
 
 void ChunkManager::setSaveName(const String& saveName)
 {
 	this->saveName = saveName;
-}
-
-void ChunkManager::loadChunk(bool right)
-{
-	Godot::print("loadChunk() called");
-	if (right) {
-		// Create a new chunk and add it to the tilemaps
-		Chunk c(tileMaps.back().getX() + 1);
-		c.getTileMap()->set_visible(false);
-		add_child(c.getTileMap());
-		c.getTileMap()->set_owner(this);
-		tileMaps.push_back(c);
-	}
-	else {
-		// Create a new chunk and add it to the tilemaps
-		Chunk c(tileMaps.front().getX() - 1);
-		c.getTileMap()->set_visible(false);
-		add_child(c.getTileMap());
-		c.getTileMap()->set_owner(this);
-		tileMaps.push_front(std::move(c));
-	}
-
-	// Find available thread
-	int threadIndex = getAvailableThread();
-	if (threadIndex == -1) {
-		Godot::print_error("No available threads to load a chunk", __FILE__, __LINE__);
-		return;
-	}
-
-	threads[threadIndex] = Thread::_new();
-	threads[threadIndex]->start([this, right, threadIndex] {
-		this->threadLoadChunk(right);
-		mtx->lock();
-		freeThread(threadIndex);
-		mtx->unlock();
-	});
-
-}
-
-void ChunkManager::saveChunk(bool right)
-{
-	int threadIndex = getAvailableThread();
-	if (threadIndex == -1) {
-		Godot::print_error("No available threads to save a chunk", __FILE__, __LINE__);
-		return;
-	}
-
-	threads[threadIndex] = Thread::_new();
-	threads[threadIndex]->start(this, "thread_load_chunk", right)
-	threads[threadIndex]->start([this, right, threadIndex] {
-		this->threadLoadChunk(right);
-		mtx->lock();
-		freeThread(threadIndex);
-		mtx->unlock();
-	});
-
-	if (right) {
-		remove_child(tileMaps.back().getTileMap());
-		tileMaps.pop_back();
-		// Update visible tilemaps
-		tileMaps[tileMaps.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(false);
-		tileMaps[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(true);
-	}
-	else {
-		remove_child(tileMaps.front().getTileMap());
-		tileMaps.pop_front();
-		// Update visible tilemaps
-		tileMaps[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(false);
-		tileMaps[tileMaps.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(true);
-	}
-}
-
-void ChunkManager::loadCenterChunk(int x)
-{
-	// Create a new chunk and add it to the tilemaps
-	tileMaps.push_back(Chunk(x));
-	tileMaps.back().getTileMap()->set_visible(true);
-
-	// Just load directly because its only one chunk & happens only on startup
-	tileMaps.back().load(saveName, tg);
-}
-
-void ChunkManager::loadAllChunks(int playerX, int screenWidth)
-{
-	Godot::print("loading all chunks...");
-	int centerChunk = Chunk::worldToChunkX(playerX);
-	int numChunks = Chunk::worldToChunkX(screenWidth) + 2*HIDDEN_CHUNKS;
-
-	// First load the center chunk, because other functions need at least 1 existing chunk to work properly
-	loadCenterChunk(centerChunk);
-	Godot::print("center chunk loaded");
-	// Load all chunks to the right on threads
-	for (int i = centerChunk + 1; i < centerChunk + numChunks / 2; i++) {
-		loadChunk(true);
-	}
-	// Load all chunks to the left on threads
-	for (int i = centerChunk - 1; i > centerChunk - numChunks / 2; i--) {
-		loadChunk(false);
-	}
-	
-	// Hide invisible chunks
-	for (int i = 0; i < HIDDEN_CHUNKS; i++) {
-		tileMaps.at(i).getTileMap()->hide();
-		tileMaps.at(tileMaps.size() - (i + 1)).getTileMap()->hide();
-	}
-	for (int i = HIDDEN_CHUNKS; i < tileMaps.size(); i++) {
-		tileMaps.at(i).getTileMap()->show();
-	}
-}
-
-// Need to rewrite to support threading
-void ChunkManager::saveAllChunks()
-{
-	std::vector<std::thread> saveThreads;
-
-	for (Chunk& chunk : tileMaps) {
-		saveThreads.push_back(std::thread([&] {
-			chunk.save(saveName);
-		}));
-	}
-	
-	for (auto& saveThread : saveThreads) {
-		saveThread.join();
-	}
 }
 
 int ChunkManager::worldToChunkX(int worldX)
@@ -181,73 +50,95 @@ int ChunkManager::chunkToWorldX(int chunkX)
 	return Chunk::chunkToWorldX(chunkX);
 }
 
-int ChunkManager::getAvailableThread()
+void ChunkManager::loadAllChunks(int playerX, int screenW)
 {
-	mtx->lock();
-	for (size_t i = 0; i < availableThreads.size(); i++) {
-		if (availableThreads[i]) {
-			availableThreads[i] = false;
-			return i;
+	int chunkX = Chunk::worldToChunkX(playerX);
+	// worldToChunkX(screenW) + 1 returns the number of chunks visible on the screen
+	int numChunks = (Chunk::worldToChunkX(screenW) + 1) + 2 * HIDDEN_CHUNKS;
+	//Godot::print("playerX: " + String::num_int64(playerX));
+	//Godot::print("screenW: " + String::num_int64(screenW));
+	//Godot::print("chunkX: " + String::num_int64(chunkX));
+	//Godot::print("numChunks: " + String::num_int64(numChunks));
+	//Godot::print("int i: " + String::num_int64(chunkX - (numChunks / 2 + 1)));
+	//Godot::print("i < : " + String::num_int64(numChunks / 2 + 1));
+	// [-3, 5]
+	for (int i = chunkX - (numChunks / 2 + 1); i <= numChunks / 2 + 1; i++) {
+		loadChunkAtX(i);
+	}
+	
+	// Hide invisible chunks
+	for (int i = 0; i < HIDDEN_CHUNKS; i++) {
+		chunks[i].getTileMap()->hide();
+		chunks[chunks.size() - (i + 1)].getTileMap()->hide();
+	}
+}
+
+void ChunkManager::loadChunkAtX(int chunkX)
+{
+	Chunk c(chunkX);
+	c.load(saveName, tg);
+	add_child(c.getTileMap());
+	c.getTileMap()->set_owner(this);
+	chunks.push_back(std::move(c));
+}
+
+void ChunkManager::loadChunk(bool right)
+{
+	if (right) {
+		Chunk c(chunks.back().getX() + 1);
+		c.getTileMap()->set_visible(false);
+		add_child(c.getTileMap());
+		c.getTileMap()->set_owner(this);
+		c.load(saveName, tg);
+		chunks.push_back(std::move(c));
+	}
+	else {
+		Chunk c(chunks.front().getX() - 1);
+		c.getTileMap()->set_visible(false);
+		add_child(c.getTileMap());
+		c.getTileMap()->set_owner(this);
+		c.load(saveName, tg);
+		chunks.push_front(std::move(c));
+	}
+}
+
+void ChunkManager::saveAllChunks()
+{
+	for (Chunk& chunk : chunks) {
+		chunk.save(saveName);
+	}
+}
+
+void ChunkManager::saveChunk(bool right)
+{
+	right ? chunks.back().save(saveName) : chunks.front().save(saveName);
+}
+
+void ChunkManager::deleteChunk(bool right, bool updateVisibility)
+{
+	if (right) {
+		remove_child(chunks.back().getTileMap());
+		chunks.pop_back();
+		if (updateVisibility) {
+			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(false);
+			chunks[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(true);
 		}
 	}
-	mtx->unlock();
-	return -1; // No available threads
-}
-
-void ChunkManager::freeThread(int index)
-{
-	if (threads[index].is_valid()) {
-		threads[index]->wait_to_finish();
-		threads[index].unref();
-		availableThreads[index] = true;
-	}
-}
-
-void ChunkManager::threadSaveChunk(bool right)
-{
-	if (right) {
-		tileMaps.back().save(saveName);
-	}
 	else {
-		tileMaps.front().save(saveName);
+		remove_child(chunks.front().getTileMap());
+		chunks.pop_front();
+		if (updateVisibility) {
+			chunks[HIDDEN_CHUNKS - 1].getTileMap()->set_visible(false);
+			chunks[chunks.size() - (HIDDEN_CHUNKS + 1)].getTileMap()->set_visible(true);
+		}
 	}
 }
 
-void ChunkManager::threadLoadChunk(bool right)
+void ChunkManager::deleteAllChunks()
 {
-	if (right) {
-		tileMaps.back().load(saveName, tg);
+	for (Chunk& chunk : chunks) {
+		remove_child(chunk.getTileMap());
+		// Chunks handle their own tilemap deletion
 	}
-	else {
-		tileMaps.front().load(saveName, tg);
-	}
+	chunks.clear();
 }
-
-/*
-void ChunkManager::threadSaveChunk(std::mutex& mtx, std::condition_variable& cv, bool& saveFinished, bool right)
-{
-	if (right) {
-		tileMaps.back().save(saveName);
-	}
-	else {
-		tileMaps.front().save(saveName);
-	}
-	std::unique_lock<std::mutex> lock(mtx);
-	loadFinished = true;
-	cv.notify_one();
-}
-
-void ChunkManager::threadLoadChunk(std::mutex& mtx, std::condition_variable& cv, bool& loadFinished, bool right)
-{
-	if (right) {
-		tileMaps.back().load(saveName, tg);
-	}
-	else {
-		tileMaps.front().load(saveName, tg);
-	}
-	std::unique_lock<std::mutex> lock(mtx);
-	loadFinished = true;
-	cv.notify_one();
-}
-*/
-

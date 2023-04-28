@@ -9,6 +9,7 @@
 #include "../Inventory/Inventory.hpp"
 #include "../Inventory/InventorySlot.hpp"
 #include "../WorldGen/Chunks/ChunkManager.hpp"
+//#include "../WorldGen/Chunks/ThreadedChunkManager.hpp"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options* o)
 {

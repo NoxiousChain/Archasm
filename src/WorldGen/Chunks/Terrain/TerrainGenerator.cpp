@@ -12,24 +12,23 @@ void TerrainGenerator::_register_methods()
 void TerrainGenerator::_init()
 {
 	Godot::print("TerrainGenerator::_init()");
-	rng.instance();
 	for (int i = 0; i < 3; i++) {
 		biomeNoise[i].instance();
 	}
 	heightNoise.instance();
 	caveNoise.instance();
+	request_ready();
 }
 
 void TerrainGenerator::_ready()
 {
 	Godot::print("TerrainGenerator::_ready()");
-	rng->set_seed(time(nullptr));
 
 	// Initialize all noise functions
 
 	// I can also try just using one noise function and incrementing y for the different conditions
 	for (int i = 0; i < 3; i++) {
-		biomeNoise[i]->set_seed(rng->randi());
+		biomeNoise[i]->set_seed(time(nullptr));
 		// Higher values -> more detailed features but longer computation time
 		biomeNoise[i]->set_octaves(5); // recommend 3-6
 		// Higher values -> rougher & more prominent terrain
@@ -40,7 +39,7 @@ void TerrainGenerator::_ready()
 		biomeNoise[i]->set_lacunarity(2.0); // ~2.0
 	}
 
-	heightNoise->set_seed(rng->randi());
+	heightNoise->set_seed(time(nullptr));
 	heightNoise->set_octaves(6); // 4-8
 	// Determines smoothness vs roughness
 	heightNoise->set_persistence(.55f); // .4-.7
@@ -48,7 +47,7 @@ void TerrainGenerator::_ready()
 	heightNoise->set_period(100); // 50-150
 	heightNoise->set_lacunarity(2.0f); // ~2.0
 
-	caveNoise->set_seed(rng->randi());
+	caveNoise->set_seed(time(nullptr));
 	// Lower values -> less detailed noise = larger, more connected caves
 	caveNoise->set_octaves(3); // 2-4
 	// Determines # of small vs large caves. Need to test to see actual changes
@@ -58,23 +57,26 @@ void TerrainGenerator::_ready()
 	caveNoise->set_lacunarity(2.0); // ~2.0
 
 	// Get block data
-	loadBlockDataFromJSON("res://resources/tiles/tiles.json");
+	// This function call is crashing
+	//loadBlockDataFromJSON("res://resources/tiles/tiles.json");
 }
 
 void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
 	// These are values for the chunk as a whole. 
 	// They will influence the other generation points
-	float elevation = biomeNoise[0]->get_noise_1d((float)chunkX);
-	float humidity = biomeNoise[1]->get_noise_1d((float)chunkX);
-	float temperature = biomeNoise[2]->get_noise_1d((float)chunkX);
+	//float elevation = getElevationNoise(chunkX);
+	//float humidity = getHumidityNoise(chunkX);
+	//float temperature = getTemperatureNoise(chunkX);
 
 	std::vector<float> terrain = terrainSuperposCosp(chunkX);
 
 	// Iterate through every cell
-	for (int x = 0; x < CHUNK_WIDTH; x++) {
-		int height = int(terrain[x] * CHUNK_WIDTH);
-
+	for (int x = 0; x < terrain.size(); x++) {
+		int height = int(terrain[x] * CHUNK_HEIGHT);
+		//Godot::print(String::num_real(terrain[x]));
+		//Godot::print(String::num_int64(height));
+	
 		for (int y = CHUNK_HEIGHT - height; y < CHUNK_HEIGHT; y++) {
 			tileMap->set_cell(x, y, 0); // fill with dirt
 		}
@@ -105,7 +107,10 @@ std::vector<float> TerrainGenerator::getElevationNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[0]->get_noise_1d((float)i));
+		float noise = biomeNoise[0]->get_noise_1d((float)i);
+		//float normalized = (noise + 1.f) * .5f;
+		//generated.push_back(normalized);
+		generated.push_back(mapv(noise, -1, 1, 0, 1));
 	}
 	return std::move(generated);
 }
@@ -115,7 +120,10 @@ std::vector<float> TerrainGenerator::getHumidityNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[1]->get_noise_1d((float)i));
+		float noise = biomeNoise[1]->get_noise_1d((float)i);
+		//float normalized = (noise + 1.f) * .5f;
+		//generated.push_back(normalized);
+		generated.push_back(mapv(noise, -1, 1, 0, 1));
 	}
 	return std::move(generated);
 }
@@ -125,7 +133,10 @@ std::vector<float> TerrainGenerator::getTemperatureNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(biomeNoise[2]->get_noise_1d((float)i));
+		float noise = biomeNoise[2]->get_noise_1d((float)i);
+		//float normalized = (noise + 1.f) * .5f;
+		//generated.push_back(normalized);
+		generated.push_back(mapv(noise, -1, 1, 0, 1));
 	}
 	return std::move(generated);
 }
@@ -135,7 +146,10 @@ std::vector<float> TerrainGenerator::getHeightNoise(int chunkX)
 	std::vector<float> generated;
 	int tileX = chunkX * CHUNK_WIDTH;
 	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		generated.push_back(heightNoise->get_noise_1d((float)i));
+		float noise = heightNoise->get_noise_1d((float)i);
+		//float normalized = (noise + 1.f) * .5f;
+		//generated.push_back(normalized);
+		generated.push_back(mapv(noise, -1, 1, 0, 1));
 	}
 	return std::move(generated);
 }
