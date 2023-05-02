@@ -1,0 +1,47 @@
+{
+	"Dirt Block": {
+		"ItemCategory": "Block",
+		"StackSize": 999,
+		"Description": "An extracted chunk of terrestrial matter excavated from the soil."
+	},
+	"Stone Block": {
+		"ItemCategory": "Block",
+		"StackSize": 999,
+		"Description": "A quarry-derived mass of mineral matter excavated from the earth."
+	},
+	"Wood Block": {
+		"ItemCategory": "Block",
+		"StackSize": 999,
+		"Description": "lumber obtained through the felling and milling of arboreal organisms."
+	},
+	"Copper Ore": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "A subterranean deposit of cupriferous minerals extracted from the earth."
+	},
+	"Iron Ore": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "naturally occurring ferrous mineral extracted from subterranean deposits."
+	},
+	"Gold Ore": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "naturally occurring auriferous mineral extracted from subterranean deposits."
+	},
+	"Diamond Ore": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "naturally occurring carbonado extracted from subterranean deposits."
+	},
+	"Jadeite": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "naturally occurring sodium- and aluminium-rich pyroxene extracted from subterranean deposits."
+	},
+	"Platinum Ore": {
+		"ItemCategory": "Ore",
+		"StackSize": 999,
+		"Description": "One of the rarest ores, platiniferous mineral from the deepest levels of the earth"
+	}
+}
