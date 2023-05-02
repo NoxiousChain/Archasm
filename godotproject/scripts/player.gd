@@ -42,6 +42,7 @@ signal killed()
 signal moved_chunks(dir)
 
 func _ready():
+	position.y = -1000
 	load_stats()
 	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
 	_err = connect("health_updated", hud, "update_healthbar")

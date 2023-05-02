@@ -8,6 +8,9 @@ Chunk::Chunk(int x) : cx{ x }
 	tileMap->set_position(Vector2(real_t(chunkToWorldX(cx)), 0.f));
 	Ref<Resource> tileset = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
+	Ref<Resource> script = ResourceLoader::get_singleton()->load("res://Worldgen/TileMap.gd");
+	script.instance();
+	tileMap->set_script(Object::cast_to<Script>(script.ptr()));
 	Godot::print("Chunk " + String::num_int64(cx) + " loaded at " + String::num_int64(chunkToWorldX(cx)));
 }
 

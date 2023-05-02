@@ -14,6 +14,7 @@
 #include <JSONParseResult.hpp>
 #include <Array.hpp>
 #include <RandomNumberGenerator.hpp>
+#include <Script.hpp>
 
 #include "../Blocks/BlockType.hpp"
 #include "../../KDTree/KDTree.hpp"
@@ -64,9 +65,12 @@ private:
 	std::vector<float> getTemperatureNoise(int chunkX);
 	std::vector<float> getHeightNoise(int chunkX);
 
+	std::vector<float> smoothNoiseMap(const std::vector<float>& noiseMap, int windowSize = 8);
+
 	// HEIGHT MAP GENERATION --------------------------------------------------//
 	// Generates a superposition sampled, cosinely interpolated terrain on a chunk. 
 	std::vector<float> terrainSuperposCosp(int chunkX, int iterations = 8);
 	// ------------------------------------------------------------------------//
+	std::vector<float> generateChunkHeights(int chunkX);
 };
 
