@@ -6,7 +6,6 @@ var item : Item
 var description_container : MarginContainer
 var item_description : ItemDescription
 
-
 func _ready():
 	item_description = ItemDescription.new()
 	description_container = MarginContainer.new()
@@ -40,3 +39,4 @@ func destroy():
 	description_container = null
 	item_description.queue_free()
 	item_description = null
+

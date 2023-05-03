@@ -18,7 +18,7 @@ enum {
 	TRUNK_TOP = 12,
 	STONE = 13,
 	
-	PURPLEA = 16,
+	PURPLEA = 14,
 	
 	DIRT_1 = 21,
 	DIRT_2 = 22,
@@ -32,18 +32,18 @@ enum {
 }
 
 var tiles_tex = {
-	DIRT: [preload("res://resources/tiles/blocks/dirt.png"), Vector2(10,10), DIRT],
-	DIRT_GRASS: [preload("res://resources/tiles/blocks/grass.png"), Vector2(10,10), DIRT_GRASS],
-	GRAVEL: [preload("res://resources/tiles/blocks/gravel.png"), Vector2(10,10), GRAVEL],
-	STONE: [preload("res://resources/tiles/blocks/stone.png"), Vector2(10,10), STONE],
-	TRUNK: [preload("res://resources/tiles/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
-	TRUNK_LOW: [preload("res://resources/tiles/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
+	DIRT: [preload("res://resources/tiles/plains/dirt.png"), Vector2(10,10), DIRT],
+	DIRT_GRASS: [preload("res://resources/tiles/plains/grass.png"), Vector2(10,10), DIRT_GRASS],
+	GRAVEL: [preload("res://resources/tiles/plains/gravel.png"), Vector2(10,10), GRAVEL],
+	STONE: [preload("res://resources/tiles/plains/stone.png"), Vector2(10,10), STONE],
+	TRUNK: [preload("res://resources/tiles/plains/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
+	TRUNK_LOW: [preload("res://resources/tiles/plains/obstacles/treeTrunk.png"), Vector2(6,10), TRUNK],
 	TRUNK_TOP = null,
 	
-	GRASS: [preload("res://resources/tiles/obstacles/grass.png"), Vector2(4,4), GRASS],
-	ROSE: [preload("res://resources/tiles/obstacles/rose.png"), Vector2(4,4), ROSE],
-	PAQUERETTE: [preload("res://resources/tiles/obstacles/paquerette.png"), Vector2(4,4), PAQUERETTE],
-	TULIPE: [preload("res://resources/tiles/obstacles/tulipe.png"), Vector2(4,4), TULIPE],
+	GRASS: [preload("res://resources/tiles/plains/obstacles/grass.png"), Vector2(4,4), GRASS],
+	ROSE: [preload("res://resources/tiles/plains/obstacles/rose.png"), Vector2(4,4), ROSE],
+	PAQUERETTE: [preload("res://resources/tiles/plains/obstacles/paquerette.png"), Vector2(4,4), PAQUERETTE],
+	TULIPE: [preload("res://resources/tiles/plains/obstacles/tulipe.png"), Vector2(4,4), TULIPE],
 	
 }
 
@@ -151,6 +151,10 @@ var hand = {
 #	TORCHE: {
 #		"ability": {"light_color": Color(1,0.8,0.5,0.1), "light_range": 180, "min_light_range": 96},
 #		"img": preload("res://image/tiles/torche.png"), "anim": {"h": 3, "v": 2}},
+}
+
+var fonts = {
+	1 : preload("res://resources/fonts/recurso/RecursoSans-Medium.ttf")
 }
 
 func _ready():
