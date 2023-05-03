@@ -1,17 +1,15 @@
 #include "BlockType.hpp"
 
-BlockType::BlockType() : name{}, index{ UINT64_MAX }, conditions{}
+BlockType::BlockType() : name{}, index{ SIZE_MAX }, conditions{}
 {
-	Godot::print("BlockType constructed");
 }
 
-BlockType::BlockType(const String& name, size_t index, const Array& data)
+BlockType::BlockType(const String& name, const Dictionary& data, size_t index)
+	: index{index}
 {
-	Godot::print("BlockType constructed");
-	this->index = index;
-	conditions.elevation = { data[0], data[1] };
-	conditions.humidity = { data[2], data[3] };
-	conditions.temperature = { data[4], data[5] };
+	conditions.elevation = { data["elevation_min"], data["elevation_max"] };
+	conditions.humidity = { data["humidity_min"], data["humidity_max"] };
+	conditions.temperature = { data["temperature_min"], data["temperature_max"] };
 }
 
 BlockType::Range BlockType::getElevationRange() const
@@ -41,5 +39,5 @@ size_t BlockType::getIndex() const
 
 bool BlockType::isValid() const
 {
-	return index != UINT64_MAX;
+	return index != SIZE_MAX;
 }

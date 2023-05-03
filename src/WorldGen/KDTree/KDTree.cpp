@@ -4,7 +4,6 @@
 
 KDTree::KDTree() : root{ nullptr } 
 {
-	Godot::print("KDTree constructed");
 }
 
 // Wrapper for insertRecursive function
@@ -63,8 +62,11 @@ BlockType KDTree::nearestRecursive(KDNode* node, double elevation, double humidi
 	BlockType best = nearestRecursive(next, elevation, humidity, temperature, depth + 1);
 	double bestDistSq = distanceSquared(best, elevation, humidity, temperature);
 
-	if (best.isValid() && bestDistSq > distanceSquared(node->block, elevation, humidity, temperature)) {
+	// Check if current node is better than the best match so far
+	double currentDistSq = distanceSquared(node->block, elevation, humidity, temperature);
+	if (!best.isValid() || bestDistSq > currentDistSq) {
 		best = node->block;
+		bestDistSq = currentDistSq;
 	}
 	 
 	// Calculate the distance for this particular plane

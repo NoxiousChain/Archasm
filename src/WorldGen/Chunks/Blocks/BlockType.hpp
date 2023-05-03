@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <Array.hpp>
+#include <Dictionary.hpp>
 #include <String.hpp>
 #include "../../../Common.hpp"
 
@@ -24,7 +24,7 @@ private:
 
 public:
 	BlockType();
-	BlockType(const String& name, size_t index = UINT64_MAX, const Array& data = Array());
+	BlockType(const String& name, const Dictionary& data, size_t index = SIZE_MAX);
 
 	Range getElevationRange() const;
 	Range getHumidityRange() const;

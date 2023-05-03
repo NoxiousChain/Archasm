@@ -11,7 +11,6 @@ void TerrainGenerator::_register_methods()
 
 void TerrainGenerator::_init()
 {
-	Godot::print("TerrainGenerator::_init()");
 	for (int i = 0; i < 3; i++) {
 		biomeNoise[i].instance();
 	}
@@ -21,8 +20,6 @@ void TerrainGenerator::_init()
 
 void TerrainGenerator::_ready()
 {
-	Godot::print("TerrainGenerator::_ready()");
-
 	// Initialize all noise functions
 
 	// I can also try just using one noise function and incrementing y for the different conditions
@@ -31,11 +28,11 @@ void TerrainGenerator::_ready()
 		// Higher values -> more detailed features but longer computation time
 		biomeNoise[i]->set_octaves(5); // recommend 3-6
 		// Higher values -> rougher & more prominent terrain
-		biomeNoise[i]->set_persistence(0.6); // .3-.6
+		biomeNoise[i]->set_persistence(0.6f); // .3-.6
 		// Higher values -> less frequent biome changes
 		biomeNoise[i]->set_period(70); // 20-100
 		// Higher values -> more irregular features
-		biomeNoise[i]->set_lacunarity(2.0); // ~2.0
+		biomeNoise[i]->set_lacunarity(2.f); // ~2.0
 	}
 
 	heightNoise->set_seed(time(nullptr));
@@ -44,20 +41,20 @@ void TerrainGenerator::_ready()
 	heightNoise->set_persistence(.45f); // .4-.7
 	// Lower values -> more frequent height changes
 	heightNoise->set_period(120); // 50-150
-	heightNoise->set_lacunarity(2.0f); // ~2.0
+	heightNoise->set_lacunarity(2.f); // ~2.0
 
 	caveNoise->set_seed(time(nullptr));
 	// Lower values -> less detailed noise = larger, more connected caves
 	caveNoise->set_octaves(3); // 2-4
 	// Determines # of small vs large caves. Need to test to see actual changes
-	caveNoise->set_persistence(.5); // .4-.6
+	caveNoise->set_persistence(.5f); // .4-.6
 	// Lower values -> more frequent caves | Higher values -> fewer, larger caves
 	caveNoise->set_period(35); // 20-50
-	caveNoise->set_lacunarity(2.0); // ~2.0
+	caveNoise->set_lacunarity(2.f); // ~2.0
 
 	// Get block data
-	// This function call is crashing
-	//loadBlockDataFromJSON("res://resources/tiles/tiles.json");
+	blockTypes = KDTree();
+	loadBlockDataFromJSON("res://resources/tiles/tiles.json");
 }
 
 void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
@@ -74,10 +71,8 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 	// Iterate through every cell
 	for (int x = 0; x < terrain.size(); x++) {
 		int height = int(terrain[x] * CHUNK_HEIGHT) / 2;
-		//Godot::print(String::num_real(terrain[x]));
-		//Godot::print(String::num_int64(height));
 	
-		for (int y = -height; y < 0; y++) {
+		for (int y = -height + 10; y < 250; y++) {
 			tileMap->set_cell(x, y, 0); // fill with dirt
 		}
 	}
@@ -143,7 +138,7 @@ std::vector<float> TerrainGenerator::getTemperatureNoise(int chunkX)
 
 std::vector<float> TerrainGenerator::smoothNoiseMap(const std::vector<float>& noiseMap, int windowSize)
 {
-	int size = noiseMap.size();
+	size_t size = noiseMap.size();
 	std::vector<float> smoothed(size);
 
 	for (int i = 0; i < size; i++) {
@@ -222,13 +217,13 @@ std::vector<float> TerrainGenerator::generateChunkHeights(int chunkX)
 
 	for (int x = 0; x < CHUNK_WIDTH; x++) {
 		int worldX = chunkX * CHUNK_WIDTH + x;
-		float elevation = (biomeNoise[0]->get_noise_1d(worldX * .05) + 1) / 2; // normalized
+		float elevation = (biomeNoise[0]->get_noise_1d((float)worldX * .05f) + 1) / 2; // normalized
 		
-		float elevationCubed = pow(elevation, 3);
+		float elevationCubed = (float)pow(elevation, 3);
 		float flatWeight = 1 - elevationCubed;
 		float mountainWeight = elevationCubed;
 		
-		float height = heightNoise->get_noise_1d(worldX * lacunarity) * persistence;
+		float height = heightNoise->get_noise_1d((float)worldX * lacunarity) * persistence;
 		float adjusted = (flatWeight + mountainWeight) * height * 4;
 
 		heights[x] = mapv(adjusted, -1, 1, 0, 1) / 4;
@@ -260,19 +255,19 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 		Godot::print("Failed to parse tile data JSON file");
 		return;
 	}
-
-	// Load block data into dictionary
-	Array blocks = data["blocks"];
+	Array blocks = Array(data["blocks"]);
 	for (int i = 0; i < blocks.size(); i++) {
 		// Get dictionary of values for block at index from json
-		const Dictionary& json_block = blocks[i];
+		const Dictionary& jsonBlock = blocks[i];
 		// Get data
-		String name = json_block["name"];
-		size_t index = json_block["index"];
-		Array conditions = json_block["conditions"];
+		String name = jsonBlock["name"];
+		int64_t index = jsonBlock["index"];
+		Dictionary conditions = jsonBlock["conditions"];
 
 		// Instantiate block and add to KD tree
-		BlockType block(name, index, conditions);
-		blockTypes.insert(block);
+		BlockType block(name, conditions, (size_t)index);
+
+		// THIS FUNCTION CALL CRASHES GODOT FOR SOME FUCKING REASON I CANT FIGURE OUT
+		//blockTypes.insert(block);
 	}
 }

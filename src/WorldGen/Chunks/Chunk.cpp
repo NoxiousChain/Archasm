@@ -2,7 +2,6 @@
 
 Chunk::Chunk(int x) : cx{ x }
 {
-	Godot::print("Chunk constructed");
 	tileMap = TileMap::_new();
 	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
 	tileMap->set_position(Vector2(real_t(chunkToWorldX(cx)), 0.f));
@@ -11,7 +10,6 @@ Chunk::Chunk(int x) : cx{ x }
 	Ref<Resource> script = ResourceLoader::get_singleton()->load("res://Worldgen/TileMap.gd");
 	script.instance();
 	tileMap->set_script(Object::cast_to<Script>(script.ptr()));
-	Godot::print("Chunk " + String::num_int64(cx) + " loaded at " + String::num_int64(chunkToWorldX(cx)));
 }
 
 Chunk::~Chunk()
@@ -42,7 +40,6 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 		file->close();
 	}
 	else { // If the file couldn't be found, the chunk needs to be generated
-		Godot::print("tg generating chunk...");
 		tg->generateChunk(cx, tileMap);
 	}
 }
@@ -54,7 +51,6 @@ void Chunk::save(const String& saveName)
 	Error err = file->open(filepath, File::WRITE);
 
 	if (err == Error::OK) {
-		Godot::print("saving chunk...");
 		Array& cells = tileMap->get_used_cells();
 		for (int i = 0; i < cells.size(); i++) {
 			Vector2 pos = cells[i];

@@ -8,8 +8,7 @@
         "elevation_max": 0.9,
         "temperature_min": 0.2,
         "temperature_max": 0.8,
-        "
-          _min": 0.3,
+        "_min": 0.3,
         "humidity_max": 0.6
       }
     },

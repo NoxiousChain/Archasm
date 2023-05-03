@@ -18,19 +18,16 @@ void ChunkManager::_register_methods()
 
 void ChunkManager::_init()
 {
-	Godot::print("ChunkManager::_init()");
 }
 
 void ChunkManager::_ready()
 {
-	Godot::print("ChunkManager::_ready()");
 	tg = TerrainGenerator::_new();
 	tg->_ready(); // _ready() is never called automatically for some reason, so I do it manually here
 }
 
 void ChunkManager::initialize(const String& saveName, int playerX, int screenW)
 {
-	Godot::print("ChunkManager::initialize()");
 	this->saveName = saveName;
 	loadAllChunks(playerX, screenW);
 }
