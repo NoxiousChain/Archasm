@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "CanvasLayer",
+"base": "",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
@@ -129,7 +129,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Archasm"
-run/main_scene="res://scenes/World.tscn"
+run/main_scene="res://scenes/Intro.tscn"
 config/icon="res://icon2.png"
 
 [autoload]
@@ -142,6 +142,7 @@ Tex="*res://scripts/singleton/Tex.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 
 [global]
 
