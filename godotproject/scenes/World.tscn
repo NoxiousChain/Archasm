@@ -78,6 +78,7 @@ anims/RESET = SubResource( 4 )
 [node name="HUD" parent="." instance=ExtResource( 17 )]
 
 [node name="Guide" type="Area2D" parent="."]
+position = Vector2( 377, -194 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Guide"]
