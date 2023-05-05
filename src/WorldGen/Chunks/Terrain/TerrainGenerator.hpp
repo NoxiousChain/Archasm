@@ -4,6 +4,7 @@
 
 #include <time.h>
 #include <cmath>
+#include <cassert>
 
 #include <Node.hpp>
 #include <Ref.hpp>
@@ -54,8 +55,11 @@ private:
 	int getBlockTypeFromNoise(float temperature, float humidity, float height);
 
 	// Helper functions
+	
+	//
 	// Maps v from the range [ol, oh] to the range [nl, nh]
 	float mapv(float v, float ol, float oh, float nl, float nh);
+
 	// Returns the intermediate point between a and b, which is mu factor away from a
 	float cosp(float a, float b, float mu);
 

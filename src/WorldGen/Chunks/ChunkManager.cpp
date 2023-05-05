@@ -116,7 +116,6 @@ void ChunkManager::saveChunk(bool right)
 
 void ChunkManager::deleteChunk(bool right, bool updateVisibility)
 {
-	Godot::print("deleting chunk...");
 	if (right) {
 		remove_child(chunks.back()->getTileMap());
 		chunks.pop_back();
