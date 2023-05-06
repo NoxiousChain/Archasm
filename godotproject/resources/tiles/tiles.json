@@ -73,15 +73,15 @@
       }
     },
     {
-      "name": "sandstone",
+      "name": "empty",
       "index": 6,
       "conditions": {
-        "elevation_min": 0.1,
-        "elevation_max": 0.5,
-        "temperature_min": 0.6,
-        "temperature_max": 1.0,
-        "humidity_min": 0.1,
-        "humidity_max": 0.4
+        "elevation_min": 0.0,
+        "elevation_max": 0.0,
+        "temperature_min": 0.0,
+        "temperature_max": 0.0,
+        "humidity_min": 0.0,
+        "humidity_max": 0.0
       }
     },
     {
@@ -203,6 +203,6 @@
         "humidity_min": 0.7,
         "humidity_max": 1.0
       }
-    }
+    },
   ]
 }

@@ -143,7 +143,7 @@ func generate_id(noise_level : float):
 
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()
-	var map_pos = world_to_map(mouse_pos)
+	var map_pos = world_to_map(to_local(mouse_pos))
 	var tile_id = get_cellv(map_pos)
 	if interact_enabled:
 		if Input.is_action_pressed("mb_left"):

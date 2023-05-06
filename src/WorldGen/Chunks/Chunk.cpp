@@ -9,7 +9,7 @@ Chunk::Chunk(int x) : cx{ x }
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
 	Ref<Resource> script = ResourceLoader::get_singleton()->load("res://Worldgen/TileMap.gd");
 	script.instance();
-	tileMap->set_script(Object::cast_to<Script>(script.ptr()));
+	tileMap->set_script(script.ptr());
 }
 
 Chunk::~Chunk()

@@ -76,7 +76,7 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 	
 		for (int y = -height + 10; y < 250; y++) {
 			BlockType block = blockTypes.nearestNeighbor(elevation * terrain[x], humidity, temperature);
-			tileMap->set_cell(x, y, block.isValid() ? block.getIndex() : 0); // fill with dirt if no valid block
+			tileMap->set_cell(x, y, block.isValid() ? block.getIndex() : 6); // fill with debug block if no valid block
 		}
 	}
 }
