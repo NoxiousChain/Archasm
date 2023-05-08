@@ -137,6 +137,7 @@ config/icon="res://icon2.png"
 PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 Selector="*res://scenes/Selector.tscn"
 Tex="*res://scripts/singleton/Tex.gd"
+MusicControls="*res://Autoload/MusicControls.tscn"
 
 [display]
 

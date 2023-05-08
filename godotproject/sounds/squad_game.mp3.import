@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/squad_game.mp3-9d9ad9f9d8b4344cc50cac01369af098.mp3str"
+
+[deps]
+
+source_file="res://sounds/squad_game.mp3"
+dest_files=[ "res://.import/squad_game.mp3-9d9ad9f9d8b4344cc50cac01369af098.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
