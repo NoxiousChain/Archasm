@@ -16,12 +16,12 @@ void TerrainGenerator::_init()
 	}
 	heightNoise.instance();
 	caveNoise.instance();
+	blockTypes = KDTree();
 }
 
 void TerrainGenerator::_ready()
 {
 	// Initialize all noise functions
-
 	// I can also try just using one noise function and incrementing y for the different conditions
 	for (int i = 0; i < 3; i++) {
 		biomeNoise[i]->set_seed(time(nullptr));
@@ -53,7 +53,6 @@ void TerrainGenerator::_ready()
 	caveNoise->set_lacunarity(2.f); // ~2.0
 
 	// Get block data
-	blockTypes = KDTree();
 	loadBlockDataFromJSON("res://resources/tiles/tiles.json");
 }
 
@@ -61,9 +60,9 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
 	// These are values for the chunk as a whole. 
 	// They will influence the other generation points
-	//float elevation = getElevationNoise(chunkX);
-	//float humidity = getHumidityNoise(chunkX);
-	//float temperature = getTemperatureNoise(chunkX);
+	std::vector<float> chunkElevation = getElevationNoise(chunkX);
+	std::vector<float> chunkHumidity = getHumidityNoise(chunkX);
+	std::vector<float> chunkTemperature = getTemperatureNoise(chunkX);
 
 	//std::vector<float> terrain = terrainSuperposCosp(chunkX);
 	std::vector<float> terrain = generateChunkHeights(chunkX);
@@ -71,9 +70,13 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 	// Iterate through every cell
 	for (int x = 0; x < terrain.size(); x++) {
 		int height = int(terrain[x] * CHUNK_HEIGHT) / 2;
+		float elevation = chunkElevation[x] * terrain[x];
+		float humidity = chunkHumidity[x];
+		float temperature = chunkTemperature[x];
 	
 		for (int y = -height + 10; y < 250; y++) {
-			tileMap->set_cell(x, y, 0); // fill with dirt
+			BlockType block = blockTypes.nearestNeighbor(elevation * terrain[x], humidity, temperature);
+			tileMap->set_cell(x, y, block.isValid() ? block.getIndex() : 6); // fill with debug block if no valid block
 		}
 	}
 }
@@ -99,41 +102,41 @@ float TerrainGenerator::cosp(float a, float b, float mu)
 
 std::vector<float> TerrainGenerator::getElevationNoise(int chunkX)
 {
-	std::vector<float> generated;
+	std::vector<float> generated(CHUNK_WIDTH);
 	int tileX = chunkX * CHUNK_WIDTH;
-	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		float noise = biomeNoise[0]->get_noise_1d((float)i);
+	for (int i = 0; i < CHUNK_WIDTH; i++) {
+		float noise = biomeNoise[0]->get_noise_1d((float)(i + tileX));
 		//float normalized = (noise + 1.f) * .5f;
 		//generated.push_back(normalized);
-		generated.push_back(mapv(noise, -1, 1, 0, 1));
+		generated[i] = mapv(noise, -1, 1, 0, 1);
 	}
-	return std::move(generated);
+	return generated;
 }
 
 std::vector<float> TerrainGenerator::getHumidityNoise(int chunkX)
 {
-	std::vector<float> generated;
+	std::vector<float> generated(CHUNK_WIDTH);
 	int tileX = chunkX * CHUNK_WIDTH;
-	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		float noise = biomeNoise[1]->get_noise_1d((float)i);
+	for (int i = 0; i < CHUNK_WIDTH; i++) {
+		float noise = biomeNoise[1]->get_noise_1d((float)(i + tileX));
 		//float normalized = (noise + 1.f) * .5f;
 		//generated.push_back(normalized);
-		generated.push_back(mapv(noise, -1, 1, 0, 1));
+		generated[i] = mapv(noise, -1, 1, 0, 1);
 	}
-	return std::move(generated);
+	return generated;
 }
 
 std::vector<float> TerrainGenerator::getTemperatureNoise(int chunkX)
 {
-	std::vector<float> generated;
+	std::vector<float> generated(CHUNK_WIDTH);
 	int tileX = chunkX * CHUNK_WIDTH;
-	for (int i = tileX; i < tileX + CHUNK_WIDTH; i++) {
-		float noise = biomeNoise[2]->get_noise_1d((float)i);
+	for (int i = 0; i < CHUNK_WIDTH; i++) {
+		float noise = biomeNoise[2]->get_noise_1d((float)(i + tileX));
 		//float normalized = (noise + 1.f) * .5f;
 		//generated.push_back(normalized);
-		generated.push_back(mapv(noise, -1, 1, 0, 1));
+		generated[i] = mapv(noise, -1, 1, 0, 1);
 	}
-	return std::move(generated);
+	return generated;
 }
 
 std::vector<float> TerrainGenerator::smoothNoiseMap(const std::vector<float>& noiseMap, int windowSize)
@@ -166,7 +169,7 @@ std::vector<float> TerrainGenerator::getHeightNoise(int chunkX)
 		//generated.push_back(normalized);
 		generated.push_back(mapv(noise, -1, 1, 0, 1));
 	}
-	return std::move(generated);
+	return generated;
 }
 
 std::vector<float> TerrainGenerator::terrainSuperposCosp(int chunkX, int iterations)
@@ -255,19 +258,23 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 		Godot::print("Failed to parse tile data JSON file");
 		return;
 	}
+
 	Array blocks = Array(data["blocks"]);
 	for (int i = 0; i < blocks.size(); i++) {
 		// Get dictionary of values for block at index from json
 		const Dictionary& jsonBlock = blocks[i];
 		// Get data
-		String name = jsonBlock["name"];
+		const String& name = jsonBlock["name"];
 		int64_t index = jsonBlock["index"];
-		Dictionary conditions = jsonBlock["conditions"];
+		const Dictionary& conditions = jsonBlock["conditions"];
 
 		// Instantiate block and add to KD tree
 		BlockType block(name, conditions, (size_t)index);
 
-		// THIS FUNCTION CALL CRASHES GODOT FOR SOME FUCKING REASON I CANT FIGURE OUT
-		//blockTypes.insert(block);
+		// This function prevents the game from crashing. I have no idea how or why, but if it's 
+		// removed the entire game will crash instantly. Godot is so ass bruh
+		block.toString();
+
+		blockTypes.insert(block);
 	}
 }

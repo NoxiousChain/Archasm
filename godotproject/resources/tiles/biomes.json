@@ -1,0 +1,613 @@
+{
+  "ores": [
+    {
+      "type": "iron_ore",
+      "frequency": 0.02,
+      "clump_size_min": 4,
+      "clump_size_max": 12,
+      "depth_min": 0.0,
+      "depth_max": 0.7
+    },
+    {
+      "type": "gold_ore",
+      "frequency": 0.01,
+      "clump_size_min": 3,
+      "clump_size_max": 9,
+      "depth_min": 0.2,
+      "depth_max": 0.8
+    },
+    {
+      "type": "diamond_ore",
+      "frequency": 0.005,
+      "clump_size_min": 2,
+      "clump_size_max": 6,
+      "depth_min": 0.4,
+      "depth_max": 0.9
+    },
+    {
+      "type": "jadeite_ore",
+      "frequency": 0.002,
+      "clump_size_min": 1,
+      "clump_size_max": 4,
+      "depth_min": 0.6,
+      "depth_max": 0.95
+    },
+    {
+      "type": "platinum_ore",
+      "frequency": 0.001,
+      "clump_size_min": 1,
+      "clump_size_max": 3,
+      "depth_min": 0.7,
+      "depth_max": 1.0
+    }
+  ],
+  "biomes": [
+    {
+      "name": "Alpine",
+      "elevation_min": 0.75,
+      "elevation_max": 1.0,
+      "temperature_min": 0.0,
+      "temperature_max": 0.25,
+      "humidity_min": 0.25,
+      "humidity_max": 0.75,
+      "blocks": [
+        {
+          "type": "snow",
+          "frequency": 0.8
+        },
+        {
+          "type": "ice",
+          "frequency": 0.1
+        },
+        {
+          "type": "packed_ice",
+          "frequency": 0.05
+        },
+        {
+          "type": "stone",
+          "frequency": 0.7
+        },
+        {
+          "type": "cobblestone",
+          "frequency": 0.3
+        },
+        {
+          "type": "mossy_cobblestone",
+          "frequency": 0.1
+        },
+        {
+          "type": "grass",
+          "frequency": 0.5,
+          "surface_only": true
+        },
+        {
+          "type": "gravel",
+          "frequency": 0.2
+        }
+      ],
+      "flowers": [
+        {
+          "type": "fern",
+          "density": 0.3,
+          "rarity": 0.7
+        },
+        {
+          "type": "dandelion",
+          "density": 0.5,
+          "rarity": 0.5
+        },
+        {
+          "type": "blue_orchid",
+          "density": 0.1,
+          "rarity": 0.9
+        }
+      ],
+      "trees": [
+        {
+          "type": "spruce",
+          "density": 0.4,
+          "rarity": 0.6
+        }
+      ]
+    },
+    {
+      "name": "Tundra",
+      "elevation_min": 0.1,
+      "elevation_max": 0.4,
+      "temperature_min": 0.0,
+      "temperature_max": 0.2,
+      "humidity_min": 0.2,
+      "humidity_max": 0.5,
+      "blocks": [
+        {
+          "type": "snow",
+          "frequency": 0.9,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.4
+        },
+        {
+          "type": "stone",
+          "frequency": 0.7
+        },
+        {
+          "type": "ice",
+          "frequency": 0.1
+        },
+        {
+          "type": "packed_ice",
+          "frequency": 0.05
+        }
+      ],
+      "flowers": [
+        {
+          "type": "snowdrop",
+          "density": 0.1,
+          "rarity": 0.4
+        }
+      ],
+      "trees": []
+    },
+    {
+      "name": "Boreal Forest",
+      "elevation_min": 0.2,
+      "elevation_max": 0.5,
+      "temperature_min": 0.2,
+      "temperature_max": 0.5,
+      "humidity_min": 0.6,
+      "humidity_max": 0.9,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.8,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.6
+        },
+        {
+          "type": "stone",
+          "frequency": 0.7
+        },
+        {
+          "type": "mossy_cobblestone",
+          "frequency": 0.2
+        }
+      ],
+      "flowers": [
+        {
+          "type": "blue_orchid",
+          "density": 0.2,
+          "rarity": 0.5
+        },
+        {
+          "type": "tulip",
+          "density": 0.3,
+          "rarity": 0.4
+        }
+      ],
+      "trees": [
+        {
+          "type": "spruce",
+          "density": 0.5,
+          "rarity": 0.6
+        },
+        {
+          "type": "pine",
+          "density": 0.4,
+          "rarity": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Temperate Rainforest",
+      "elevation_min": 0.2,
+      "elevation_max": 0.5,
+      "temperature_min": 0.6,
+      "temperature_max": 0.9,
+      "humidity_min": 0.8,
+      "humidity_max": 1.0,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.9,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.8
+        },
+        {
+          "type": "stone",
+          "frequency": 0.7
+        },
+        {
+          "type": "mossy_cobblestone",
+          "frequency": 0.3
+        }
+      ],
+      "flowers": [
+        {
+          "type": "blue_orchid",
+          "density": 0.4,
+          "rarity": 0.6
+        },
+        {
+          "type": "tulip",
+          "density": 0.3,
+          "rarity": 0.4
+        },
+        {
+          "type": "allium",
+          "density": 0.2,
+          "rarity": 0.5
+        }
+      ],
+      "trees": [
+        {
+          "type": "oak",
+          "density": 0.6,
+          "rarity": 0.7
+        },
+        {
+          "type": "birch",
+          "density": 0.4,
+          "rarity": 0.6
+        },
+        {
+          "type": "willow",
+          "density": 0.3,
+          "rarity": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Temperate Forest",
+      "elevation_min": 0.15,
+      "elevation_max": 0.45,
+      "temperature_min": 0.4,
+      "temperature_max": 0.7,
+      "humidity_min": 0.4,
+      "humidity_max": 0.7,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.85,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.7
+        },
+        {
+          "type": "stone",
+          "frequency": 0.6
+        }
+      ],
+      "flowers": [
+        {
+          "type": "dandelion",
+          "density": 0.4,
+          "rarity": 0.6
+        },
+        {
+          "type": "tulip",
+          "density": 0.3,
+          "rarity": 0.5
+        },
+        {
+          "type": "rose",
+          "density": 0.2,
+          "rarity": 0.4
+        }
+      ],
+      "trees": [
+        {
+          "type": "oak",
+          "density": 0.6,
+          "rarity": 0.7
+        },
+        {
+          "type": "birch",
+          "density": 0.4,
+          "rarity": 0.6
+        },
+        {
+          "type": "maple",
+          "density": 0.3,
+          "rarity": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Grassland",
+      "elevation_min": 0.1,
+      "elevation_max": 0.4,
+      "temperature_min": 0.4,
+      "temperature_max": 0.7,
+      "humidity_min": 0.3,
+      "humidity_max": 0.6,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.95,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.8
+        },
+        {
+          "type": "stone",
+          "frequency": 0.5
+        }
+      ],
+      "flowers": [
+        {
+          "type": "dandelion",
+          "density": 0.6,
+          "rarity": 0.7
+        },
+        {
+          "type": "tulip",
+          "density": 0.5,
+          "rarity": 0.6
+        },
+        {
+          "type": "poppy",
+          "density": 0.4,
+          "rarity": 0.5
+        }
+      ],
+      "trees": [
+        {
+          "type": "oak",
+          "density": 0.1,
+          "rarity": 0.4
+        },
+        {
+          "type": "birch",
+          "density": 0.05,
+          "rarity": 0.3
+        }
+      ]
+    },
+    {
+      "name": "Savannah",
+      "elevation_min": 0.1,
+      "elevation_max": 0.3,
+      "temperature_min": 0.6,
+      "temperature_max": 0.9,
+      "humidity_min": 0.1,
+      "humidity_max": 0.4,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.7,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.5
+        },
+        {
+          "type": "stone",
+          "frequency": 0.4
+        },
+        {
+          "type": "sand",
+          "frequency": 0.3
+        }
+      ],
+      "flowers": [
+        {
+          "type": "acacia_flower",
+          "density": 0.2,
+          "rarity": 0.5
+        }
+      ],
+      "trees": [
+        {
+          "type": "acacia",
+          "density": 0.2,
+          "rarity": 0.6
+        }
+      ]
+    },
+    {
+      "name": "Tropical Rainforest",
+      "elevation_min": 0.1,
+      "elevation_max": 0.3,
+      "temperature_min": 0.7,
+      "temperature_max": 1.0,
+      "humidity_min": 0.8,
+      "humidity_max": 1.0,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.9,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.8
+        },
+        {
+          "type": "stone",
+          "frequency": 0.6
+        },
+        {
+          "type": "mud",
+          "frequency": 0.2
+        }
+      ],
+      "flowers": [
+        {
+          "type": "orchid",
+          "density": 0.5,
+          "rarity": 0.8
+        },
+        {
+          "type": "heliconia",
+          "density": 0.4,
+          "rarity": 0.7
+        },
+        {
+          "type": "bromeliad",
+          "density": 0.3,
+          "rarity": 0.6
+        }
+      ],
+      "trees": [
+        {
+          "type": "jungle",
+          "density": 0.7,
+          "rarity": 0.9
+        },
+        {
+          "type": "mahogany",
+          "density": 0.4,
+          "rarity": 0.7
+        },
+        {
+          "type": "bamboo",
+          "density": 0.5,
+          "rarity": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Swamp",
+      "elevation_min": 0.0,
+      "elevation_max": 0.15,
+      "temperature_min": 0.4,
+      "temperature_max": 0.7,
+      "humidity_min": 0.8,
+      "humidity_max": 1.0,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.6,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.7
+        },
+        {
+          "type": "stone",
+          "frequency": 0.5
+        },
+        {
+          "type": "mud",
+          "frequency": 0.4
+        },
+        {
+          "type": "water",
+          "frequency": 0.3
+        }
+      ],
+      "flowers": [
+        {
+          "type": "blue_orchid",
+          "density": 0.2,
+          "rarity": 0.4
+        }
+      ],
+      "trees": [
+        {
+          "type": "willow",
+          "density": 0.3,
+          "rarity": 0.6
+        },
+        {
+          "type": "mangrove",
+          "density": 0.2,
+          "rarity": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Mountain",
+      "elevation_min": 0.6,
+      "elevation_max": 1.0,
+      "temperature_min": 0.2,
+      "temperature_max": 0.5,
+      "humidity_min": 0.3,
+      "humidity_max": 0.6,
+      "blocks": [
+        {
+          "type": "grass",
+          "frequency": 0.4,
+          "surface_only": true
+        },
+        {
+          "type": "dirt",
+          "frequency": 0.5
+        },
+        {
+          "type": "stone",
+          "frequency": 0.9
+        },
+        {
+          "type": "gravel",
+          "frequency": 0.3
+        },
+        {
+          "type": "snow",
+          "frequency": 0.3,
+          "surface_only": true,
+          "elevation_min": 0.8
+        }
+      ],
+      "flowers": [
+        {
+          "type": "mountain_flower",
+          "density": 0.1,
+          "rarity": 0.3
+        }
+      ],
+      "trees": [
+        {
+          "type": "pine",
+          "density": 0.2,
+          "rarity": 0.5
+        }
+      ]
+    },
+    {
+      "name": "Polar Ice Cap",
+      "elevation_min": 0.0,
+      "elevation_max": 0.3,
+      "temperature_min": 0.0,
+      "temperature_max": 0.15,
+      "humidity_min": 0.0,
+      "humidity_max": 0.3,
+      "blocks": [
+        {
+          "type": "snow",
+          "frequency": 0.9,
+          "surface_only": true
+        },
+        {
+          "type": "ice",
+          "frequency": 0.8
+        },
+        {
+          "type": "packed_ice",
+          "frequency": 0.6
+        },
+        {
+          "type": "stone",
+          "frequency": 0.3
+        }
+      ],
+      "flowers": [],
+      "trees": []
+    }
+
+  ]
+}

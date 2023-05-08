@@ -9,7 +9,7 @@ Chunk::Chunk(int x) : cx{ x }
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
 	Ref<Resource> script = ResourceLoader::get_singleton()->load("res://Worldgen/TileMap.gd");
 	script.instance();
-	tileMap->set_script(Object::cast_to<Script>(script.ptr()));
+	tileMap->set_script(script.ptr());
 }
 
 Chunk::~Chunk()
@@ -26,7 +26,6 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 	String filepath = String("res://resources/saves/") + hashName(saveName);
 	Error err = file->open(filepath, File::READ);
 	if (err == Error::OK && file->get_len()) {
-		Godot::print("chunk loading from file...");
 		tileMap->clear();
 		
 		// This will load all existing tiles.

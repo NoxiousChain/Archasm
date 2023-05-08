@@ -15,6 +15,10 @@ public:
 	};
 	struct Conditions {
 		Range elevation, humidity, temperature;
+
+		inline static String toString(Range which) {
+			return String::num_real(which.min) + String("-") + String::num_real(which.max);
+		}
 	};
 
 private:
@@ -34,4 +38,6 @@ public:
 
 	size_t getIndex() const;
 	bool isValid() const;
+
+	String toString() const;
 };
