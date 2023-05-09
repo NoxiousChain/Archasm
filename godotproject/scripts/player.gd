@@ -92,6 +92,7 @@ func quick_move(var delta : float) -> void:
 			move_speed = 0
 	else:
 		animation.play("idle")
+		move_speed = lerp(move_speed,0,0.5)
 		
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
 	
