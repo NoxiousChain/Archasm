@@ -65,39 +65,13 @@ func _physics_process(delta: float) -> void:
 
 func apply_physics(delta : float) -> void:
 
-	if(is_on_ceiling()):
-		motion.y = 10
-		vspeed = 10
-	
-	if(touching_ground == true and !is_on_floor()): # just left the ground
-		animation.play("idle")
-		coy_time = true
-		coy_timer.start(0.2)
-		
-	if(is_on_floor()):
-		touching_ground = true
-		coy_timer.stop()
-		coy_time = false
-	else:
-		touching_ground = false
-		animation.play("idle")
-
 	if(!is_on_floor()):
 		vspeed += (gravity * delta)
-		animation.play("jump_liftOff")
 		animation.play("jump_air")
 	else:
 		vspeed = 0
 		if(Input.is_action_just_pressed("move_jump")):
-			
-			coy_time = false
-			coy_timer.stop()
 			vspeed = -jump_height
-			
-	if(coy_time and Input.is_action_just_pressed("move_jump")):
-		coy_time = false
-		coy_timer.stop()
-		vspeed = -jump_height
 
 	motion.y = vspeed
 	motion.x = hspeed
@@ -106,10 +80,6 @@ func apply_physics(delta : float) -> void:
 
 
 func quick_move(var delta : float) -> void:
-
-	if(is_on_wall()):
-		move_speed = 0
-
 	if(Input.is_action_pressed("move_right")):
 		animation.play("run")
 		move_speed += acc * delta
@@ -122,7 +92,6 @@ func quick_move(var delta : float) -> void:
 			move_speed = 0
 	else:
 		animation.play("idle")
-		move_speed = lerp(move_speed,0,0.5)
 		
 	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
 	
