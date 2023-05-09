@@ -263,5 +263,5 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 threads/thread_model=2
-environment/default_clear_color=Color( 0, 0, 0, 1 )
+environment/default_clear_color=Color( 0.156863, 0.847059, 0.882353, 1 )
 2d/thread_model=2
