@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://resources/HUD/inv_hud.png" type="Texture" id=1]
 [ext_resource path="res://Inventory/Slot.gd" type="Script" id=2]
 
 [node name="Hotbar" type="Node2D"]
@@ -83,5 +82,3 @@ margin_left = 672.0
 margin_top = 992.0
 margin_right = 960.0
 margin_bottom = 1024.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 1 )

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://Items/classes/Item.gd" type="Script" id=1]
+[ext_resource path="res://Items/assets/materials/Wood Planks.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+item_name = "Wood"
+description = "none"
+meta = "n/a"
+texture = ExtResource( 2 )
+stack_size = 999
+quantity = 1

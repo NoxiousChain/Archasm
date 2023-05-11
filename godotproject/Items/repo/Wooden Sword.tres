@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Wooden Sword"
+item_name = "Wooden Sword"
 description = "A sword made out of wood"
 meta = "n/a"
 texture = ExtResource( 1 )
-stack_size = 20
-quantity = 8
+stack_size = 99
+quantity = 1
 effects = 9
 attack = 2.0

@@ -1,22 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Items/classes/ItemSprite.gd" type="Script" id=1]
-[ext_resource path="res://Items/repo/sword.tres" type="Resource" id=2]
-[ext_resource path="res://Items/assets/weapons/Wooden Sword.png" type="Texture" id=3]
+[ext_resource path="res://Items/repo/Wooden Sword.tres" type="Resource" id=2]
+[ext_resource path="res://resources/fonts/recurso/RecursoSans-Medium.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 10
+font_data = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect"]
-margin_right = 38.0
-margin_bottom = 38.0
+rect_min_size = Vector2( 32, 32 )
 mouse_filter = 2
-texture = ExtResource( 3 )
 script = ExtResource( 1 )
 item_res = ExtResource( 2 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Label" type="Label" parent="."]
 margin_left = 13.0
-margin_top = 9.0
-margin_right = 53.0
-margin_bottom = 49.0
-bbcode_enabled = true
-text = "1"
-scroll_active = false
+margin_top = 19.0
+margin_right = 31.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 1 )
+text = "999"
