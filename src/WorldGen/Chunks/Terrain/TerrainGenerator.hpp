@@ -5,6 +5,9 @@
 #include <time.h>
 #include <cmath>
 #include <cassert>
+#include <tuple>
+#include <unordered_map>
+#include <memory>
 
 #include <Node.hpp>
 #include <Ref.hpp>
@@ -16,8 +19,10 @@
 #include <Array.hpp>
 #include <RandomNumberGenerator.hpp>
 #include <Script.hpp>
+#include <Dictionary.hpp>
 
-#include "../Blocks/BlockType.hpp"
+#include "../Biome/Block.hpp"
+#include "../Biome/Biome.hpp"
 #include "../../KDTree/KDTree.hpp"
 #include "../ChunkConstants.hpp"
 
@@ -34,12 +39,16 @@ class TerrainGenerator : public Node {
 
 private:
 	// Noise maps
-	Ref<OpenSimplexNoise> biomeNoise[3];	// elevation, humidity, temperature
-	Ref<OpenSimplexNoise> heightNoise;		// for generating height map
+	Ref<OpenSimplexNoise> biomeNoise[4];	// elevation, humidity, temperature, elev. modifier
 	Ref<OpenSimplexNoise> caveNoise;
 	
-	// Tile data
-	KDTree blockTypes;
+	// Block data - map from name to block. This is a dictionary because unordered_map doesn't support godot strings
+	Dictionary blockMap;
+	//unordered_map<String, Block*> blockMap;
+	// Index to block
+	unordered_map<size_t, Block*> blockIndexMap;
+	// Chunk data
+	KDTree chunks;
 
 public:
 	~TerrainGenerator();
@@ -51,30 +60,22 @@ public:
 
 private:
 	void loadBlockDataFromJSON(const String& filepath);
-
-	int getBlockTypeFromNoise(float temperature, float humidity, float height);
+	void loadBiomeDataFromJSON(const String& filepath);
 
 	// Helper functions
 	
-	//
 	// Maps v from the range [ol, oh] to the range [nl, nh]
 	float mapv(float v, float ol, float oh, float nl, float nh);
-
+	// Maps noise value from [-1, 1] to [0, 1]
+	float nnoise(float in) const;
 	// Returns the intermediate point between a and b, which is mu factor away from a
 	float cosp(float a, float b, float mu);
 
-	// Generation functions. These return normalized values [0-1]
-	std::vector<float> getElevationNoise(int chunkX);
-	std::vector<float> getHumidityNoise(int chunkX);
-	std::vector<float> getTemperatureNoise(int chunkX);
-	std::vector<float> getHeightNoise(int chunkX);
 
-	std::vector<float> smoothNoiseMap(const std::vector<float>& noiseMap, int windowSize = 8);
-
-	// HEIGHT MAP GENERATION --------------------------------------------------//
-	// Generates a superposition sampled, cosinely interpolated terrain on a chunk. 
-	std::vector<float> terrainSuperposCosp(int chunkX, int iterations = 8);
 	// ------------------------------------------------------------------------//
-	std::vector<float> generateChunkHeights(int chunkX);
-};
+	// Generates height, temperature, and humidity values for a chunk
+	// Temperature & humidity values are adjusted based on elevation to simulate
+	// realistic environments (higher elevation -> colder & drier)
+	std::vector<std::tuple<float, float, float>> generateChunkData(int chunkX) const;
 
+};
