@@ -45,6 +45,7 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	apply_physics(delta)
+	pickUpPhysics()
 	var chunkX = chunk_manager.world_to_chunk_x(position.x)
 	var diff = chunkX - last_chunk
 	if diff == 0:
@@ -127,7 +128,12 @@ func get_attack() -> float:
 func get_defense() -> int:
 	return get_stat("defense")
 
-
+func pickUpPhysics():
+	if $pickup_zone.items_in_range.size() > 0:
+			var pickup_item = $pickup_zone.items_in_range.values()[0]
+			pickup_item.pick_up_item(self)
+			$pickup_zone.items_in_range.erase(pickup_item)
+			
 func damage(amount):
 	# try to save some computation time
 	if amount == 0: 

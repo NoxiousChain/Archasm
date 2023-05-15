@@ -269,6 +269,9 @@ dialogic_default_action={
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Projectiles"
+2d_physics/layer_5="Items"
+2d_physics/layer_6="NPCS"
+2d_physics/layer_7="Dialog Detection"
 
 [physics]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Guide.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Items/ItemDrop.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
@@ -76,6 +77,43 @@ anims/RESET = SubResource( 4 )
 [node name="ChunkManager" parent="." instance=ExtResource( 8 )]
 
 [node name="Guide" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1277, -443 )
+position = Vector2( 1243, -414 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ItemDrop" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1388, -387 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop2" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1342, -381 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop3" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 687, -366 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop4" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 786, -382 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop5" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 862, -385 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop6" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1454, -381 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop7" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1160, -402 )
+collision_layer = 16
+collision_mask = 17
 
 [editable path="DayNightCycleForeground/player"]

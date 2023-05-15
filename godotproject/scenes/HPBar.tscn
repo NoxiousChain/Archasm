@@ -7,6 +7,7 @@
 [node name="HPBar" type="TextureRect"]
 margin_right = 17.0
 margin_bottom = 8.0
+rect_scale = Vector2( 1.5, 1 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 

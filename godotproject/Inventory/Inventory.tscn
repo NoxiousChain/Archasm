@@ -349,6 +349,11 @@ rect_min_size = Vector2( 38, 38 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 
+[node name="CenterContainer" type="CenterContainer" parent="Inventory"]
+margin_top = 200.0
+margin_right = 38.0
+margin_bottom = 200.0
+
 [node name="Hotbar" parent="." instance=ExtResource( 7 )]
 
 [node name="HelmetSlot" type="Panel" parent="."]
