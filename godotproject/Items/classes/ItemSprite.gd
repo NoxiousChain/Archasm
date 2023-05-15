@@ -6,9 +6,20 @@ var item : Item
 var description_container : MarginContainer
 var item_description : ItemDescription
 
-onready var myLabel = $RichTextLabel
+onready var myLabel = $Label
 
 func _ready():
+	var rand_val = randi() % 3
+	if rand_val == 0:
+		item.item_name = "Wooden Sword"
+		
+	item.quantity = randi() % item.stack_size + 1
+		
+	if item.stack_size == 1:
+		$Label.visible = false
+	else:
+		$Label.text = String(item.quantity)
+	
 	item_description = ItemDescription.new()
 	description_container = MarginContainer.new()
 	add_child(description_container)
@@ -18,12 +29,12 @@ func _ready():
 	if item != null:
 		set_texture(item.texture)
 		item.gen_item_description(description_container, item_description)
+		myLabel.text = str(item.quantity)
 	pass
 
 func set_item(_item: Resource):
 	item = _item as Item
 	set_texture(item.texture)
-	$RichTextLabel.bbcode_text = str(_item.getQuantity())
 
 func get_item() -> Item:
 	return item as Item
@@ -43,5 +54,10 @@ func destroy():
 	item_description.queue_free()
 	item_description = null
 
-func addQuantity(addedQuant : int):
-	item_res.addQuantity(addedQuant)
+func add_item_quantity(amount_to_add):
+	item.quantity += amount_to_add
+	$Label.text = String(item.quantity)
+
+func decrease_item_quantity(amount_to_remove):
+	item.quantity -= amount_to_remove
+	$Label.text = String(item.quantity)

@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Inventory/Slot.gd" type="Script" id=2]
+
+[node name="Hotbar" type="Node2D"]
+
+[node name="HotbarSlots" type="GridContainer" parent="."]
+margin_left = 672.0
+margin_top = 992.0
+margin_right = 736.0
+margin_bottom = 1056.0
+custom_constants/hseparation = 0
+columns = 9
+
+[node name="HotbarSlot1" type="Panel" parent="HotbarSlots"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot2" type="Panel" parent="HotbarSlots"]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot3" type="Panel" parent="HotbarSlots"]
+margin_left = 128.0
+margin_right = 192.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot4" type="Panel" parent="HotbarSlots"]
+margin_left = 192.0
+margin_right = 256.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot5" type="Panel" parent="HotbarSlots"]
+margin_left = 256.0
+margin_right = 320.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot6" type="Panel" parent="HotbarSlots"]
+margin_left = 320.0
+margin_right = 384.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot7" type="Panel" parent="HotbarSlots"]
+margin_left = 384.0
+margin_right = 448.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot8" type="Panel" parent="HotbarSlots"]
+margin_left = 448.0
+margin_right = 512.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="HotbarSlot9" type="Panel" parent="HotbarSlots"]
+margin_left = 512.0
+margin_right = 576.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 672.0
+margin_top = 992.0
+margin_right = 960.0
+margin_bottom = 1024.0

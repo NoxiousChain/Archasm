@@ -1,4 +1,3 @@
-tool
 extends Label
 
 func _ready():

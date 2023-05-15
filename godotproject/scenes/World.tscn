@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scripts/NPC.gd" type="Script" id=3]
-[ext_resource path="res://resources/guy.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Guide.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Items/ItemDrop.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
@@ -47,9 +47,6 @@ tracks/0/keys = {
 "values": [ Color( 0.858824, 0.847059, 0.847059, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 56.0
-
 [node name="World" type="Node2D"]
 script = ExtResource( 13 )
 
@@ -60,7 +57,7 @@ color = Color( 0.858824, 0.847059, 0.847059, 1 )
 
 [node name="player" parent="DayNightCycleForeground" instance=ExtResource( 5 )]
 material = SubResource( 9 )
-position = Vector2( 1024, -219 )
+position = Vector2( 1017, -112 )
 
 [node name="Sprite" parent="DayNightCycleForeground/player" index="0"]
 material = SubResource( 5 )
@@ -77,19 +74,46 @@ anims/RESET = SubResource( 4 )
 
 [node name="HUD" parent="." instance=ExtResource( 17 )]
 
-[node name="Guide" type="Area2D" parent="."]
-position = Vector2( 377, -194 )
-script = ExtResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="Guide"]
-position = Vector2( 1281.5, -39.875 )
-scale = Vector2( 0.0910166, 0.065102 )
-texture = ExtResource( 4 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Guide"]
-position = Vector2( 1280, -40 )
-shape = SubResource( 10 )
-
 [node name="ChunkManager" parent="." instance=ExtResource( 8 )]
+
+[node name="Guide" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1243, -414 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ItemDrop" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1388, -387 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop2" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1342, -381 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop3" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 687, -366 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop4" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 786, -382 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop5" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 862, -385 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop6" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1454, -381 )
+collision_layer = 16
+collision_mask = 17
+
+[node name="ItemDrop7" parent="Node2D" instance=ExtResource( 2 )]
+position = Vector2( 1160, -402 )
+collision_layer = 16
+collision_mask = 17
 
 [editable path="DayNightCycleForeground/player"]

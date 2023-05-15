@@ -3,13 +3,16 @@
 /.vscode
 
 # c++ binaries
-.o
-.os
-.so
-.obj
-.lib
+*.o
+*.os
+*.so
+*.obj
+*.lib
 bin
 *.includes
+
+# saves
+chunk_*
 
 # other
 *._

@@ -1,4 +1,3 @@
-tool
 extends Label
 export var text_key : String = ""
 var editor_reference

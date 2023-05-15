@@ -1,4 +1,3 @@
-tool
 extends "res://addons/dialogic/Editor/Events/Parts/EventPart.gd"
 
 # has an event_data variable that stores the current data!!!

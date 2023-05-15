@@ -1,31 +1,21 @@
 extends KinematicBody2D
 class_name Player
 
-export var gravity = 600
-export var acc = 350
-export var max_move_speed = 250
-export var jump_height = 300
+var velocity = Vector2.ZERO
 
-var vspeed : float = 0
-var hspeed : float = 0
-var move_speed : float = 0
+export var GRAVITY = 10
+export var MOVE_SPEED = 200
+export var ACCELERATION = 5000
+export var FRICTION = 2000
+export var JUMP_FORCE = 300
+
 var last_chunk : int = 0
-
 var test_damage = 40
-
-var touching_ground : bool = false
-var coy_time : bool = false # this will let us do coytoee time
-var motion : Vector2 = Vector2.ZERO
-var up : Vector2 = Vector2.UP
-
 var enemy_scene = preload("res://scenes/GOBLIN.tscn")
 
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
-onready var coy_timer = $coyote_timer
 onready var chunk_manager = get_parent().get_parent().get_node("ChunkManager").get_child(0)
-
-signal stats_loaded
 
 onready var hud = get_node("/root/World/HUD")
 onready var inventory = get_node("/root/World/HUD/Inventory")
@@ -34,6 +24,7 @@ onready var inventory = get_node("/root/World/HUD/Inventory")
 # Data gets loaded from player_stats.tres
 # If we add better save options this will need to be expanded
 onready var stats_resource = preload("res://Player/player_stats.tres")
+signal stats_loaded
 var player_stats = {}
 
 signal health_updated(health, max_health, animation)
@@ -42,7 +33,7 @@ signal killed()
 signal moved_chunks(dir)
 
 func _ready():
-	position.y = -1000
+	position.y = -700
 	load_stats()
 	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
 	_err = connect("health_updated", hud, "update_healthbar")
@@ -53,8 +44,8 @@ func _ready():
 	last_chunk = chunk_manager.world_to_chunk_x(position.x)
 	
 func _physics_process(delta: float) -> void:
-	quick_move(delta)
 	apply_physics(delta)
+	pickUpPhysics()
 	var chunkX = chunk_manager.world_to_chunk_x(position.x)
 	var diff = chunkX - last_chunk
 	if diff == 0:
@@ -64,72 +55,31 @@ func _physics_process(delta: float) -> void:
 	last_chunk = chunkX
 
 func apply_physics(delta : float) -> void:
-
-	if(is_on_ceiling()):
-		motion.y = 10
-		vspeed = 10
-	
-	if(touching_ground == true and !is_on_floor()): # just left the ground
+	var direction = 0
+	if Input.is_action_pressed("move_left"):
+		animation.play("run")
+		direction -= 1
+	if Input.is_action_pressed("move_right"):
+		animation.play("run")
+		direction += 1
+	if direction == 0:
+		velocity.x = 0
 		animation.play("idle")
-		coy_time = true
-		coy_timer.start(0.2)
-		
-	if(is_on_floor()):
-		touching_ground = true
-		coy_timer.stop()
-		coy_time = false
 	else:
-		touching_ground = false
-		animation.play("idle")
-
-	if(!is_on_floor()):
-		vspeed += (gravity * delta)
-		animation.play("jump_liftOff")
+		velocity.x = direction * MOVE_SPEED
+	
+	if Input.is_action_just_pressed("move_jump"):
+		if is_on_floor():
+			velocity.y = -JUMP_FORCE
+			
+	velocity.y += GRAVITY
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if not is_on_floor():
 		animation.play("jump_air")
-	else:
-		vspeed = 0
-		if(Input.is_action_just_pressed("move_jump")):
-			
-			coy_time = false
-			coy_timer.stop()
-			vspeed = -jump_height
-			
-	if(coy_time and Input.is_action_just_pressed("move_jump")):
-		coy_time = false
-		coy_timer.stop()
-		vspeed = -jump_height
-
-	motion.y = vspeed
-	motion.x = hspeed
-
-	motion = move_and_slide(motion,up)
-
-
-func quick_move(var delta : float) -> void:
-
-	if(is_on_wall()):
-		move_speed = 0
-
-	if(Input.is_action_pressed("move_right")):
-		animation.play("run")
-		move_speed += acc * delta
-		if(Input.is_action_pressed("move_left")):
-			move_speed = 0
-	elif(Input.is_action_pressed("move_left")):
-		animation.play("run")
-		move_speed -= acc * delta
-		if(Input.is_action_pressed("move_right")):
-			move_speed = 0
-	else:
-		animation.play("idle")
-		move_speed = lerp(move_speed,0,0.5)
-		
-	move_speed = clamp(move_speed,-max_move_speed,max_move_speed)
-	
-	hspeed = move_speed
-	if motion.x < 0:
+	if velocity.x < 0:
 		sprite.flip_h = true
-	if motion.x > 0:
+	elif velocity.x > 0:
 		sprite.flip_h = false
 
 func getPosition() -> Vector2:
@@ -178,7 +128,12 @@ func get_attack() -> float:
 func get_defense() -> int:
 	return get_stat("defense")
 
-
+func pickUpPhysics():
+	if $pickup_zone.items_in_range.size() > 0:
+			var pickup_item = $pickup_zone.items_in_range.values()[0]
+			pickup_item.pick_up_item(self)
+			$pickup_zone.items_in_range.erase(pickup_item)
+			
 func damage(amount):
 	# try to save some computation time
 	if amount == 0: 

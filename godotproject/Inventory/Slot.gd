@@ -4,9 +4,13 @@ var defaultTexture = preload("res://resources/inventory/inventory_slot.png")
 
 var defaultStyle: StyleBoxTexture = null
 
+var itemScene = preload("res://Inventory/Test_Item.tscn")
 var item = null
 
 func _ready():
+	if randi() % 2 == 0:
+		item = itemScene.instance()
+		add_child(item)
 	defaultStyle = StyleBoxTexture.new()
 	defaultStyle.texture = defaultTexture
 	refresh_style()

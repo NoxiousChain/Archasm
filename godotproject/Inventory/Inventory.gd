@@ -6,6 +6,7 @@ onready var armorSlots = [$HelmetSlot, $ChestSlot, $LegsSlot, $AccessorySlot1, $
 onready var bgTexture = $TextureRect
 onready var sscale = $Inventory.rect_scale*2
 
+var item : Item
 var heldItem = null
 const SlotClass = preload("res://Inventory/Slot.gd")
 var offset = 0
@@ -111,13 +112,13 @@ func slot_gui_input(event: InputEvent, slot):
 					heldItem.set_global_position(get_global_mouse_position() - offset)
 		elif event.button_index == BUTTON_LEFT && !event.is_pressed():
 			mouse_held_on_place = false
-		elif event.button_index == BUTTON_RIGHT && event.is_pressed():
-			if !slot.full():
-				var scene: PackedScene = load("res://Inventory/Test_Item.tscn")
-				var instance = scene.instance()
-				slot.put_in_slot(instance)
-			else:
-				var _empty = slot.take_from_slot()
+#		elif event.button_index == BUTTON_RIGHT && event.is_pressed():
+#			if !slot.full():
+#				var scene: PackedScene = load("res://Inventory/Test_Item.tscn")
+#				var instance = scene.instance()
+#				slot.put_in_slot(instance)
+#			else:
+#				var _empty = slot.take_from_slot()
 	
 func _input(event):
 	# update position of held item

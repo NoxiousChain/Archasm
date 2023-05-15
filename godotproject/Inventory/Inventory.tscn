@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Inventory/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Inventory/Slot.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/inventory/inventory.png" type="Texture" id=4]
 [ext_resource path="res://resources/fonts/Slapa/slapa_24.tres" type="DynamicFont" id=5]
 [ext_resource path="res://resources/fonts/Slapa/slapa_12.tres" type="DynamicFont" id=6]
+[ext_resource path="res://HUD/HotbarGrid.tscn" type="PackedScene" id=7]
 [ext_resource path="res://resources/fonts/Slapa/slapa_16.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Inventory/HelmetSlot.gd" type="Script" id=9]
 [ext_resource path="res://Inventory/LegsSlot.gd" type="Script" id=10]
@@ -20,6 +21,7 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [node name="Inventory" type="Node2D"]
+scale = Vector2( 1.3, 1.3 )
 script = ExtResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -347,86 +349,12 @@ rect_min_size = Vector2( 38, 38 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 
-[node name="Hotbar" type="GridContainer" parent="."]
-margin_left = 21.0
-margin_top = 514.0
-margin_right = 427.0
-margin_bottom = 552.0
-rect_pivot_offset = Vector2( -106, -215 )
-custom_constants/vseparation = 0
-custom_constants/hseparation = 8
-columns = 9
-
-[node name="Slot1" type="Panel" parent="Hotbar"]
+[node name="CenterContainer" type="CenterContainer" parent="Inventory"]
+margin_top = 200.0
 margin_right = 38.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+margin_bottom = 200.0
 
-[node name="Slot2" type="Panel" parent="Hotbar"]
-margin_left = 46.0
-margin_right = 84.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot3" type="Panel" parent="Hotbar"]
-margin_left = 92.0
-margin_right = 130.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot4" type="Panel" parent="Hotbar"]
-margin_left = 138.0
-margin_right = 176.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot5" type="Panel" parent="Hotbar"]
-margin_left = 184.0
-margin_right = 222.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot6" type="Panel" parent="Hotbar"]
-margin_left = 230.0
-margin_right = 268.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot7" type="Panel" parent="Hotbar"]
-margin_left = 276.0
-margin_right = 314.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot8" type="Panel" parent="Hotbar"]
-margin_left = 322.0
-margin_right = 360.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
-
-[node name="Slot9" type="Panel" parent="Hotbar"]
-margin_left = 368.0
-margin_right = 406.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+[node name="Hotbar" parent="." instance=ExtResource( 7 )]
 
 [node name="HelmetSlot" type="Panel" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
