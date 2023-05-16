@@ -2,8 +2,8 @@
 #include "KDNode.hpp"
 #include <cmath>
 
-// Implements a KD tree specifically designed to handle BlockType objects
-// This is used for terrain generation - stores block data via three parameters:
+// Implements a KD tree specifically designed to handle Biome objects
+// This is used for terrain generation - stores biome data via three parameters:
 // elevation, humidity, and temperature. Returns closest average match to all three
 
 class KDTree {
@@ -13,13 +13,13 @@ public:
 	KDTree();
 	~KDTree(); // Automatically frees memory when out of scope
 
-	void insert(const BlockType& block);
-	BlockType nearestNeighbor(double elevation, double humidity, double temperature);
+	void insert(const Biome& biome);
+	Biome nearestNeighbor(double elevation, double humidity, double temperature);
 
 private:
-	KDNode* insertRecursive(KDNode*, const BlockType& block, int depth);
-	BlockType nearestRecursive(KDNode* node, double elevation, double humidity, double temperature, int depth);
-	double distanceSquared(const BlockType& block, double elevation, double humidity, double temperature);
+	KDNode* insertRecursive(KDNode*, const Biome& biome, int depth);
+	Biome nearestRecursive(KDNode* node, double elevation, double humidity, double temperature, int depth);
+	double distanceSquared(const Biome& biome, double elevation, double humidity, double temperature);
 
 	// Recursively frees memory
 	void deleteNodes(KDNode* node);

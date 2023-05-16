@@ -3,206 +3,126 @@
     {
       "name": "dirt",
       "index": 0,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.9,
-        "temperature_min": 0.2,
-        "temperature_max": 0.8,
-        "humidity_min": 0.3,
-        "humidity_max": 0.6
-      }
+      "hardness": 2
     },
     {
       "name": "grass",
       "index": 1,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.6,
-        "temperature_min": 0.4,
-        "temperature_max": 0.8,
-        "humidity_min": 0.4,
-        "humidity_max": 0.8
-      }
+      "hardness": 3,
+      "surface_only": true
     },
     {
       "name": "gravel",
       "index": 2,
-      "conditions": {
-        "elevation_min": 0.2,
-        "elevation_max": 0.8,
-        "temperature_min": 0.3,
-        "temperature_max": 0.7,
-        "humidity_min": 0.2,
-        "humidity_max": 0.5
-      }
+      "hardness": 2
     },
     {
       "name": "stone",
       "index": 3,
-      "conditions": {
-        "elevation_min": 0.3,
-        "elevation_max": 0.9,
-        "temperature_min": 0.2,
-        "temperature_max": 0.8,
-        "humidity_min": 0.1,
-        "humidity_max": 0.6
-      }
+      "hardness": 3
     },
     {
       "name": "sand",
       "index": 4,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.4,
-        "temperature_min": 0.6,
-        "temperature_max": 1.0,
-        "humidity_min": 0.0,
-        "humidity_max": 0.3
-      }
+      "hardness": 1
     },
     {
       "name": "clay",
       "index": 5,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.4,
-        "temperature_min": 0.4,
-        "temperature_max": 0.8,
-        "humidity_min": 0.6,
-        "humidity_max": 1.0
-      }
+      "hardness": 2
     },
     {
       "name": "empty",
       "index": 6,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.0,
-        "temperature_min": 0.0,
-        "temperature_max": 0.0,
-        "humidity_min": 0.0,
-        "humidity_max": 0.0
-      }
+      "hardness": -1
     },
     {
       "name": "snow",
       "index": 7,
-      "conditions": {
-        "elevation_min": 0.2,
-        "elevation_max": 0.9,
-        "temperature_min": 0.0,
-        "temperature_max": 0.3,
-        "humidity_min": 0.4,
-        "humidity_max": 1.0
-      }
+      "hardness": 1
     },
     {
       "name": "ice",
       "index": 8,
-      "conditions": {
-        "elevation_min": 0.3,
-        "elevation_max": 0.9,
-        "temperature_min": 0.0,
-        "temperature_max": 0.2,
-        "humidity_min": 0.4,
-        "humidity_max": 1.0
-      }
+      "hardness": 3
     },
     {
       "name": "packed_ice",
       "index": 9,
-      "conditions": {
-        "elevation_min": 0.4,
-        "elevation_max": 0.9,
-        "temperature_min": 0.0,
-        "temperature_max": 0.3,
-        "humidity_min": 0.4,
-        "humidity_max": 1.0
-      }
-    },
-    {
-      "name": "copper_ore",
-      "index": 10,
-      "conditions": {
-        "elevation_min": 0.5,
-        "elevation_max": 0.7,
-        "temperature_min": 0.3,
-        "temperature_max": 0.7,
-        "humidity_min": 0.1,
-        "humidity_max": 0.8
-      }
-    },
-    {
-      "name": "iron_ore",
-      "index": 11,
-      "conditions": {
-        "elevation_min": 0.6,
-        "elevation_max": 0.75,
-        "temperature_min": 0.1,
-        "temperature_max": 0.7,
-        "humidity_min": 0.3,
-        "humidity_max": 0.8
-      }
-    },
-    {
-      "name": "gold_ore",
-      "index": 12,
-      "conditions": {
-        "elevation_min": 0.65,
-        "elevation_max": 0.8,
-        "temperature_min": 0.2,
-        "temperature_max": 0.6,
-        "humidity_min": 0.1,
-        "humidity_max": 0.4
-      }
-    },
-    {
-      "name": "jadeite_ore",
-      "index": 13,
-      "conditions": {
-        "elevation_min": 0.7,
-        "elevation_max": 0.85,
-        "temperature_min": 0.3,
-        "temperature_max": 0.6,
-        "humidity_min": 0.0,
-        "humidity_max": 0.3
-      }
-    },
-    {
-      "name": "diamond_ore",
-      "index": 14,
-      "conditions": {
-        "elevation_min": 0.75,
-        "elevation_max": 0.9,
-        "temperature_min": 0.3,
-        "temperature_max": 0.7,
-        "humidity_min": 0.3,
-        "humidity_max": 0.7
-      }
-    },
-    {
-      "name": "platinum_ore",
-      "index": 15,
-      "conditions": {
-        "elevation_min": 0.8,
-        "elevation_max": 0.9,
-        "temperature_min": 0.3,
-        "temperature_max": 0.7,
-        "humidity_min": 0.1,
-        "humidity_max": 0.45
-      }
+      "hardness": 6
     },
     {
       "name": "mud",
       "index": 16,
-      "conditions": {
-        "elevation_min": 0.0,
-        "elevation_max": 0.4,
-        "temperature_min": 0.4,
-        "temperature_max": 0.8,
-        "humidity_min": 0.7,
-        "humidity_max": 1.0
-      }
+      "hardness": 2
+    }
+  ],
+  "ores": [
+    {
+      "name": "copper_ore",
+      "index": 10,
+      "frequency": 0.01,
+      "clump_size_min": 4,
+      "clump_size_max": 12,
+      "depth_min": 0.0,
+      "depth_max": 0.5,
+      "hardness": 4
     },
+    {
+      "name": "iron_ore",
+      "index": 11,
+      "frequency": 0.02,
+      "clump_size_min": 4,
+      "clump_size_max": 12,
+      "depth_min": 0.0,
+      "depth_max": 0.7,
+      "hardness": 5
+    },
+    {
+      "name": "gold_ore",
+      "index": 12,
+      "frequency": 0.01,
+      "clump_size_min": 3,
+      "clump_size_max": 9,
+      "depth_min": 0.2,
+      "depth_max": 0.8,
+      "hardness": 4
+    },
+    {
+      "name": "diamond_ore",
+      "index": 13,
+      "frequency": 0.005,
+      "clump_size_min": 2,
+      "clump_size_max": 6,
+      "depth_min": 0.4,
+      "depth_max": 0.9,
+      "hardness": 8
+    },
+    {
+      "name": "jadeite_ore",
+      "index": 14,
+      "frequency": 0.002,
+      "clump_size_min": 1,
+      "clump_size_max": 4,
+      "depth_min": 0.6,
+      "depth_max": 0.95,
+      "hardness": 9
+    },
+    {
+      "name": "platinum_ore",
+      "index": 15,
+      "frequency": 0.001,
+      "clump_size_min": 1,
+      "clump_size_max": 4,
+      "depth_min": 0.7,
+      "depth_max": 1.0,
+      "hardness": 10
+    }
+  ],
+  "flowers": [
+
+  ],
+  "trees": [
+
   ]
 }

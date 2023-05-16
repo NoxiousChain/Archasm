@@ -1,11 +1,11 @@
 #pragma once
-#include "../Chunks/Blocks/BlockType.hpp"
+#include "../Chunks/Biome/Biome.hpp"
 
 class KDNode {
 public:
-	BlockType block;
+	Biome biome;
 	KDNode *left, *right;
 	int axis;
 
-	inline KDNode(BlockType block, int axis) : block{ block }, axis{ axis }, left{ nullptr }, right{ nullptr } {}
+	inline KDNode(Biome biome, int axis) : biome{ biome }, axis{ axis }, left{ nullptr }, right{ nullptr } {}
 };

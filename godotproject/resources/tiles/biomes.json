@@ -1,55 +1,15 @@
 {
-  "ores": [
-    {
-      "type": "iron_ore",
-      "frequency": 0.02,
-      "clump_size_min": 4,
-      "clump_size_max": 12,
-      "depth_min": 0.0,
-      "depth_max": 0.7
-    },
-    {
-      "type": "gold_ore",
-      "frequency": 0.01,
-      "clump_size_min": 3,
-      "clump_size_max": 9,
-      "depth_min": 0.2,
-      "depth_max": 0.8
-    },
-    {
-      "type": "diamond_ore",
-      "frequency": 0.005,
-      "clump_size_min": 2,
-      "clump_size_max": 6,
-      "depth_min": 0.4,
-      "depth_max": 0.9
-    },
-    {
-      "type": "jadeite_ore",
-      "frequency": 0.002,
-      "clump_size_min": 1,
-      "clump_size_max": 4,
-      "depth_min": 0.6,
-      "depth_max": 0.95
-    },
-    {
-      "type": "platinum_ore",
-      "frequency": 0.001,
-      "clump_size_min": 1,
-      "clump_size_max": 3,
-      "depth_min": 0.7,
-      "depth_max": 1.0
-    }
-  ],
   "biomes": [
     {
       "name": "Alpine",
-      "elevation_min": 0.75,
-      "elevation_max": 1.0,
-      "temperature_min": 0.0,
-      "temperature_max": 0.25,
-      "humidity_min": 0.25,
-      "humidity_max": 0.75,
+      "conditions": {
+        "elevation_min": 0.75,
+        "elevation_max": 1.0,
+        "temperature_min": 0.0,
+        "temperature_max": 0.25,
+        "humidity_min": 0.25,
+        "humidity_max": 0.75
+      },
       "blocks": [
         {
           "type": "snow",
@@ -77,8 +37,7 @@
         },
         {
           "type": "grass",
-          "frequency": 0.5,
-          "surface_only": true
+          "frequency": 0.5
         },
         {
           "type": "gravel",
@@ -121,8 +80,7 @@
       "blocks": [
         {
           "type": "snow",
-          "frequency": 0.9,
-          "surface_only": true
+          "frequency": 0.9
         },
         {
           "type": "dirt",
@@ -161,8 +119,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.8,
-          "surface_only": true
+          "frequency": 0.8
         },
         {
           "type": "dirt",
@@ -213,8 +170,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.9,
-          "surface_only": true
+          "frequency": 0.9
         },
         {
           "type": "dirt",
@@ -275,8 +231,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.85,
-          "surface_only": true
+          "frequency": 0.85
         },
         {
           "type": "dirt",
@@ -333,8 +288,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.95,
-          "surface_only": true
+          "frequency": 0.95
         },
         {
           "type": "dirt",
@@ -386,8 +340,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.7,
-          "surface_only": true
+          "frequency": 0.7
         },
         {
           "type": "dirt",
@@ -428,8 +381,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.9,
-          "surface_only": true
+          "frequency": 0.9
         },
         {
           "type": "dirt",
@@ -490,8 +442,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.6,
-          "surface_only": true
+          "frequency": 0.6
         },
         {
           "type": "dirt",
@@ -541,8 +492,7 @@
       "blocks": [
         {
           "type": "grass",
-          "frequency": 0.4,
-          "surface_only": true
+          "frequency": 0.4
         },
         {
           "type": "dirt",
@@ -558,9 +508,7 @@
         },
         {
           "type": "snow",
-          "frequency": 0.3,
-          "surface_only": true,
-          "elevation_min": 0.8
+          "frequency": 0.3
         }
       ],
       "flowers": [
@@ -589,8 +537,7 @@
       "blocks": [
         {
           "type": "snow",
-          "frequency": 0.9,
-          "surface_only": true
+          "frequency": 0.9
         },
         {
           "type": "ice",
