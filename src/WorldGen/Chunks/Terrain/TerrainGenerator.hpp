@@ -42,7 +42,7 @@ private:
 	Ref<OpenSimplexNoise> biomeNoise[4];	// elevation, humidity, temperature, elev. modifier
 	Ref<OpenSimplexNoise> caveNoise;
 	
-	// Block data - map from name to block. This is a dictionary because unordered_map doesn't support godot strings
+	// Block data - map from name to block. This is a dictionary because unordered_map doesn't support godot strings as keys
 	Dictionary blockMap;
 	//unordered_map<String, Block*> blockMap;
 	// Index to block

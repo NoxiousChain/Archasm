@@ -58,7 +58,6 @@ void TerrainGenerator::_ready()
 
 void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
-	// issue here
 	std::vector<std::tuple<float, float, float>> data = generateChunkData(chunkX);
 
 	// Iterate through every cell
