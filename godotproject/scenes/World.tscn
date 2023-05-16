@@ -79,39 +79,39 @@ anims/RESET = SubResource( 4 )
 [node name="Guide" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1243, -414 )
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="ItemDrops_#test" type="Node2D" parent="."]
 
-[node name="ItemDrop" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 1388, -387 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop2" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop2" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 1342, -381 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop3" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop3" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 687, -366 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop4" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop4" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 786, -382 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop5" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop5" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 862, -385 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop6" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop6" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 1454, -381 )
 collision_layer = 16
 collision_mask = 17
 
-[node name="ItemDrop7" parent="Node2D" instance=ExtResource( 2 )]
+[node name="ItemDrop7" parent="ItemDrops_#test" instance=ExtResource( 2 )]
 position = Vector2( 1160, -402 )
 collision_layer = 16
 collision_mask = 17

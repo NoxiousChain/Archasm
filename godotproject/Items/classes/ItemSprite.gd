@@ -6,6 +6,7 @@ var item : Item
 var description_container : MarginContainer
 var item_description : ItemDescription
 
+
 onready var myLabel = $Label
 
 func _ready():
@@ -61,3 +62,13 @@ func add_item_quantity(amount_to_add):
 func decrease_item_quantity(amount_to_remove):
 	item.quantity -= amount_to_remove
 	$Label.text = String(item.quantity)
+
+func set_items(nm, qt):
+
+	set_item(Item)
+	
+	if item.stack_size == 1:
+		$Label.visible = false
+	else:
+		$Label.visible = true
+		$Label.text = String(item.quantity)
