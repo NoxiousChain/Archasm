@@ -11,6 +11,7 @@ onready var cm = $ChunkManager.get_child(0)
 var debug_toggle = false
 
 func _ready():
+
 	$AnimationPlayer.play("DayNight_cycle")
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 

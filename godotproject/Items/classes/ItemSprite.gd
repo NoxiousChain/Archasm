@@ -64,8 +64,7 @@ func decrease_item_quantity(amount_to_remove):
 	$Label.text = String(item.quantity)
 
 func set_items(nm, qt):
-
-	set_item(Item)
+	set_item(item)
 	
 	if item.stack_size == 1:
 		$Label.visible = false
