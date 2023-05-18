@@ -5,7 +5,7 @@ TerrainGenerator::~TerrainGenerator()
 	// Delete everything in the blockIndexMap. blockMap keys point to same objects, so only need to delete once
 	// This also saves a headache with godot dictionaries/arrays
 	for (auto& item : blockIndexMap) {
-		delete[] item.second;
+		delete[] item.second; // should make sure this is working fine (no mem leak)
 		item.second = nullptr;
 	}
 	blockMap.clear();
