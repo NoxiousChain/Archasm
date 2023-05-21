@@ -73,13 +73,9 @@ func shoot_spear():
 	var spearInstance = spearScene.instance()  # Create a new instance of the spear scene
 	get_parent().add_child(spearInstance) # Add it to scene (BEFORE dealing with position, etc.)
 	spearInstance.position = global_position  # Set the position of the spear instance to the goblin's position
-	spearInstance.look_at(player.global_position)  # Look at the player's position
-
-	# Reset and start the timer
-	spearTimer.stop()
-	var randTime = rand.randf_range(3, 7)
-	spearTimer.wait_time = randTime
-	spearTimer.start()
+	var direction = (player.global_position - global_position).normalized()
+	spearInstance.velocity.x = direction.x * spearInstance.speed
+	spearInstance.velocity.y = -spearInstance.arcHeight
 
 func _on_spear_timer_timeout():
 	shoot_spear()  # Shoot a spear when the timer times out

@@ -9,21 +9,22 @@ var lifetime_timer = 0.0 # Timer to keep track of projectile's lifetime
 
 func _ready():
 	# Set the projectile's initial velocity
-	velocity = Vector2(speed, 0).rotated(rotation)
+	#velocity = Vector2(speed, 0).rotated(rotation)
 	if is_on_floor():
 		queue_free()
+
 
 func _physics_process(delta):
 	# Update the lifetime timer
 	lifetime_timer += delta
-	
+
 	# Update the projectile's position based on its velocity
 	# with an arc trajectory
-	var gravity = Vector2(0, 270)# Gravity affects the arc trajectory
+	var gravity = Vector2(0, 600) # Gravity affects the arc trajectory
 	var delta_pos = velocity * delta
 	delta_pos += 0.5 * gravity * delta * delta
 	velocity += gravity * delta
-	
+
 	# Update the rotation based on the velocity direction
 	if velocity.length_squared() > 0:
 		rotation = velocity.angle()
@@ -31,9 +32,8 @@ func _physics_process(delta):
 			rotation = 0
 
 	move_and_collide(delta_pos)
-	
+
 	# If the lifetime timer exceeds the lifetime, remove the projectile
 	if lifetime_timer > lifetime:
 		queue_free()
-	
-	
+
