@@ -58,6 +58,10 @@ offset = Vector2( 0, 100 )
 transform = Transform2D( 1, 0, 0, 1, 0, 100 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="dbackground" type="TileMap" parent="ParallaxLayer2"]
 tile_set = ExtResource( 1 )
@@ -66,25 +70,24 @@ format = 1
 script = ExtResource( 8 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
 motion_mirroring = Vector2( 1900, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer"]
-position = Vector2( 976, -611 )
+position = Vector2( 976, -878 )
 scale = Vector2( 2.837, 5.785 )
 texture = ExtResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="clouds" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
 motion_scale = Vector2( 0.1, 1 )
 motion_mirroring = Vector2( 1600, 0 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 CLOUD_SPEED = -9.0
 
@@ -92,30 +95,26 @@ CLOUD_SPEED = -9.0
 position = Vector2( 848, -624 )
 scale = Vector2( 2.681, 3 )
 texture = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
 motion_scale = Vector2( 0.1, 1 )
 motion_mirroring = Vector2( 1900, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer3"]
 position = Vector2( 950, -285 )
 scale = Vector2( 2.76184, 4.48 )
 texture = ExtResource( 6 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
 motion_scale = Vector2( 0.3, 1 )
 motion_mirroring = Vector2( 1900, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer5"]
@@ -123,15 +122,13 @@ position = Vector2( 6.08563e-05, -333 )
 scale = Vector2( 2.77324, 1.673 )
 texture = ExtResource( 5 )
 centered = false
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+position = Vector2( 0, -334 )
 motion_scale = Vector2( 0.7, 1 )
 motion_mirroring = Vector2( 1980, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer4"]
@@ -139,14 +136,9 @@ position = Vector2( 0, -256 )
 scale = Vector2( 3.313, 1.73 )
 texture = ExtResource( 7 )
 centered = false
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="DayNightCycleBackground" type="CanvasModulate" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
+position = Vector2( 0, -333 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DayNightBack_cycle = SubResource( 8 )

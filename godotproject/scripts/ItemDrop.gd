@@ -20,9 +20,9 @@ func _physics_process(delta):
 		
 		var distance = global_position.distance_to(player.global_position)
 		if distance < 4:
-			
+#			PlayerInventory.add_item(item_name, 1)
 			#__________________________________
-			#THE CODE TO ADD THE ITEM INTO THE INVENTORY WOULD GO HERE.
+			#THE CODE TO ADD THE ITEM INTO THE INVENTORY WOULD GO HERE. MAY NEED SOME MORE WORK
 			#__________________________________
 			
 			queue_free()

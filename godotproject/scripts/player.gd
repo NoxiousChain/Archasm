@@ -15,7 +15,7 @@ var enemy_scene = preload("res://scenes/GOBLIN.tscn")
 
 onready var animation = $AnimationPlayer
 onready var sprite : Sprite = get_node("Sprite")
-onready var chunk_manager = get_parent().get_parent().get_node("ChunkManager").get_child(0)
+onready var cm = get_parent().get_parent().get_node("ChunkManager")
 
 onready var hud = get_node("/root/World/HUD")
 onready var inventory = get_node("/root/World/HUD/Inventory")
@@ -41,12 +41,12 @@ func _ready():
 	_err = connect("moved_chunks", get_node("../.."), "update_chunks")
 	emit_signal("stats_loaded", self)
 	
-	last_chunk = chunk_manager.world_to_chunk_x(position.x)
+	last_chunk = cm.world_to_chunk_x(position.x)
 	
 func _physics_process(delta: float) -> void:
 	apply_physics(delta)
 	pickUpPhysics()
-	var chunkX = chunk_manager.world_to_chunk_x(position.x)
+	var chunkX = cm.world_to_chunk_x(position.x)
 	var diff = chunkX - last_chunk
 	if diff == 0:
 		last_chunk = chunkX

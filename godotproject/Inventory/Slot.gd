@@ -42,3 +42,12 @@ func put_in_slot(_item: TextureRect):
 # Generic slots accept all item types. Override if different acceptance criteria is required (see armor slot examples)
 func slot_accepts_item(_i) -> bool:
 	return true
+
+func initialize_item(item_name, item_quantity):
+	if item == null:
+		item = Item.instance()
+		add_child(item)
+		item.set_item(item_name, item_quantity)
+	else:
+		item.set_item(item_name, item_quantity)
+	refresh_style()
