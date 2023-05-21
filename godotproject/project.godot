@@ -174,7 +174,6 @@ PauseGameCanvas="*res://scenes/PauseGameCanvas.tscn"
 Selector="*res://scenes/Selector.tscn"
 Tex="*res://scripts/singleton/Tex.gd"
 MusicControls="*res://Autoload/MusicControls.tscn"
-PlayerInventory="*res://Inventory/PlayerInventory.gd"
 
 [display]
 
@@ -309,7 +308,6 @@ dialogic_default_action={
 [physics]
 
 common/enable_pause_aware_picking=true
-2d/default_gravity=300
 
 [rendering]
 

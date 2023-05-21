@@ -23,7 +23,7 @@ class ChunkManager : public Node2D {
 
 private:
 	// SIGNALS
-	String signal_toggle_interact;
+	String SIGNAL_TOGGLE_INTERACT = String("toggle_interact");
 
 	// GENERATION PARAMETERS
 	String CAVE_GENERATION_PARAMETERS; // Manual category creation bc godot sucks

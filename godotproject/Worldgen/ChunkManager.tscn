@@ -8,3 +8,8 @@ script = ExtResource( 2 )
 
 [node name="ChunkManager" type="Node2D" parent="."]
 script = ExtResource( 1 )
+_CAVE_GENERATION_PARAMETERS_ = null
+CAVE_CHANCE_TO_START_ALIVE = null
+CAVE_MAX_HEIGHT_WEIGHT = null
+CAVE_THRESHOLD = null
+CAVE_THRESHOLD_Y_MODIFIER = null

@@ -71,9 +71,9 @@ func _physics_process(delta):
 
 func shoot_spear():
 	var spearInstance = spearScene.instance()  # Create a new instance of the spear scene
+	get_parent().add_child(spearInstance) # Add it to scene (BEFORE dealing with position, etc.)
 	spearInstance.position = global_position  # Set the position of the spear instance to the goblin's position
 	spearInstance.look_at(player.global_position)  # Look at the player's position
-	get_parent().add_child(spearInstance)
 
 	# Reset and start the timer
 	spearTimer.stop()

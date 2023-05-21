@@ -95,7 +95,7 @@ void ChunkManager::loadChunk(bool right)
 		auto c = make_shared<Chunk>(chunkX);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
-		get_parent()->connect(signal_toggle_interact, c->getTileMap(), "_toggle_interact");
+		get_parent()->get_parent()->connect(SIGNAL_TOGGLE_INTERACT, c->getTileMap(), "_toggle_interact");
 
 		c->load(saveName, tg);
 		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
@@ -106,7 +106,7 @@ void ChunkManager::loadChunk(bool right)
 		auto c = make_shared<Chunk>(chunkX);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
-		get_parent()->connect(signal_toggle_interact, c->getTileMap(), "_toggle_interact");
+		get_parent()->get_parent()->connect(SIGNAL_TOGGLE_INTERACT, c->getTileMap(), "_toggle_interact");
 		c->load(saveName, tg);
 		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 		chunks.push_front(c);

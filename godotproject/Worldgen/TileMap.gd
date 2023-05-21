@@ -1,11 +1,10 @@
 extends TileMap
 
-var interact_enabled = true
+onready var interact_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-
 
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
