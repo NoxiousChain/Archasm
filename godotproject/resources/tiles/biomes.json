@@ -71,12 +71,14 @@
     },
     {
       "name": "Tundra",
-      "elevation_min": 0.1,
-      "elevation_max": 0.4,
-      "temperature_min": 0.0,
-      "temperature_max": 0.2,
-      "humidity_min": 0.2,
-      "humidity_max": 0.5,
+      "conditions": {
+        "elevation_min": 0.1,
+        "elevation_max": 0.4,
+        "temperature_min": 0.0,
+        "temperature_max": 0.2,
+        "humidity_min": 0.2,
+        "humidity_max": 0.5
+      },
       "blocks": [
         {
           "type": "snow",
@@ -110,12 +112,14 @@
     },
     {
       "name": "Boreal Forest",
-      "elevation_min": 0.2,
-      "elevation_max": 0.5,
-      "temperature_min": 0.2,
-      "temperature_max": 0.5,
-      "humidity_min": 0.6,
-      "humidity_max": 0.9,
+      "conditions": {
+        "elevation_min": 0.2,
+        "elevation_max": 0.5,
+        "temperature_min": 0.2,
+        "temperature_max": 0.5,
+        "humidity_min": 0.6,
+        "humidity_max": 0.9
+      },
       "blocks": [
         {
           "type": "grass",
@@ -161,12 +165,14 @@
     },
     {
       "name": "Temperate Rainforest",
-      "elevation_min": 0.2,
-      "elevation_max": 0.5,
-      "temperature_min": 0.6,
-      "temperature_max": 0.9,
-      "humidity_min": 0.8,
-      "humidity_max": 1.0,
+      "conditions": {
+        "elevation_min": 0.2,
+        "elevation_max": 0.5,
+        "temperature_min": 0.6,
+        "temperature_max": 0.9,
+        "humidity_min": 0.8,
+        "humidity_max": 1.0
+      },
       "blocks": [
         {
           "type": "grass",
@@ -222,12 +228,14 @@
     },
     {
       "name": "Temperate Forest",
-      "elevation_min": 0.15,
-      "elevation_max": 0.45,
-      "temperature_min": 0.4,
-      "temperature_max": 0.7,
-      "humidity_min": 0.4,
-      "humidity_max": 0.7,
+      "conditions": {
+        "elevation_min": 0.15,
+        "elevation_max": 0.45,
+        "temperature_min": 0.4,
+        "temperature_max": 0.7,
+        "humidity_min": 0.4,
+        "humidity_max": 0.7
+      },
       "blocks": [
         {
           "type": "grass",
@@ -279,12 +287,14 @@
     },
     {
       "name": "Grassland",
-      "elevation_min": 0.1,
-      "elevation_max": 0.4,
-      "temperature_min": 0.4,
-      "temperature_max": 0.7,
-      "humidity_min": 0.3,
-      "humidity_max": 0.6,
+      "conditions": {
+        "elevation_min": 0.1,
+        "elevation_max": 0.4,
+        "temperature_min": 0.4,
+        "temperature_max": 0.7,
+        "humidity_min": 0.3,
+        "humidity_max": 0.6
+      },
       "blocks": [
         {
           "type": "grass",
@@ -331,12 +341,14 @@
     },
     {
       "name": "Savannah",
-      "elevation_min": 0.1,
-      "elevation_max": 0.3,
-      "temperature_min": 0.6,
-      "temperature_max": 0.9,
-      "humidity_min": 0.1,
-      "humidity_max": 0.4,
+      "conditions": {
+        "elevation_min": 0.1,
+        "elevation_max": 0.3,
+        "temperature_min": 0.6,
+        "temperature_max": 0.9,
+        "humidity_min": 0.1,
+        "humidity_max": 0.4
+      },
       "blocks": [
         {
           "type": "grass",
@@ -372,12 +384,14 @@
     },
     {
       "name": "Tropical Rainforest",
-      "elevation_min": 0.1,
-      "elevation_max": 0.3,
-      "temperature_min": 0.7,
-      "temperature_max": 1.0,
-      "humidity_min": 0.8,
-      "humidity_max": 1.0,
+      "conditions": {
+        "elevation_min": 0.1,
+        "elevation_max": 0.3,
+        "temperature_min": 0.7,
+        "temperature_max": 1.0,
+        "humidity_min": 0.8,
+        "humidity_max": 1.0
+      },
       "blocks": [
         {
           "type": "grass",
@@ -433,12 +447,14 @@
     },
     {
       "name": "Swamp",
-      "elevation_min": 0.0,
-      "elevation_max": 0.15,
-      "temperature_min": 0.4,
-      "temperature_max": 0.7,
-      "humidity_min": 0.8,
-      "humidity_max": 1.0,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.15,
+        "temperature_min": 0.4,
+        "temperature_max": 0.7,
+        "humidity_min": 0.8,
+        "humidity_max": 1.0
+      },
       "blocks": [
         {
           "type": "grass",
@@ -483,12 +499,14 @@
     },
     {
       "name": "Mountain",
-      "elevation_min": 0.6,
-      "elevation_max": 1.0,
-      "temperature_min": 0.2,
-      "temperature_max": 0.5,
-      "humidity_min": 0.3,
-      "humidity_max": 0.6,
+      "conditions": {
+        "elevation_min": 0.6,
+        "elevation_max": 1.0,
+        "temperature_min": 0.2,
+        "temperature_max": 0.5,
+        "humidity_min": 0.3,
+        "humidity_max": 0.6
+      },
       "blocks": [
         {
           "type": "grass",
@@ -528,12 +546,14 @@
     },
     {
       "name": "Polar Ice Cap",
-      "elevation_min": 0.0,
-      "elevation_max": 0.3,
-      "temperature_min": 0.0,
-      "temperature_max": 0.15,
-      "humidity_min": 0.0,
-      "humidity_max": 0.3,
+      "conditions": {
+        "elevation_min": 0.0,
+        "elevation_max": 0.3,
+        "temperature_min": 0.0,
+        "temperature_max": 0.15,
+        "humidity_min": 0.0,
+        "humidity_max": 0.3
+      },
       "blocks": [
         {
           "type": "snow",

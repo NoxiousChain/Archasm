@@ -15,24 +15,18 @@ void HUD::_init()
 
 void HUD::_ready()
 {
-	Node* node = get_node("HealthBar_Sprite");
-	if (node != nullptr) {
-		healthbar_sprite = Object::cast_to<Sprite>(node);
-		if (healthbar_sprite != nullptr) {
-		}
-		else {
-			ERR_PRINT("get_node() failed on HealthBar_Sprite");
-		}
-	}
-	node = get_node("HealthBar_Bar");
+	Node* node = this->get_node("HealthBar_Bar");
+	//Node* node = get_child(0);
+	//Node* node = get_node("HealthBar_Bar");
 	//node = get_node(NodePath("HealthBar_Bar"));
-	if (node != nullptr) {
-		healthbar_bar = Object::cast_to<HealthBar_Bar>(node);
+	if (node) {
+		healthbar_bar = Object::cast_to<TextureProgress>(node);
 		if (healthbar_bar != nullptr) {
 			healthbar_bar->set_value(1);
 			healthbar_bar->set_min(0);
 			healthbar_bar->set_max(1);
-			healthbar_bar->drawHeart();
+			healthbar_bar->call("draw_heart", Array::make(true));
+
 		}
 		else {
 			ERR_PRINT("get_node() failed on HealthBar_Bar");
@@ -52,8 +46,8 @@ void HUD::update_healthbar(const float p_health, const float p_max_health, const
 {
 	float health = p_health / p_max_health;
 	if (health <= 0) {
-		healthbar_bar->drawHeart(false);
-		//healthbar_bar->call("draw_heart", Array::make(false));
+		//healthbar_bar->drawHeart(false);
+		healthbar_bar->call("draw_heart", Array::make(false));
 	}
 	// healthbar value must be between 0-1
 	healthbar_bar->set_value(p_health / p_max_health);

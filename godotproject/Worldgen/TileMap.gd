@@ -4,11 +4,10 @@ var interact_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("tilemap script ready")
+	pass
 
 
 func _process(_delta):
-	print("processing")
 	var mouse_pos = get_global_mouse_position()
 	var map_pos = world_to_map(to_local(mouse_pos))
 	if interact_enabled:

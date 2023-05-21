@@ -25,7 +25,7 @@ Ore::Ore()
 {
 }
 
-Ore::Ore(const String& name, size_t index, int64_t hardness, const JRange<size_t>& clumpRange, const JRange<double>& depthRange, double frequency)
+Ore::Ore(const String& name, size_t index, int64_t hardness, const RRange<size_t>& clumpRange, const RRange<double>& depthRange, double frequency)
 	: Block(name, index, hardness, false), clumpSize{ clumpRange }, depth{ depthRange }, frequency{ frequency }
 {
 }

@@ -8,6 +8,7 @@
 #include <tuple>
 #include <unordered_map>
 #include <memory>
+#include <bitset>
 
 #include <Node.hpp>
 #include <Ref.hpp>
@@ -38,17 +39,26 @@ class TerrainGenerator : public Node {
 	GODOT_CLASS(TerrainGenerator, Node)
 
 private:
+	// Pointer to parent ChunkManager. This is to be used solely for interfacing with Godot
+	// to adjust generation parameters through the editor.
+	Node2D* cm = nullptr;
+
 	// Noise maps
 	Ref<OpenSimplexNoise> biomeNoise[4];	// elevation, humidity, temperature, elev. modifier
 	Ref<OpenSimplexNoise> caveNoise;
+
+	// Using a RRange as an RNG wrapper
+	RRange<float> rand01;
 	
 	// Block data - map from name to block. This is a dictionary because unordered_map doesn't support godot strings as keys
 	Dictionary blockMap;
-	//unordered_map<String, Block*> blockMap;
 	// Index to block
 	unordered_map<size_t, Block*> blockIndexMap;
 	// Chunk data
-	KDTree chunks;
+	KDTree biomes;
+
+	// Holds ptrs to biomes so KDTree doesn't have to handle them
+	vector<Biome*> biomeList;
 
 public:
 	~TerrainGenerator();
@@ -56,20 +66,13 @@ public:
 	void _init();
 	void _ready();
 
+	void setParent(Node2D* cm);
+
 	void generateChunk(int chunkX, TileMap* tileMap);
 
 private:
 	void loadBlockDataFromJSON(const String& filepath);
 	void loadBiomeDataFromJSON(const String& filepath);
-
-	// Helper functions
-	
-	// Maps v from the range [ol, oh] to the range [nl, nh]
-	float mapv(float v, float ol, float oh, float nl, float nh);
-	// Maps noise value from [-1, 1] to [0, 1]
-	float nnoise(float in) const;
-	// Returns the intermediate point between a and b, which is mu factor away from a
-	float cosp(float a, float b, float mu);
 
 
 	// ------------------------------------------------------------------------//
@@ -77,5 +80,20 @@ private:
 	// Temperature & humidity values are adjusted based on elevation to simulate
 	// realistic environments (higher elevation -> colder & drier)
 	std::vector<std::tuple<float, float, float>> generateChunkData(int chunkX) const;
+
+private: // Helper functions
+
+	// Mapping/interpolation
+
+	// Maps v from the range [ol, oh] to the range [nl, nh]
+	float mapv(float v, float ol, float oh, float nl, float nh);
+	// Maps noise value from [-1, 1] to [0, 1]
+	float nnoise(float in) const;
+	// Returns the intermediate point between a and b, which is mu factor away from a
+	float cosp(float a, float b, float mu);
+
+	// Cave generation
+	bool isSolid(int x, int y, int maxHeight);
+	float getCaveNoise(int x, int y);
 
 };

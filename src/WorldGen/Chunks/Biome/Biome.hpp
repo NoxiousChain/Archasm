@@ -3,14 +3,14 @@
 #include <Dictionary.hpp>
 #include <String.hpp>
 #include "../../../Common.hpp"
-#include "Block.hpp"
+#include "../../Helpers/RRange.hpp"
 
 class Biome {
 public:
 	struct Conditions {
-		JRange<double> elevation, humidity, temperature;
+		RRange<double> elevation, humidity, temperature;
 
-		inline static String toString(const JRange<double>& what) {
+		inline static String toString(const RRange<double>& what) {
 			return String::num_real(what.min) + String("-") + String::num_real(what.max);
 		}
 	};
@@ -20,17 +20,19 @@ private:
 	Conditions conditions;
 	// List of all blocks per biome. Not worried about duplicate memory because there are few biomes.
 	// block name string maps to frequency
-	vector<pair<String, double>>* blocks; 
+	vector<pair<String, double>> blocks; 
 
 public:
 	Biome();
 	Biome(const String& name, const Dictionary& data);
+	~Biome();
 
-	JRange<double> getElevationRange() const;
-	JRange<double> getHumidityRange() const;
-	JRange<double> getTempRange() const;
-	const Conditions& getConditions() const;
-	const vector<pair<String, double>>* getBlocks();
+	RRange<double> getElevationRange() const;
+	RRange<double> getHumidityRange() const;
+	RRange<double> getTempRange() const;
+	Conditions getConditions() const;
+	vector<pair<String, double>> getBlocks();
+	String getName() const { return name; }
 
 	void addBlock(const String& name, double freq);
 

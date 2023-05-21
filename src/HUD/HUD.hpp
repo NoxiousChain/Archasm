@@ -24,8 +24,7 @@ public:
 	};
 
 private:
-	Sprite* healthbar_sprite;
-	HealthBar_Bar* healthbar_bar;
+	TextureProgress* healthbar_bar;
 
 	/// @brief Runs animation on healthbar when player health status changes
 	/// @param animation_type Cast enum to int e.g. (int)HealthBarAnimationType::TYPE

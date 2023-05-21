@@ -16,8 +16,21 @@
 #include "Chunk.hpp"
 #include "Terrain/TerrainGenerator.hpp"
 
+#define CATEGORY_SEPARATOR String("------------------------------")
+
 class ChunkManager : public Node2D {
 	GODOT_CLASS(ChunkManager, Node2D)
+
+private:
+	// SIGNALS
+	String signal_toggle_interact;
+
+	// GENERATION PARAMETERS
+	String CAVE_GENERATION_PARAMETERS; // Manual category creation bc godot sucks
+	float CAVE_CHANCE_TO_START_ALIVE;
+	float CAVE_MAX_HEIGHT_WEIGHT;
+	float CAVE_THRESHOLD;
+	float CAVE_THRESHOLD_Y_MODIFIER;
 
 private:
 	String saveName;

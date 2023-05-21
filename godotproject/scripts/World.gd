@@ -15,7 +15,7 @@ func _ready():
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 
 	var screen_width = int(get_viewport_rect().size.x)
-	cm.initialize("testsave2", int(player.getPosition().x), screen_width)
+	cm.initialize("testsave", int(player.getPosition().x), screen_width)
 
 	var rand = RandomNumberGenerator.new()
 	var timer := Timer.new()
@@ -28,7 +28,7 @@ func _ready():
 
 	# Connect signals
 	var _err = timer.connect("timeout", self, "_on_timer_timeout")
-	_err = connect("toggle_interact", $TileMap, "_toggle_interact")
+	#_err = connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
 	var goblin = load("res://scenes/Goblin.tscn")

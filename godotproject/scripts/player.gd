@@ -38,7 +38,7 @@ func _ready():
 	var _err = connect("stats_loaded", inventory, "update_stats_and_name")
 	_err = connect("health_updated", hud, "update_healthbar")
 	_err = connect("health_updated", inventory, "update_health")
-	_err = connect("moved_chunks", get_node("/root/World"), "update_chunks")
+	_err = connect("moved_chunks", get_node("../.."), "update_chunks")
 	emit_signal("stats_loaded", self)
 	
 	last_chunk = chunk_manager.world_to_chunk_x(position.x)

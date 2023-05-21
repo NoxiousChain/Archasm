@@ -2,6 +2,13 @@
 
 void ChunkManager::_register_methods()
 {
+	register_property("_CAVE_GENERATION_PARAMETERS_", &ChunkManager::CAVE_GENERATION_PARAMETERS, CATEGORY_SEPARATOR);
+	register_property("CAVE_CHANCE_TO_START_ALIVE", &ChunkManager::CAVE_CHANCE_TO_START_ALIVE, 0.5f, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RANGE, "0,1");
+	register_property("CAVE_MAX_HEIGHT_WEIGHT", &ChunkManager::CAVE_MAX_HEIGHT_WEIGHT, 0.35f, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RANGE, "0,1");
+	register_property("CAVE_THRESHOLD", &ChunkManager::CAVE_THRESHOLD, 0.3f, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RANGE, "0,1");
+	register_property("CAVE_THRESHOLD_Y_MODIFIER", &ChunkManager::CAVE_THRESHOLD_Y_MODIFIER, 0.4f, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RANGE, "0,1");
+
+
 	register_method("_ready", &ChunkManager::_ready);
 	register_method("initialize", &ChunkManager::initialize);
 	register_method("set_save_name", &ChunkManager::setSaveName);
@@ -24,6 +31,7 @@ void ChunkManager::_ready()
 {
 	tg = TerrainGenerator::_new();
 	tg->_ready(); // _ready() is never called automatically for some reason, so I do it manually here
+	tg->setParent(this);
 }
 
 void ChunkManager::initialize(const String& saveName, int playerX, int screenW)
@@ -87,6 +95,8 @@ void ChunkManager::loadChunk(bool right)
 		auto c = make_shared<Chunk>(chunkX);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
+		get_parent()->connect(signal_toggle_interact, c->getTileMap(), "_toggle_interact");
+
 		c->load(saveName, tg);
 		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 		chunks.push_back(c);
@@ -96,6 +106,7 @@ void ChunkManager::loadChunk(bool right)
 		auto c = make_shared<Chunk>(chunkX);
 		add_child(c->getTileMap());
 		c->getTileMap()->set_owner(this);
+		get_parent()->connect(signal_toggle_interact, c->getTileMap(), "_toggle_interact");
 		c->load(saveName, tg);
 		c->getTileMap()->set_position(Vector2(real_t(chunkToWorldX(chunkX)), 0.f));
 		chunks.push_front(c);

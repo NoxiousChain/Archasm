@@ -8,7 +8,6 @@ Chunk::Chunk(int x) : cx{ x }
 	Ref<Resource> tileset = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
 	Ref<Resource> script = ResourceLoader::get_singleton()->load("res://Worldgen/TileMap.gd");
-	script.instance();
 	tileMap->set_script(script.ptr());
 }
 
@@ -22,17 +21,18 @@ Chunk::~Chunk()
 
 void Chunk::load(const String& saveName, TerrainGenerator* tg)
 {
-	Ref<File> file = File::_new();
+	Ref<File> file;
+	file.instance();
 	String filepath = String("res://resources/saves/") + hashName(saveName);
 	Error err = file->open(filepath, File::READ);
 	if (err == Error::OK && file->get_len()) {
 		tileMap->clear();
 		
 		// This will load all existing tiles.
-		while (file->get_position() < file->get_len()) {
+		while (file->get_position() != file->get_len()) {
 			int64_t x = file->get_32();
 			int64_t y = file->get_32();
-			int64_t id = file->get_32();
+			int64_t id = file->get_8();
 			tileMap->set_cell(x, y, id);
 		}
 
@@ -45,7 +45,8 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 
 void Chunk::save(const String& saveName)
 {
-	Ref<File> file = File::_new();
+	Ref<File> file;
+	file.instance();
 	String filepath = String("res://resources/saves/") + hashName(saveName);
 	Error err = file->open(filepath, File::WRITE);
 
@@ -56,7 +57,7 @@ void Chunk::save(const String& saveName)
 			int64_t id = tileMap->get_cellv(pos);
 			file->store_32(int64_t(pos.x));
 			file->store_32(int64_t(pos.y));
-			file->store_32(id);
+			file->store_8(id);
 		}
 		file->close();
 	}
@@ -88,8 +89,5 @@ int Chunk::chunkToWorldX(int chunkX)
 
 String Chunk::hashName(const String& saveName)
 {
-	String combined = saveName + String::num_int64(cx);
-	int hash = combined.hash();
-
-	return "chunk_" + String::num_int64(hash);
+	return saveName + String("_") + String::num_int64(cx);
 }

@@ -3,9 +3,10 @@
 
 class KDNode {
 public:
-	Biome biome;
+	Biome* biome;
 	KDNode *left, *right;
 	int axis;
 
-	inline KDNode(Biome biome, int axis) : biome{ biome }, axis{ axis }, left{ nullptr }, right{ nullptr } {}
+	inline KDNode(Biome* biome, int axis) : biome{ biome }, axis{ axis }, left{ nullptr }, right{ nullptr } {}
+	~KDNode() { biome = nullptr; }
 };

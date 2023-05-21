@@ -5,11 +5,15 @@ TerrainGenerator::~TerrainGenerator()
 	// Delete everything in the blockIndexMap. blockMap keys point to same objects, so only need to delete once
 	// This also saves a headache with godot dictionaries/arrays
 	for (auto& item : blockIndexMap) {
-		delete[] item.second;
-		item.second = nullptr;
+		delete item.second;
 	}
 	blockMap.clear();
 	blockIndexMap.clear();
+
+	for (auto& b : biomeList) {
+		delete b;
+	}
+	biomeList.clear();
 }
 
 void TerrainGenerator::_register_methods()
@@ -23,7 +27,9 @@ void TerrainGenerator::_init()
 		biomeNoise[i].instance();
 	}
 	caveNoise.instance();
-	chunks = KDTree();
+	biomes = KDTree();
+
+	rand01 = RRange<float>(0, 1);
 }
 
 void TerrainGenerator::_ready()
@@ -52,26 +58,84 @@ void TerrainGenerator::_ready()
 	caveNoise->set_lacunarity(2.f); // ~2.0
 
 	// Get block data
-	/////loadBlockDataFromJSON("res://resources/tiles/tiles.json");
-	/////loadBiomeDataFromJSON("res://resources/tiles/biomes.json");
+	//loadBlockDataFromJSON("res://resources/tiles/tiles.json");
+	loadBiomeDataFromJSON("res://resources/tiles/biomes.json");
+}
+
+void TerrainGenerator::setParent(Node2D* cm)
+{
+	this->cm = cm;
 }
 
 void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
+	// Chunk data
 	std::vector<std::tuple<float, float, float>> data = generateChunkData(chunkX);
 
+	// Data points that will be needed later
+	float avgE = 0.f, avgH = 0.f, avgT = 0.f; // condition averages, sampled from a few points along the chunk
+	RRange<int> heightRange = { INT_MAX, 0 };
+
+	// GET BIOME TYPE --------------------------------------------------------------------------//
+
+	// Sample a few points along the chunk to get an approximate biome value
+	const static int SAMPLE_COUNT = 5; // how many total samples taken
+	const static int STARTING_X = (CHUNK_WIDTH % SAMPLE_COUNT) / 2;  // where along the chunk to get the first sample
+	
+	for (int i = STARTING_X; i < CHUNK_WIDTH; i += CHUNK_WIDTH / SAMPLE_COUNT) {
+		avgE += std::get<0>(data[i]);
+		avgH += std::get<1>(data[i]);
+		avgT += std::get<2>(data[i]);
+	}
+	avgE /= (float)SAMPLE_COUNT;
+	avgH /= (float)SAMPLE_COUNT;
+	avgT /= (float)SAMPLE_COUNT;
+	// Get biome from averages
+	Biome* biome = biomes.nearestNeighbor(avgE, avgH, avgT);
+	if (biome)
+		Godot::print(biome->toString());
+
+	// -----------------------------------------------------------------------------------------//
+
+
 	// Iterate through every cell
-	for (int x = 0; x < data.size(); x++) {
-		float elevation = std::get<1>(data[x]);
+	for (int x = 0; x < CHUNK_WIDTH; x++) {
+		float elevation = std::get<0>(data[x]);
 		float humidity = std::get<1>(data[x]);
 		float temperature = std::get<2>(data[x]);
 		int height = int(elevation * CHUNK_HEIGHT);
 
+		heightRange.min = min(height, heightRange.min);
+		heightRange.max = max(height, heightRange.max);
+
 		for (int y = -height + 10; y < 250; y++) {
-			Biome biome = chunks.nearestNeighbor(elevation, humidity, temperature);
 			tileMap->set_cell(x, y, 6); // fill with debug block if no valid block
 		}
 	}
+
+	// CAVE GENERATION -------------------------------------------------------------------------//
+
+	// Get parameters from ChunkManager
+	const static float caveChanceToStartAlive = cm->get("CAVE_CHANCE_TO_START_ALIVE");
+	const static float caveMaxHeightWeight = cm->get("CAVE_MAX_HEIGHT_WEIGHT");
+
+	// Build cellular automata map
+	// Map is a bitset - 0=empty 1=filled
+	const int caveMaxHeight = heightRange.wrand(caveMaxHeightWeight);
+	//std::vector<std::bitset<CHUNK_WIDTH>> caveMap(caveMaxHeight);
+
+	// Generate the cavemap
+	for (int x = 0; x < CHUNK_WIDTH; x++) {
+		for (int y = -caveMaxHeight; y < 250; y++) {
+			//caveMap[x][y] = isSolid(x, y, caveMaxHeight);
+			if (isSolid(x, y, caveMaxHeight)) {
+				//tileMap->set_cell(x, y, -1);
+			}
+		}
+	}
+
+	// -----------------------------------------------------------------------------------------//
+
 }
 
 float TerrainGenerator::mapv(float v, float ol, float oh, float nl, float nh)
@@ -89,6 +153,24 @@ float TerrainGenerator::cosp(float a, float b, float mu)
 	const float PI = 3.1415927f;
 	float mu2 = (1.f - cos(mu * PI)) / 2.f;
 	return a * (1.f - mu2) + b * mu2;
+}
+
+bool TerrainGenerator::isSolid(int x, int y, int maxHeight)
+{
+	const static float caveThreshold = cm->get("CAVE_THRESHOLD");
+	const static float caveThresholdYMod = cm->get("CAVE_THRESHOLD_Y_MODIFIER");
+	float threshold = caveThreshold + caveThresholdYMod * (float)y / (float)maxHeight;
+
+	float sum = getCaveNoise(x, y) + getCaveNoise(x + 1, y) + \
+		getCaveNoise(x - 1, y) + getCaveNoise(x, y + 1) + \
+		getCaveNoise(x, y - 1);
+
+	return sum > threshold;
+}
+
+float TerrainGenerator::getCaveNoise(int x, int y)
+{
+	return caveNoise->get_noise_2d((real_t)x, (real_t)y);
 }
 
 std::vector<std::tuple<float, float, float>> TerrainGenerator::generateChunkData(int chunkX) const
@@ -168,30 +250,31 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 		const String& name = block["name"];
 		size_t index = block["index"];
 		int64_t hardness = block["hardness"];
-		JRange<size_t> clumpSize = JRange<size_t>(size_t(block["clump_size_min"]), size_t(block["clump_size_max"]));
-		JRange<double> depth = JRange<double>(double(block["depth_min"]), double(block["depth_max"]));
+		RRange<size_t> clumpSize = RRange<size_t>(size_t(block["clump_size_min"]), size_t(block["clump_size_max"]));
+		RRange<double> depth = RRange<double>(double(block["depth_min"]), double(block["depth_max"]));
 		double frequency = block["frequency"];
 
 		Block* newOre = new Ore(name, index, hardness, clumpSize, depth, frequency);
 		blockMap[name] = newOre;
-		//blockMap.insert({ name, newOre });
 		blockIndexMap.insert({ index, newOre });
 	}
 }
 
 void TerrainGenerator::loadBiomeDataFromJSON(const String& filepath)
 {
+	
 	// Open the file and store contents
-	File file;
-	Error err = file.open(filepath, File::READ);
+	Ref<File> file;
+	file.instance();
+	Error err = file->open(filepath, File::READ);
 	if (err != Error::OK) {
 		Godot::print("Failed to open biome data JSON file at " + filepath);
 		return;
 	}
 
-	String fileContent = file.get_as_text();
-	file.close();
-
+	String fileContent = file->get_as_text();
+	file->close();
+	
 	// Parse JSON data
 	JSON* json = JSON::get_singleton();
 	Ref<JSONParseResult> jpr = json->parse(fileContent);
@@ -201,33 +284,30 @@ void TerrainGenerator::loadBiomeDataFromJSON(const String& filepath)
 		Godot::print("Failed to parse biome data JSON file at " + filepath);
 		return;
 	}
-
-	Array& biomes = Array(data["biomes"]); // remove & if broken
-	for (int i = 0; i < biomes.size(); i++) {
+	
+	Array& biomesArr = Array(data["biomes"]); // remove & if broken
+	for (int i = 0; i < biomesArr.size(); i++) {
 		// Get dictionary of values for block at index from json
-		const Dictionary& jsonBlock = biomes[i];
+		const Dictionary& jsonBlock = biomesArr[i];
 		// Get data
 		const String& name = jsonBlock["name"];
 		const Dictionary& conditions = jsonBlock["conditions"];
 
 		// Instantiate biome
-		Biome biome(name, conditions);
+		Biome* biome = new Biome(name, conditions);
+		biomeList.push_back(biome);
 
 		// Add all blocks in biome to list
 		const Array& blocks = jsonBlock["blocks"]; // remove & if broken
 		for (int j = 0; j < blocks.size(); j++) {
-			const Dictionary& block = blocks[i];
+			const Dictionary& block = blocks[j];
 			const String& name = block["type"];
 			double frequency = block["frequency"];
-			biome.addBlock(name, frequency);
+			biome->addBlock(name, frequency);
 			// Will need to add flowers, trees etc.
 			// Need to find a way to save entities, etc. (these may not be the responsibility of the chunkmanager, depends)
 		}
-
-		// This function prevents the game from crashing. I have no idea how or why, but if it's 
-		// removed the entire game will crash instantly. Godot is so ass bruh
-		biome.toString();
-
-		chunks.insert(biome);
+		
+		//biomes.insert(biome);
 	}
 }
