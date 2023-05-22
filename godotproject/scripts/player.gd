@@ -49,12 +49,11 @@ func _physics_process(delta: float) -> void:
 	var chunkX = cm.world_to_chunk_x(position.x)
 	var diff = chunkX - last_chunk
 	if diff == 0:
-		last_chunk = chunkX
 		return
-	emit_signal("moved_chunks", bool(diff > 0))
+	emit_signal("moved_chunks", chunkX, bool(diff > 0))
 	last_chunk = chunkX
 
-func apply_physics(delta : float) -> void:
+func apply_physics(_delta : float) -> void:
 	var direction = 0
 	if Input.is_action_pressed("move_left"):
 		animation.play("run")
@@ -113,6 +112,7 @@ func save_stats():
 	stats_resource.speed_multi = player_stats["speed_multi"]
 
 	# Save updated resource file
+# warning-ignore:return_value_discarded
 	ResourceSaver.save("res://Player/player_stats.tres", stats_resource)
 # ----------------------------------------------------
 

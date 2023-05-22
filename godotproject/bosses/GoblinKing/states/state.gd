@@ -6,10 +6,10 @@ var animation
 var persistent_state
 var velocity = 0
 
-func setup(change_state, animation, persistent_state):
-	self.change_state = change_state
-	self.animation = animation
-	self.persistent_state = persistent_state
+func setup(_change_state, _animation, _persistent_state):
+	self.change_state = _change_state
+	self.animation = _animation
+	self.persistent_state = _persistent_state
 
 func _ready():
 	pass

@@ -15,6 +15,7 @@ func _exit_tree():
 	cm.delete_all_chunks()
 
 func world_to_chunk_x(worldX: int):
+# warning-ignore:integer_division
 	return worldX / (CELL_SIZE * CHUNK_WIDTH)
 
 func chunk_to_world_x(chunkX: int):

@@ -23,4 +23,4 @@ func _input(event):
 		var result = space_state.intersect_ray(get_global_transform().origin, mouse_pos, [], 1)
 
 		if result:
-			var collided_object = result["collider"]
+			var _collided_object = result["collider"]

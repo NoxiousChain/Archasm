@@ -2,6 +2,7 @@
 #include "KDNode.hpp"
 #include <cmath>
 #include <fstream>
+#include <mutex>
 
 // Implements a KD tree specifically designed to handle Biome objects
 // This is used for terrain generation - stores biome data via three parameters:
@@ -10,6 +11,7 @@
 class KDTree {
 private:
 	KDNode* root;
+	mutex mtx;
 public:
 	KDTree();
 	~KDTree(); // Automatically frees memory when out of scope

@@ -19,6 +19,7 @@ func _ready():
 	
 
 func build(contents : String):
+# warning-ignore:return_value_discarded
 	append_bbcode(contents)
 
 

@@ -31,6 +31,7 @@ func _physics_process(delta):
 		if velocity.x == 0:
 			rotation = 0
 
+# warning-ignore:return_value_discarded
 	move_and_collide(delta_pos)
 
 	# If the lifetime timer exceeds the lifetime, remove the projectile

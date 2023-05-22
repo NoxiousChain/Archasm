@@ -17,4 +17,5 @@ func _ready():
 
 
 func _on_websitelink_pressed():
+# warning-ignore:return_value_discarded
 	OS.shell_open("https://noxiouschain.github.io/")

@@ -24,7 +24,7 @@ private:
 
 public:
 	Biome();
-	Biome(const String& name, const Dictionary& data);
+	Biome(String name, const Dictionary& data);
 	~Biome();
 
 	RRange<double> getElevationRange() const;
@@ -34,7 +34,7 @@ public:
 	vector<pair<String, double>> getBlocks();
 	String getName() const { return name; }
 
-	void addBlock(const String& name, double freq);
+	void addBlock(String name, double freq);
 
 	String toString() const;
 

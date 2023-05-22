@@ -16,7 +16,7 @@ func _ready():
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 
 	var screen_width = int(get_viewport_rect().size.x)
-	cm.initialize("testsave", int(player.getPosition().x), screen_width)
+	cm.initialize("chunk", int(player.getPosition().x), screen_width) # save is named "chunk" bc chunk_* is already in the .gitignore lol
 
 	var rand = RandomNumberGenerator.new()
 	var timer := Timer.new()
@@ -32,7 +32,7 @@ func _ready():
 	#_err = connect("toggle_interact", $TileMap, "_toggle_interact")
 
 func _on_timer_timeout() -> void:
-	var goblin = load("res://scenes/Goblin.tscn")
+	var goblin = load("res://scenes/GOBLIN.tscn")
 	var voidling = load("res://scenes/voidling.tscn")
 	var rand = RandomNumberGenerator.new()
 	var screen_size = get_viewport().get_visible_rect().size
@@ -46,10 +46,20 @@ func _on_timer_timeout() -> void:
 	enemy.position.x = x
 	add_child(enemy)
 	
-func update_chunks(dir: bool):
-	cm.load_chunk(dir)
-	cm.save_chunk(!dir)
-	cm.delete_chunk(!dir)
+# chunkX -> current camera chunkX
+# right -> is the chunkToLoad right/left of the player
+func update_chunks(chunkX: int, right: bool):
+	# num chunks to the left/right of center chunk
+	var numChunks: int = cm.get_num_chunks() / 2
+	var savePos: int
+	if right:
+		cm.load_chunk(chunkX + numChunks - 1)
+		savePos = chunkX - numChunks
+	else:
+		cm.load_chunk(chunkX - numChunks + 1)
+		savePos = chunkX + numChunks
+	cm.save_chunk(savePos)
+	cm.delete_chunk(savePos)
 	
 func toggle_inventory():
 	var visible = inventory.visible

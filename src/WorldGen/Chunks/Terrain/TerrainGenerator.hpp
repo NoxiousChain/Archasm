@@ -71,8 +71,8 @@ public:
 	void generateChunk(int chunkX, TileMap* tileMap);
 
 private:
-	void loadBlockDataFromJSON(const String& filepath);
-	void loadBiomeDataFromJSON(const String& filepath);
+	void loadBlockDataFromJSON(String filepath);
+	void loadBiomeDataFromJSON(String filepath);
 
 
 	// ------------------------------------------------------------------------//

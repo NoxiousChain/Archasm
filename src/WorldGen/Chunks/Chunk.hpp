@@ -6,6 +6,7 @@
 #include <HashingContext.hpp>
 #include <TileSet.hpp>
 #include <ResourceLoader.hpp>
+#include <PackedScene.hpp>
 #include "Terrain/TerrainGenerator.hpp"
 #include "ChunkConstants.hpp"
 
@@ -21,8 +22,8 @@ public:
 	Chunk(int x);
 	~Chunk();
 
-	void load(const String& saveName, TerrainGenerator* tg);
-	void save(const String& saveName);
+	void load(String saveName, TerrainGenerator* tg);
+	void save(String saveName);
 
 	int getX() const;
 	TileMap* getTileMap() const;
@@ -37,6 +38,6 @@ public:
 	static int chunkToWorldX(int chunkX);
 
 private:
-	String hashName(const String& saveName);
+	String hashName(String saveName);
 };
 

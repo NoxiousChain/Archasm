@@ -11,6 +11,7 @@ KDTree::~KDTree()
 
 void KDTree::insert(Biome* biome)
 {
+	lock_guard<mutex> lock(mtx);
 	std::ofstream logFile;
 	logFile.open("C:\\Users\\Forest\\Desktop\\log.txt", std::ios_base::app);
 	logFile << "root currently at: " << root << std::endl;
@@ -59,6 +60,7 @@ KDNode* KDTree::insertRecursive(KDNode* node, Biome* biome, int depth)
 
 Biome* KDTree::nearestNeighbor(double elevation, double humidity, double temperature)
 {
+	lock_guard<mutex> lock(mtx);
 	return nearestRecursive(root, elevation, humidity, temperature, 0);
 }
 

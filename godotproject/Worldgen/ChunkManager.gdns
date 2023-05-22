@@ -5,3 +5,4 @@
 [resource]
 class_name = "ChunkManager"
 library = ExtResource( 1 )
+script_class_name = "ChunkManager"

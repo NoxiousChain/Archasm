@@ -36,5 +36,6 @@ func _on_MainM_pressed():
 	texRect.visible = false
 	pLabel.visible= false
 	get_tree().paused = false
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/Menu.tscn")
 	pass # Replace with function body.

@@ -14,10 +14,10 @@ onready var animation = $AnimationPlayer
 func _ready():
 	healthBar.visible = false
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction = (player.global_position - global_position).normalized()
-	var velocity = direction * speed
-	var floor_normal = Vector2.UP
+	#var velocity = direction * speed
+	#var floor_normal = Vector2.UP
 	if direction.x < 0:
 		sprite.flip_h = true
 	if direction.x > 0:

@@ -27,7 +27,6 @@ void TerrainGenerator::_init()
 		biomeNoise[i].instance();
 	}
 	caveNoise.instance();
-	biomes = KDTree();
 
 	rand01 = RRange<float>(0, 1);
 }
@@ -210,7 +209,7 @@ std::vector<std::tuple<float, float, float>> TerrainGenerator::generateChunkData
 	return data;
 }
 
-void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
+void TerrainGenerator::loadBlockDataFromJSON(String filepath)
 {
 	File file;
 	Error err = file.open(filepath, File::READ);
@@ -260,7 +259,7 @@ void TerrainGenerator::loadBlockDataFromJSON(const String& filepath)
 	}
 }
 
-void TerrainGenerator::loadBiomeDataFromJSON(const String& filepath)
+void TerrainGenerator::loadBiomeDataFromJSON(String filepath)
 {
 	
 	// Open the file and store contents

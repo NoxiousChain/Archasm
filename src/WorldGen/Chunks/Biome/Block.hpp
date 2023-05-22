@@ -14,7 +14,7 @@ protected:
 
 public:
 	Block();
-	Block(const String& name, size_t index, int64_t hardness, bool surfaceOnly);
+	Block(String name, size_t index, int64_t hardness, bool surfaceOnly);
 
 	bool isValid() const;
 	virtual String toString() const;
@@ -28,7 +28,7 @@ protected:
 
 public:
 	Ore();
-	Ore(const String& name, size_t index, int64_t hardness, const RRange<size_t>& clumpRange, const RRange<double>& depthRange, double frequency);
+	Ore(String name, size_t index, int64_t hardness, const RRange<size_t>& clumpRange, const RRange<double>& depthRange, double frequency);
 
 	virtual String toString() const override;
 };
