@@ -1,0 +1,21 @@
+{
+	"events": [
+		{
+			"character": "character-1684804539.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "WHO DARES SUMMON ME?"
+		},
+		{
+			"character": "character-1684804539.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "PREPARE TO DIE. GOBLINS, ATTACK!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1684804571.json",
+		"name": "carbles-intro"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"events": [
+		{
+			"character": "character-1684803698.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Who the hell are you and what are you doing in my caves?"
+		},
+		{
+			"character": "character-1684803698.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ah who cares, theres enough ores for the both of us."
+		},
+		{
+			"character": "character-1684803698.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Talk to me if you have any questions about mining."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1684803780.json",
+		"name": "meeting-miner"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"events": [
+		{
+			"character": "character-1684803698.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The deeper you travel down, the better ores youll find."
+		},
+		{
+			"character": "character-1684803698.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Better ores mean stronger weopons, armor, and cooler gear!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1684803818.json",
+		"name": "miner-normal"
+	}
+}
