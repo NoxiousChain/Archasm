@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/Guide.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Items/ItemDrop.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/ParallaxBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Worldgen/ChunkManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/miner-dialog.gd" type="Script" id=9]
+[ext_resource path="res://resources/minernpc.png" type="Texture" id=10]
 [ext_resource path="res://scripts/World.gd" type="Script" id=13]
 [ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=17]
 
@@ -94,6 +95,7 @@ position = Vector2( 302, -832 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="MinerNPC"]
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MinerNPC"]
 shape = SubResource( 11 )
