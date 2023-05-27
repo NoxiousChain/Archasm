@@ -13,8 +13,9 @@ struct ThreadPool {
 	vector<thread> workerThreads;
 	queue<function<void()>> tasks;
 	mutex queueMutex;
-	condition_variable cv;
+	condition_variable cv, cvWait;
 	bool stop;
+	int numActiveTasks = 0;
 
 	ThreadPool(size_t numThreads);
 	~ThreadPool();
@@ -25,7 +26,10 @@ struct ThreadPool {
 		{
 			lock_guard<mutex> lock(queueMutex);
 			tasks.emplace(forward<F>(f));
+			numActiveTasks++;
 		}
 		cv.notify_one();
 	}
+
+	void wait();
 };

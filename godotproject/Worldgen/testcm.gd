@@ -9,6 +9,9 @@ const CHUNK_WIDTH: int = 32
 func _ready():
 	pass
 
+func _process(delta):
+	cm.update()
+
 # automatically saves all chunks when the game exits
 func _exit_tree():
 	cm.save_all_chunks()

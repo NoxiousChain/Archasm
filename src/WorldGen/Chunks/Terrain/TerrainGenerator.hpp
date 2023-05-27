@@ -68,7 +68,7 @@ public:
 
 	void setParent(Node2D* cm);
 
-	void generateChunk(int chunkX, TileMap* tileMap);
+	chunkdata_t generateChunk(int chunkX, TileMap* tileMap);
 
 private:
 	void loadBlockDataFromJSON(String filepath);

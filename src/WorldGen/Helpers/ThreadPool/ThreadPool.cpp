@@ -15,6 +15,13 @@ ThreadPool::ThreadPool(size_t numThreads)
 					this->tasks.pop();
 				}
 				task();
+				{
+					lock_guard<mutex> lock(queueMutex);
+					numActiveTasks--;
+					if (tasks.empty() && numActiveTasks == 0) {
+						cvWait.notify_all();
+					}
+				}
 			}
 		});
 	}
@@ -30,4 +37,10 @@ ThreadPool::~ThreadPool()
 	for (thread& worker : workerThreads) {
 		worker.join();
 	}
+}
+
+void ThreadPool::wait()
+{
+	unique_lock<mutex> lock(queueMutex);
+	cvWait.wait(lock, [this]() { return tasks.empty() && numActiveTasks == 0; });
 }

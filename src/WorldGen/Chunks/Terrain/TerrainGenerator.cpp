@@ -66,7 +66,7 @@ void TerrainGenerator::setParent(Node2D* cm)
 	this->cm = cm;
 }
 
-void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
+chunkdata_t TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
 	// Chunk data
 	std::vector<std::tuple<float, float, float>> data = generateChunkData(chunkX);
@@ -135,6 +135,7 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 
 	// -----------------------------------------------------------------------------------------//
 
+	return chunkdata_t();
 }
 
 float TerrainGenerator::mapv(float v, float ol, float oh, float nl, float nh)

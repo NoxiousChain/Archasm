@@ -16,6 +16,8 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
+#include <future>
+#include <fstream>
 
 #include "Chunk.hpp"
 #include "Terrain/TerrainGenerator.hpp"
@@ -49,10 +51,13 @@ private: // Multithreading
 private: // Data
 	String saveName;
 	unordered_map<int, shared_ptr<Chunk>> loadedChunks; // index -> chunk
-	unordered_set<int> queuedChunks, queuedForDeletion;
+	unordered_set<int> queuedChunks, queuedForSave, queuedForDeletion;
+	unordered_map<int, future<chunkdata_t>> loadingChunks;
 
 	//deque<shared_ptr<Chunk>> chunks;
 	TerrainGenerator* tg;
+
+	Ref<PackedScene> tileMapScene;
 
 public:
 	~ChunkManager();
@@ -60,6 +65,7 @@ public:
 	void _init();
 	void _ready();
 	void initialize(String saveName, int playerX, int screenW);
+	void update();
 
 	void setSaveName(String saveName);
 
@@ -70,7 +76,10 @@ public:
 
 	void tryLoadChunk(int chunkX);
 	void loadAllChunks(int playerX, int screenW);
-	void loadChunkAtX(int chunkX); // not overloaded intentionally
+	chunkdata_t loadChunkAtX(int chunkX);
+
+	// Not sure how I want to construct chunk data yet, so I have both options here
+	void applyChunkData(int chunkX, const chunkdata_t& data);
 
 	// Saves chunks; does not delete them
 	void saveAllChunks();
@@ -80,6 +89,8 @@ public:
 	void saveChunk(shared_ptr<Chunk> chunk);
 
 	// Handles actual deletion of chunks. 
-	void deleteChunkAtX(int chunkX);
+	// This function is not threadsafe in itself. MUST be called within a lock_guard block
+	// Returns whether or not the chunk has been deleted
+	bool deleteChunkAtX(int chunkX);
 	void deleteAllChunks();
 };

@@ -22,7 +22,9 @@ public:
 	Chunk(int x);
 	~Chunk();
 
-	void load(String saveName, TerrainGenerator* tg);
+	void instance(Ref<PackedScene> tileMapScene);
+
+	chunkdata_t load(String saveName, TerrainGenerator* tg);
 	void save(String saveName);
 
 	int getX() const;

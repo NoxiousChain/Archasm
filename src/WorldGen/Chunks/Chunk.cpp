@@ -1,13 +1,7 @@
 #include "Chunk.hpp"
 
-Chunk::Chunk(int x) : cx{ x }
+Chunk::Chunk(int x) : cx{ x }, tileMap{ nullptr }
 {
-	Ref<PackedScene> scene = ResourceLoader::get_singleton()->load("res://scenes/Chunk.tscn");
-	tileMap = Object::cast_to<TileMap>(scene->instance());
-
-	//tileMap = TileMap::_new();
-	tileMap->set_cell_size(Vector2(CELL_SIZE, CELL_SIZE));
-	tileMap->set_position(Vector2(real_t(chunkToWorldX(cx)), 0.f));
 	/*
 	Ref<Resource> tileset = ResourceLoader::get_singleton()->load("res://resources/tiles/tileset.tres");
 	tileMap->set_tileset(Object::cast_to<TileSet>(tileset.ptr()));
@@ -24,27 +18,32 @@ Chunk::~Chunk()
 	}
 }
 
-void Chunk::load(String saveName, TerrainGenerator* tg)
+void Chunk::instance(Ref<PackedScene> tileMapScene)
+{
+	tileMap = Object::cast_to<TileMap>(tileMapScene->instance());
+}
+
+chunkdata_t Chunk::load(String saveName, TerrainGenerator* tg)
 {
 	Ref<File> file;
 	file.instance();
 	String filepath = String("res://resources/saves/") + hashName(saveName);
 	Error err = file->open(filepath, File::READ);
 	if (err == Error::OK && file->get_len()) {
-		tileMap->clear(); // Don't think this call is necessary; should already be empty
-		
+		chunkdata_t cd;
 		// This will load all existing tiles.
 		while (file->get_position() != file->get_len()) {
 			int64_t x = file->get_32();
 			int64_t y = file->get_32();
-			int64_t id = file->get_8(); // Max tile count = 256
-			tileMap->set_cell(x, y, id);
+			int8_t id = (int8_t)file->get_8(); // Max tile count = 256
+			cd.push_back({ x, y, id });
 		}
 
 		file->close();
+		return cd;
 	}
 	else { // If the file couldn't be found, the chunk needs to be generated
-		tg->generateChunk(cx, tileMap);
+		return tg->generateChunk(cx, tileMap);
 	}
 }
 

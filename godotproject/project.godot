@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Items/classes/Armor.gd"
 }, {
-"base": "Node2D",
+"base": "",
 "class": "ChunkManager",
 "language": "NativeScript",
 "path": "res://Worldgen/ChunkManager.gdns"
@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "CanvasLayer",
+"base": "",
 "class": "HUD",
 "language": "NativeScript",
 "path": "res://HUD/HUD.gdns"
