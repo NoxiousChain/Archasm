@@ -3,6 +3,8 @@ extends KinematicBody2D
 const speed = 300
 const jump_velocity = -400
 
+onready var player = get_node("../DayNightCycleForeground/player")
+
 var velocity = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = (player.get_global_position() - get_global_position()).normalized()
