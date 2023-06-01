@@ -5,6 +5,7 @@ const jump_velocity = -400
 
 var velocity = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var direction = (player.get_global_position() - get_global_position()).normalized()
 
 var state
 var state_factory
