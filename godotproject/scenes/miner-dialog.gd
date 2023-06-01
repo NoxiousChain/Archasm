@@ -5,7 +5,9 @@ var minerMet = false
 var dialog = Dialogic.start('meeting-miner')
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("body_entered", self, '_on_NPC_body_entered')
+# warning-ignore:return_value_discarded
 	connect("body_exited", self, '_on_NPC_body_exited')
 
 func _input(event): #press enter when in range of the NPC to start dialog.
@@ -20,6 +22,7 @@ func _input(event): #press enter when in range of the NPC to start dialog.
 			dialog.connect('timeline_end', self, 'unpause')
 			add_child(dialog)
 			
+# warning-ignore:unused_argument
 func unpause(timeline_name):
 	get_tree().paused = false
 

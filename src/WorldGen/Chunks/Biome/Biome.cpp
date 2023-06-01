@@ -4,7 +4,7 @@ Biome::Biome() : name{}, conditions{}
 {
 }
 
-Biome::Biome(const String& name, const Dictionary& data)
+Biome::Biome(String name, const Dictionary& data)
 	: name{ name },
 	conditions {
 		{ (double)data["elevation_min"], (double)data["elevation_max"] },
@@ -43,7 +43,7 @@ vector<pair<String, double>> Biome::getBlocks()
 	return blocks;
 }
 
-void Biome::addBlock(const String& name, double freq)
+void Biome::addBlock(String name, double freq)
 {
 	blocks.push_back(make_pair(name, freq));
 }

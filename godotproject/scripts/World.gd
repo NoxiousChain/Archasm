@@ -16,7 +16,7 @@ func _ready():
 	get_node("ParallaxBackground/AnimationPlayer").play("DayNightBack_cycle")
 
 	var screen_width = int(get_viewport_rect().size.x)
-	cm.initialize("testsave", int(player.getPosition().x), screen_width)
+	cm.initialize("chunk", int(player.getPosition().x), screen_width)
 
 	var rand = RandomNumberGenerator.new()
 	var timer := Timer.new()
@@ -46,10 +46,8 @@ func _on_timer_timeout() -> void:
 	enemy.position.x = x
 	add_child(enemy)
 	
-func update_chunks(dir: bool):
-	cm.load_chunk(dir)
-	cm.save_chunk(!dir)
-	cm.delete_chunk(!dir)
+func update_chunks(playerX: int, screenW: int):
+	cm.update(playerX, screenW)
 	
 func toggle_inventory():
 	var visible = inventory.visible

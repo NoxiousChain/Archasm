@@ -14,13 +14,13 @@ public:
 	KDTree();
 	~KDTree(); // Automatically frees memory when out of scope
 
-	void insert(Biome* biome);
-	Biome* nearestNeighbor(double elevation, double humidity, double temperature);
+	void insert(Biome biome);
+	Biome nearestNeighbor(double elevation, double humidity, double temperature);
 
 private:
-	KDNode* insertRecursive(KDNode*, Biome* biome, int depth);
-	Biome* nearestRecursive(KDNode* node, double elevation, double humidity, double temperature, int depth);
-	double distanceSquared(Biome* biome, double elevation, double humidity, double temperature);
+	KDNode* insertRecursive(KDNode*, Biome biome, int depth);
+	KDNode* nearestRecursive(KDNode* node, double elevation, double humidity, double temperature, int depth);
+	double distanceSquared(Biome* biome, double elevation, double humidity, double temperature) const;
 
 	// Recursively frees memory
 	void deleteNodes(KDNode* node);

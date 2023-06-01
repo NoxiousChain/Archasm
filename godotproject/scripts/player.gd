@@ -9,7 +9,6 @@ export var ACCELERATION = 5000
 export var FRICTION = 2000
 export var JUMP_FORCE = 300
 
-var last_chunk : int = 0
 var test_damage = 40
 var enemy_scene = preload("res://scenes/GOBLIN.tscn")
 
@@ -30,7 +29,7 @@ var player_stats = {}
 signal health_updated(health, max_health, animation)
 signal killed()
 
-signal moved_chunks(dir)
+signal moved_chunks(playerX, screenW)
 
 func _ready():
 	position.y = -700
@@ -41,18 +40,10 @@ func _ready():
 	_err = connect("moved_chunks", get_node("../.."), "update_chunks")
 	emit_signal("stats_loaded", self)
 	
-	last_chunk = cm.world_to_chunk_x(position.x)
-	
 func _physics_process(delta: float) -> void:
 	apply_physics(delta)
 	pickUpPhysics()
-	var chunkX = cm.world_to_chunk_x(position.x)
-	var diff = chunkX - last_chunk
-	if diff == 0:
-		last_chunk = chunkX
-		return
-	emit_signal("moved_chunks", bool(diff > 0))
-	last_chunk = chunkX
+	emit_signal("moved_chunks", position.x, get_viewport_rect().size.x)
 
 func apply_physics(delta : float) -> void:
 	var direction = 0

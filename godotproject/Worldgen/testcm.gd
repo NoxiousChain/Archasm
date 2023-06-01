@@ -12,7 +12,6 @@ func _ready():
 # automatically saves all chunks when the game exits
 func _exit_tree():
 	cm.save_all_chunks()
-	cm.delete_all_chunks()
 
 func world_to_chunk_x(worldX: int):
 	return worldX / (CELL_SIZE * CHUNK_WIDTH)

@@ -9,11 +9,6 @@ TerrainGenerator::~TerrainGenerator()
 	}
 	blockMap.clear();
 	blockIndexMap.clear();
-
-	for (auto& b : biomeList) {
-		delete b;
-	}
-	biomeList.clear();
 }
 
 void TerrainGenerator::_register_methods()
@@ -69,12 +64,23 @@ void TerrainGenerator::setParent(Node2D* cm)
 
 void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 {
+	Ref<OpenSimplexNoise> locBiomeNoise[4];
+	Ref<OpenSimplexNoise> locCaveNoise;
+
+	// Duplicate noise maps for thread safety
+	noiseMtx.lock();
+	for (int i = 0; i < 4; i++) {
+		locBiomeNoise[i] = biomeNoise[i]->duplicate();
+	}
+	locCaveNoise = caveNoise->duplicate();
+	noiseMtx.unlock();
+
 	// Chunk data
-	std::vector<std::tuple<float, float, float>> data = generateChunkData(chunkX);
+	vector<tuple<float, float, float>> data = generateChunkData(chunkX);
 
 	// Data points that will be needed later
 	float avgE = 0.f, avgH = 0.f, avgT = 0.f; // condition averages, sampled from a few points along the chunk
-	RRange<int> heightRange = { INT_MAX, 0 };
+	RRange<int> heightRange = { INT_MAX, -INT_MAX };
 
 	// GET BIOME TYPE --------------------------------------------------------------------------//
 
@@ -91,9 +97,11 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 	avgH /= (float)SAMPLE_COUNT;
 	avgT /= (float)SAMPLE_COUNT;
 	// Get biome from averages
-	Biome* biome = biomes.nearestNeighbor(avgE, avgH, avgT);
-	if (biome)
-		Godot::print(biome->toString());
+	kdMtx.lock();
+	Biome biome = biomes.nearestNeighbor(avgE, avgH, avgT);
+	kdMtx.unlock();
+	if (biome.isValid())
+		Godot::print(biome.toString());
 
 	// -----------------------------------------------------------------------------------------//
 
@@ -112,6 +120,7 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 			tileMap->set_cell(x, y, 6); // fill with debug block if no valid block
 		}
 	}
+	Godot::print(String("max height: ") + String::num_int64(heightRange.max));
 
 	// CAVE GENERATION -------------------------------------------------------------------------//
 
@@ -121,18 +130,18 @@ void TerrainGenerator::generateChunk(int chunkX, TileMap* tileMap)
 
 	// Build cellular automata map
 	// Map is a bitset - 0=empty 1=filled
-	const int caveMaxHeight = heightRange.wrand(caveMaxHeightWeight);
+	const int caveMaxHeight{ heightRange.wrand(caveMaxHeightWeight) };
 	//std::vector<std::bitset<CHUNK_WIDTH>> caveMap(caveMaxHeight);
 
 	// Generate the cavemap
-	for (int x = 0; x < CHUNK_WIDTH; x++) {
-		for (int y = -caveMaxHeight; y < 250; y++) {
-			//caveMap[x][y] = isSolid(x, y, caveMaxHeight);
-			if (isSolid(x, y, caveMaxHeight)) {
-				//tileMap->set_cell(x, y, -1);
-			}
-		}
-	}
+	//for (int x = 0; x < CHUNK_WIDTH; x++) {
+	//	for (int y = -caveMaxHeight; y < 250; y++) {
+	//		//caveMap[x][y] = isSolid(x, y, caveMaxHeight);
+	//		if (isSolid(x, y, caveMaxHeight)) {
+	//			tileMap->set_cell(x, y, -1);
+	//		}
+	//	}
+	//}
 
 	// -----------------------------------------------------------------------------------------//
 
@@ -176,7 +185,7 @@ float TerrainGenerator::getCaveNoise(int x, int y)
 std::vector<std::tuple<float, float, float>> TerrainGenerator::generateChunkData(int chunkX) const
 {
 	std::vector<std::tuple<float, float, float>> data(CHUNK_WIDTH);
-	const float lacunarity = 2.f;
+	const float lacunarity = 1.5f;
 	const float persistence = .55f;
 
 	for (int x = 0; x < CHUNK_WIDTH; x++) {
@@ -191,9 +200,9 @@ std::vector<std::tuple<float, float, float>> TerrainGenerator::generateChunkData
 		
 		// Height
 		float height = nnoise(biomeNoise[0]->get_noise_1d((float)worldX * lacunarity)) * persistence;
-		float adjusted_height = (flatWeight + mountainWeight) * height / 2.f;
+		float adjusted_height = (flatWeight + mountainWeight) * height;
 		const float fudgeFactor = 1.2f; // helps balance out exponent
-		const float expFactor = 2.25;	// higher value -> make middle elevations flatter / lower value -> make middle elevations steeper
+		const float expFactor = 2.65f;	// higher value -> make middle elevations flatter / lower value -> make middle elevations steeper
 		adjusted_height = pow(adjusted_height * fudgeFactor, expFactor);
 		
 		// Humidity
@@ -294,8 +303,7 @@ void TerrainGenerator::loadBiomeDataFromJSON(const String& filepath)
 		const Dictionary& conditions = jsonBlock["conditions"];
 
 		// Instantiate biome
-		Biome* biome = new Biome(name, conditions);
-		biomeList.push_back(biome);
+		Biome biome(name, conditions); // KDTree will handle deletion
 
 		// Add all blocks in biome to list
 		const Array& blocks = jsonBlock["blocks"]; // remove & if broken
@@ -303,11 +311,11 @@ void TerrainGenerator::loadBiomeDataFromJSON(const String& filepath)
 			const Dictionary& block = blocks[j];
 			const String& name = block["type"];
 			double frequency = block["frequency"];
-			biome->addBlock(name, frequency);
+			biome.addBlock(name, frequency);
 			// Will need to add flowers, trees etc.
 			// Need to find a way to save entities, etc. (these may not be the responsibility of the chunkmanager, depends)
 		}
 		
-		//biomes.insert(biome);
+		biomes.insert(biome);
 	}
 }

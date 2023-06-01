@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <memory>
 #include <bitset>
+#include <mutex>
 
 #include <Node.hpp>
 #include <Ref.hpp>
@@ -46,6 +47,7 @@ private:
 	// Noise maps
 	Ref<OpenSimplexNoise> biomeNoise[4];	// elevation, humidity, temperature, elev. modifier
 	Ref<OpenSimplexNoise> caveNoise;
+	mutex noiseMtx;
 
 	// Using a RRange as an RNG wrapper
 	RRange<float> rand01;
@@ -56,9 +58,7 @@ private:
 	unordered_map<size_t, Block*> blockIndexMap;
 	// Chunk data
 	KDTree biomes;
-
-	// Holds ptrs to biomes so KDTree doesn't have to handle them
-	vector<Biome*> biomeList;
+	mutex kdMtx;
 
 public:
 	~TerrainGenerator();

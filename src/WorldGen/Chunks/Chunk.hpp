@@ -13,16 +13,17 @@
 // May need to add support for things that aren't just tiles (e.g. treasure chests, mobs, etc),
 // Although those could save themselves just based on position and load when the chunk comes into view
 class Chunk {
-private:
+protected:
 	int cx;	// Because chunks span the entire world vertically, it just needs an x coordinate
 	TileMap* tileMap;
 
 public:
+	Chunk(int x, bool _noTileMap); // sets tileMap to nullptr
 	Chunk(int x);
 	~Chunk();
 
-	void load(const String& saveName, TerrainGenerator* tg);
-	void save(const String& saveName);
+	void load(String saveName, TerrainGenerator* tg);
+	void save(String saveName);
 
 	int getX() const;
 	TileMap* getTileMap() const;
@@ -36,7 +37,7 @@ public:
 	/// @returns worldX at (0,0) relative to the chunk
 	static int chunkToWorldX(int chunkX);
 
-private:
-	String hashName(const String& saveName);
+protected:
+	String hashName(String saveName);
 };
 

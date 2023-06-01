@@ -1,5 +1,9 @@
 #include "Chunk.hpp"
 
+Chunk::Chunk(int x, bool noTileMap) : cx{ x }, tileMap{ nullptr }
+{
+}
+
 Chunk::Chunk(int x) : cx{ x }
 {
 	tileMap = TileMap::_new();
@@ -19,7 +23,7 @@ Chunk::~Chunk()
 	}
 }
 
-void Chunk::load(const String& saveName, TerrainGenerator* tg)
+void Chunk::load(String saveName, TerrainGenerator* tg)
 {
 	Ref<File> file;
 	file.instance();
@@ -43,7 +47,7 @@ void Chunk::load(const String& saveName, TerrainGenerator* tg)
 	}
 }
 
-void Chunk::save(const String& saveName)
+void Chunk::save(String saveName)
 {
 	Ref<File> file;
 	file.instance();
@@ -87,7 +91,7 @@ int Chunk::chunkToWorldX(int chunkX)
 	return chunkX * CELL_SIZE * CHUNK_WIDTH;
 }
 
-String Chunk::hashName(const String& saveName)
+String Chunk::hashName(String saveName)
 {
 	return saveName + String("_") + String::num_int64(cx);
 }
