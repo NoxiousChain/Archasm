@@ -1,70 +1,22 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Intro.gd" type="Script" id=1]
-[ext_resource path="res://Intro/elsun1080.png" type="Texture" id=2]
 [ext_resource path="res://sounds/squad_game.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Intro/second1080.webm" type="VideoStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fadein"
 length = 3.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 1, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Fadeout"
 length = 3.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
-}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ) ]
-}
 
 [node name="Intronode" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 967, 536.5 )
-scale = Vector2( 1.02813, 1.04722 )
-texture = ExtResource( 2 )
-
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -115.0
-margin_top = -53.0
-margin_right = 2050.0
-margin_bottom = 1156.0
-color = Color( 0, 0, 0, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fadein = SubResource( 1 )
@@ -73,3 +25,9 @@ anims/RESET = SubResource( 3 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+margin_right = 1921.0
+margin_bottom = 1081.0
+stream = ExtResource( 4 )
+autoplay = true
