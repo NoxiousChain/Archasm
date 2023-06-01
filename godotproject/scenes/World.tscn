@@ -89,6 +89,8 @@ position = Vector2( 291, -453 )
 
 [node name="MinerNPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 808, -616 )
+collision_layer = 32
+collision_mask = 35
 
 [node name="ItemDrops_#test" type="Node2D" parent="."]
 position = Vector2( 49, -325 )
