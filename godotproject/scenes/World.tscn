@@ -82,49 +82,51 @@ anims/RESET = SubResource( 4 )
 [node name="ChunkManager" parent="." instance=ExtResource( 8 )]
 
 [node name="Guide" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1442, -690 )
+position = Vector2( 1319, -544 )
 
 [node name="GoblinKing" parent="." instance=ExtResource( 3 )]
-position = Vector2( 302, -832 )
+position = Vector2( 291, -453 )
 
 [node name="MinerNPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 808, -616 )
+collision_layer = 32
+collision_mask = 35
 
 [node name="ItemDrops_#test" type="Node2D" parent="."]
 position = Vector2( 49, -325 )
 
 [node name="ItemDrop" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 1388, -387 )
+position = Vector2( 1298, -179 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop2" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 1342, -381 )
+position = Vector2( 1210, -195 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop3" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 687, -366 )
+position = Vector2( 687, -183 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop4" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 781, -382 )
+position = Vector2( 818, -185 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop5" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 862, -385 )
+position = Vector2( 772, -183 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop6" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 1454, -381 )
+position = Vector2( 1434, -238 )
 collision_layer = 16
 collision_mask = 17
 
 [node name="ItemDrop7" parent="ItemDrops_#test" instance=ExtResource( 2 )]
-position = Vector2( 1160, -402 )
+position = Vector2( 1129, -177 )
 collision_layer = 16
 collision_mask = 17
 

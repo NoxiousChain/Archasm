@@ -123,7 +123,7 @@ func slot_gui_input(event: InputEvent, slot):
 func _input(event):
 	# update position of held item
 	if heldItem:
-		heldItem.set_global_position(get_global_mouse_position() - offset)
+		heldItem.set_global_position(get_global_mouse_position())
 	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.is_pressed() and !mouse_held_on_place:
