@@ -1,4 +1,4 @@
-# Untitled Game Wiki
+# Archasm
 
 ## Website
 https://noxiouschain.github.io/
