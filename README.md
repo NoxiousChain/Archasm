@@ -13,4 +13,4 @@ Our project is a 2d pixel-based survival game similar to Terraria where the play
 Kevin Sweeney, Forest McKinney, Jack Thompson and Joel Johnson
 
 ## Project status
-In Development
+No Longer In Development
